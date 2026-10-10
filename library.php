@@ -4,67 +4,80 @@
 
 
 
-abstract class OutsideView{
+// abstract class OutsideView{
         
 
-        function top(){
+//     //     function top(){
             
             
-            echo "
+//     //         echo "
             
-            <html>
+//     //         <html>
 
-            <head>
+//     //         <head>
 
-	<link rel=\"stylesheet\" href=\"mystyles.css\">
-            </head>
+// 	// <link rel=\"stylesheet\" href=\"mystyles.css\">
+//     //         </head>
 
-            <body>
+//     //         <body>
 
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Header</h1>
-		</div>
+// 	// <div id=\"main\">
+// 	// 	<div id=\"header\">
+// 	// 		<h1>Header</h1>
+// 	// 	</div>
             
-            ";
+//     //         ";
             
-        }
+//     //     }
         
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=login\">Login</a> &nbsp;                
-                       <a href=\"controller.php?cmd=register\">Register</a>
-            </div>
+//         public function top() {
+//             echo "
+//                 <header id=\"header\">
+//                     <a class=\"site-logo\" href=\"controller.php\">
+//                         <img src=\"icon.jpeg\" alt=\"Blogger logo\">
+//                     </a>
+//                     <p class=\"site-tagline\">Ideas worth sharing.</p>
+//                 </header>
+//             ";
+//         }
 
 
-            ";
+
+//        public function menu(){
+//             echo "
+//                  <div id=\"menu\">
+//                 <a href=\"controller.php?cmd=login\">Login</a> &nbsp;                
+//                        <a href=\"controller.php?cmd=register\">Register</a>
+//             </div>
+
+
+//             ";
             
             
-        }
+//         }
         
-       public function bloggerList(){
-            echo "
-                 <div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
+//        public function bloggerList(){
+//             echo "
+//                  <div id=\"bloggerlist\">
+//                     <h3> blogger list </h3>";
                  
-                   $DBM = new DBManager();
-                   $DBM->retrieveallblogsanddisplay();  
+//                    $DBM = new DBManager();
+//                    $DBM->retrieveallblogsanddisplay();  
             
-            echo "</div>"
-            ;
+//             echo "</div>"
+//             ;
            
            
-       }
+//        }
         
-        function bottom(){
-            echo "
-            </div>
+//         function bottom(){
+//             echo "
+//             </div>
 
-            </body>
-            </html>        
-            ";
-        }
+//             </body>
+//             </html>        
+//             ";
+//         }
         
        
 
@@ -73,7 +86,77 @@ abstract class OutsideView{
         
 
         
+//     }
+
+
+
+
+abstract class OutsideView {
+
+    public function top() {
+        echo "
+        <!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+            <title>Blogger | Ideas worth sharing</title>
+            <link rel=\"stylesheet\" href=\"myStyles.css\">
+        </head>
+
+        <body>
+            <div id=\"main\">
+
+                <header id=\"header\">
+                    <a class=\"site-logo\" href=\"controller.php\">
+                        <img src=\"icon.jpg\" alt=\"Blogger logo\">
+                    </a>
+                    <p class=\"site-tagline\">Ideas worth sharing.</p>
+                </header>
+        ";
     }
+
+    public function menu() {
+        echo "
+            <nav id=\"menu\" aria-label=\"Main navigation\">
+                <a href=\"controller.php\">Home</a>
+
+                <div class=\"menu-account\">
+                    <a href=\"controller.php?cmd=login\">Login</a>
+                    <a class=\"register-link\" href=\"controller.php?cmd=register\">Register</a>
+                </div>
+            </nav>
+        ";
+    }
+
+    public function bloggerList() {
+        echo "
+            <section id=\"bloggerlist\">
+                <h2>Latest posts</h2>
+        ";
+
+        $DBM = new DBManager();
+        $DBM->retrieveallblogsanddisplay();
+
+        echo "
+            </section>
+        ";
+    }
+
+    public function bottom() {
+        echo "
+                <footer id=\"footer\">
+                    <p>Blogger &copy; 2026</p>
+                </footer>
+
+            </div>
+        </body>
+        </html>
+        ";
+    }
+}
+
+
 
  class InsideView{
        
@@ -224,40 +307,89 @@ class View1 extends OutsideView{
         }
         
 
-        public function content(){
+        // public function content(){
 
-            echo "
+        //     echo "
 
-	<div id=\"content\">
-                  <h1> Welcome to blogger.com </h1>
-                  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-                   blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-                
-            </div>
-            ";
-  
-        }
-
-        public function bloggerList(){
-           
-            echo "
-                 <div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
-                    
-          //        echo"  in blofferlist";
-                  $DBM = new DBManager();
-                  $DBM->outerretrieveallblogsanddisplay();
-            echo "</div>
-            ";
-        }
+        //     <div id=\"content\">
+        //                 <h1> Welcome to blogger.com </h1>
+                        
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
+        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
+                        
+        //             </div>
+        //             ";
         
+        // }
+        public function content() {
+
+            echo "
+                <section id=\"content\">
+
+                    <p class=\"post-meta\">WELCOME TO BLOGGER</p>
+
+                    <h1>Ideas worth sharing.</h1>
+
+                    <p>
+                        A place to share your thoughts, experiences and ideas
+                        with the world.
+                    </p>
+
+                    <p>
+                        Discover posts from our community, explore different
+                        perspectives, and find something interesting to read.
+                    </p>
+
+                    <div class=\"welcome-actions\">
+                        <a class=\"read-more\" href=\"controller.php?cmd=register\">
+                            Start your own blog &rarr;
+                        </a>
+
+                        <a class=\"read-more\" href=\"controller.php?cmd=login\">
+                            Sign in &rarr;
+                        </a>
+                    </div>
+
+                </section>
+            ";
+
+        }
+
+        // public function bloggerList(){
+           
+        //     echo "
+        //          <div id=\"bloggerlist\">
+        //             <h3> blogger list </h3>";
+                    
+        //   //        echo"  in blofferlist";
+        //           $DBM = new DBManager();
+        //           $DBM->outerretrieveallblogsanddisplay();
+        //     echo "</div>
+        //     ";
+        // }
+        public function bloggerList() {
+
+            echo "
+                <aside id=\"bloggerlist\">
+                    <h2>Explore our blogs</h2>
+                    <p class=\"blog-list-intro\">
+                        Meet our writers and discover their latest posts.
+                    </p>
+            ";
+
+            $DBM = new DBManager();
+            $DBM->retrieveallblogsanddisplay();
+
+            echo "
+                </aside>
+            ";
+        }
 
         
     }
@@ -1658,34 +1790,101 @@ class DBManager{
            }*/
            
            
-             public function retrieveallblogsanddisplay(){
+        //      public function retrieveallblogsanddisplay(){
                
                
-                    $blogger = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                     $resultSet = $this->db->query($query);
+        //             $blogger = array();
+        //             $dummy = array();
+        //             // get the blogs from the database
+        //             $query = "select * from post";
+        //              $resultSet = $this->db->query($query);
                
                     
-                    for($i=0;$i<$resultSet->rowCount();$i++){
+        //             for($i=0;$i<$resultSet->rowCount();$i++){
                     
             
-                    $blogger = $resultSet->fetch();
+        //             $blogger = $resultSet->fetch();
              
-                    $dummy = "blooger"."{$blogger['bloggerid']} <br>";
+        //             $dummy = "blooger"."{$blogger['bloggerid']} <br>";
            
-            //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
+        //     //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                   
-                    echo "<a href=\"controller.php?cmd=openblog1&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
-                   // echo "<input type=\"checkbox\" name=\"{$blogger['bloggerid']}\" value=\"{$blogger['bloggerid']}\"";
+        //             echo "<a href=\"controller.php?cmd=openblog1&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
+        //            // echo "<input type=\"checkbox\" name=\"{$blogger['bloggerid']}\" value=\"{$blogger['bloggerid']}\"";
                     
                     
                     
                          
 
-                    }
-           }
+        //             }
+        //    }
+
+            
+            public function retrieveallblogsanddisplay() {
+
+                $query = "
+                    SELECT
+                        post.id,
+                        post.bloggerid,
+                        post.title,
+                        post.body,
+                        user.username,
+                        user.blogtitle
+                    FROM post
+                    INNER JOIN user
+                        ON post.bloggerid = user.id
+                    ORDER BY post.id DESC
+                ";
+
+                $resultSet = $this->db->query($query);
+
+                while ($blogger = $resultSet->fetch(PDO::FETCH_ASSOC)) {
+
+                    $postId = (int) $blogger['id'];
+                    $username = htmlspecialchars(
+                        $blogger['username'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $blogTitle = htmlspecialchars(
+                        $blogger['blogtitle'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $title = htmlspecialchars(
+                        $blogger['title'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $body = htmlspecialchars(
+                        $blogger['body'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    echo "
+                        <article class=\"blog-post\">
+                            <p class=\"post-meta\">
+                                {$blogTitle} · by {$username}
+                            </p>
+
+                            <h3>
+                                <a href=\"controller.php?cmd=openblog1&amp;bloggerid={$postId}\">
+                                    {$title}
+                                </a>
+                            </h3>
+
+                            <p class=\"post-excerpt\">{$body}</p>
+
+                            <a class=\"read-more\"
+                            href=\"controller.php?cmd=openblog1&amp;bloggerid={$postId}\">
+                                Read post &rarr;
+                            </a>
+                        </article>
+                    ";
+                }
+            }
+
            
            public function outerretrieveallblogsanddisplay(){
                

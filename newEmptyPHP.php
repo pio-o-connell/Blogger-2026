@@ -4,77 +4,136 @@
 
 
 
-abstract class OutsideView{
+// abstract class OutsideView{
         
 
-        function top(){
+//         function top(){
             
             
-            echo "
+//             echo "
             
-            <html>
+//             <html>
 
-            <head>
+//             <head>
 
-	<link rel=\"stylesheet\" href=\"mystyles.css\">
-            </head>
+// 	<link rel=\"stylesheet\" href=\"mystyles.css\">
+//             </head>
 
-            <body>
+//             <body>
 
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Header</h1>
-		</div>
+// 	<div id=\"main\">
+// 		<div id=\"header\">
+// 			<h1>Header</h1>
+// 		</div>
             
-            ";
+//             ";
             
-        }
+//         }
         
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=login\">Login</a> &nbsp;                
-                       <a href=\"controller.php?cmd=register\">Register</a>
-            </div>
+//        public function menu(){
+//             echo "
+//                  <div id=\"menu\">
+//                 <a href=\"controller.php?cmd=login\">Login</a> &nbsp;                
+//                        <a href=\"controller.php?cmd=register\">Register</a>
+//             </div>
 
 
-            ";
+//             ";
             
             
-        }
+//         }
         
-       public function bloggerList(){
-            echo "
-                 <div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
+//        public function bloggerList(){
+//             echo "
+//                  <div id=\"bloggerlist\">
+//                     <h3> blogger list </h3>";
                  
-                   $DBM = new DBManager();
-                   $DBM->retrieveallblogsanddisplay(); 
-               //    $DBM->displayPreviousBlogs();
+//                    $DBM = new DBManager();
+//                    $DBM->retrieveallblogsanddisplay(); 
+//                //    $DBM->displayPreviousBlogs();
             
-            echo "</div>"
-            ;
+//             echo "</div>"
+//             ;
            
            
-       }
+//        }
         
-        function bottom(){
-            echo "
-            </div>
+//         function bottom(){
+//             echo "
+//             </div>
 
-            </body>
-            </html>        
-            ";
-        }
+//             </body>
+//             </html>        
+//             ";
+//         }
         
        
+abstract class OutsideView {
 
+    public function top() {
+        echo "
+        <!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+            <title>Blogger | Ideas worth sharing</title>
+            <link rel=\"stylesheet\" href=\"myStyles.css\">
+        </head>
+        <body>
+            <div id=\"main\">
+                <header id=\"header\">
+                    <a class=\"site-logo\" href=\"controller.php\">
+                        blogger<span>.</span>
+                    </a>
+                    <p class=\"site-tagline\">Ideas worth sharing.</p>
+                </header>
+        ";
+    }
+
+    public function menu() {
+        echo "
+            <nav id=\"menu\" aria-label=\"Main navigation\">
+                <a href=\"controller.php\">Home</a>
+                <div class=\"menu-account\">
+                    <a href=\"controller.php?cmd=login\">Login</a>
+                    <a class=\"register-link\" href=\"controller.php?cmd=register\">Register</a>
+                </div>
+            </nav>
+        ";
+    }
+
+    public function bloggerList() {
+        echo "
+            <section id=\"bloggerlist\">
+                <h2>Latest posts</h2>
+        ";
+
+        $DBM = new DBManager();
+        $DBM->retrieveallblogsanddisplay();
+
+        echo "
+            </section>
+        ";
+    }
+
+    public function bottom() {
+        echo "
+                <footer id=\"footer\">
+                    <p>Blogger &copy; 2026</p>
+                </footer>
+            </div>
+        </body>
+        </html>
+        ";
+    }
+}
  
     
         
 
         
-    }
+//     }
 
  class InsideView{
        
