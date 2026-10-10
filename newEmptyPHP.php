@@ -1538,7 +1538,7 @@ class DBManager{
                     if ($info['id'] == $blogger['bloggerid']){
                     $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
                     $dummy1= "b".$i;
-                    echo $dummy1;
+                   // echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -1576,7 +1576,7 @@ class DBManager{
                  //   if ($info['id'] == $blogger['bloggerid']){
                     $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
                     $dummy1= "b".$i;
-                    echo $dummy1;
+                  //  echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -1616,7 +1616,7 @@ class DBManager{
      //               if ($info['id'] == $blogger['bloggerid']){
                     $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
                     $dummy1= "b".$i;
-                    echo $dummy1;
+             //       echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -1653,7 +1653,7 @@ class DBManager{
      //               if ($info['id'] == $blogger['bloggerid']){
                      $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
                      $dummy1= "b".$i;
-                      echo $dummy1;
+             //         echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -1741,7 +1741,7 @@ class DBManager{
              
                     $dummy = "blooger"."{$blogger['bloggerid']} <br>";
             
-                    echo $dummy;
+                //    echo $dummy;
                    
                     }
            }
@@ -1860,7 +1860,7 @@ class DBManager{
                                          $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
                                   
                                        
-                                         echo $dummy1;
+                       //                  echo $dummy1;
                                     } 
                            
                              }

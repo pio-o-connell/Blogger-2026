@@ -393,64 +393,121 @@ class View1 extends OutsideView{
 
         
     }
-// login view    
-class View2 extends OutsideView{
+// // login view    
+// class View2 extends OutsideView{
         
     
-        public function __construct(){
-            $this->top();
-            $this->menu();
-            $this->bloggerList();
+//         public function __construct(){
+//             $this->top();
+//             $this->menu();
+//             $this->bloggerList();
             
  
-            $this->content();
+//             $this->content();
             
             
-            $this->bottom();
+//             $this->bottom();
 
             
-        }
+//         }
         
 
-        public function content(){
+//         public function content(){
 
-            echo "
+//             echo "
 
-	<div id=\"content\">
-                  <h1> login </h1>
-                   <FORM METHOD=\"post\" ACTION=\"controller.php\">
+// 	<div id=\"content\">
+//                   <h1> login </h1>
+//                    <FORM METHOD=\"post\" ACTION=\"controller.php\">
 
                  
-                        <input type=\"hidden\" name=\"cmd\" value=\"loginRequest\">
+//                         <input type=\"hidden\" name=\"cmd\" value=\"loginRequest\">
                 
-                Username: <input type=\"text\" name=\"username\"> <br>
-                Password: <input type=\"password\" name=\"password\"> <br>
-                <input type=\"submit\"\ value=\"loginRequest\">
-            </FORM>
+//                 Username: <input type=\"text\" name=\"username\"> <br>
+//                 Password: <input type=\"password\" name=\"password\"> <br>
+//                 <input type=\"submit\"\ value=\"loginRequest\">
+//             </FORM>
 
                 
-            </div>
-            ";
+//             </div>
+//             ";
   
-        }
+//         }
         
-        public function bloggerList(){
+//         public function bloggerList(){
            
-            echo "
-                 <div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
+//             echo "
+//                  <div id=\"bloggerlist\">
+//                     <h3> blogger list </h3>";
                     
-          //        echo"  in blofferlist";
-                  $DBM = new DBManager();
-                  $DBM->outerretrieveallblogsanddisplay();
-            echo "</div>
-            ";
-        }
+//           //        echo"  in blofferlist";
+//                   $DBM = new DBManager();
+//                   $DBM->outerretrieveallblogsanddisplay();
+//             echo "</div>
+//             ";
+//         }
     
         
 
         
+//     }
+
+// Login view
+class View2 extends OutsideView
+{
+    public function __construct()
+    {
+        $this->top();
+        $this->menu();
+        $this->content();
+        $this->bottom();
     }
+
+    public function content()
+    {
+        echo '
+            <main id="content" class="auth-page">
+                <section class="auth-panel">
+                    <h1>Welcome back</h1>
+                    <p class="auth-intro">Log in to your Blogger account.</p>
+
+                    <form method="post" action="controller.php">
+                        <input type="hidden" name="cmd" value="loginRequest">
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                autocomplete="username"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                autocomplete="current-password"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="auth-button">Log in</button>
+                    </form>
+
+                    <p class="auth-footer">
+                        New to Blogger?
+                        <a href="controller.php?cmd=register">Create an account</a>
+                    </p>
+                </section>
+            </main>
+        ';
+    }
+}
     
 class View3 extends OutsideView {
     public function __construct($info){
@@ -677,6 +734,67 @@ class View31 extends OutsideView {
 }   
 
 
+class ViewSinglePost extends OutsideView
+{
+    public function __construct($post)
+    {
+        $this->top();
+        $this->menu();
+
+        echo '<main id="content">';
+
+        if (!$post) {
+            echo '<h1>Post not found</h1>';
+            echo '<p>This post may have been removed.</p>';
+            echo '<p><a class="read-more" href="controller.php">Back to home</a></p>';
+        } else {
+            $title = htmlspecialchars(
+                $post['title'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
+            $body = htmlspecialchars(
+                $post['body'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
+            $blogTitle = htmlspecialchars(
+                $post['blogtitle'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
+            $username = htmlspecialchars(
+                $post['username'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
+            echo '<article class="blog-post single-post">';
+            echo '<p class="post-meta">' .
+                 $blogTitle . ' · by ' . $username .
+                 '</p>';
+
+            echo '<h1>' . $title . '</h1>';
+
+            echo '<div class="post-body">' .
+                 nl2br($body) .
+                 '</div>';
+
+            echo '<p><a class="read-more" href="controller.php">' .
+                 '&larr; Back to all posts</a></p>';
+
+            echo '</article>';
+        }
+
+        echo '</main>';
+
+        $this->bottom();
+    }
+}
+
 
 
 
@@ -831,80 +949,162 @@ echo"
 // register view   
 
 
-class View4 extends OutsideView{
+// class View4 extends OutsideView{
         
     
-        public function __construct(){
-            $this->top();
-            $this->menu();
-            $this->bloggerList();
+//         public function __construct(){
+//             $this->top();
+//             $this->menu();
+//             $this->bloggerList();
             
  
-            $this->content();
+//             $this->content();
             
             
-            $this->bottom();
+//             $this->bottom();
 
             
-        }
+//         }
         
 
-        public function content(){
+//         public function content(){
 
-            echo "
+//             echo "
 
-	<div id=\"content\">
-                  <h1> Register </h1>
-                    <form action=\"controller.php\" method=\"post\">
-                <input type=\"hidden\" name=\"cmd\" value=\"addBlogger\">
-                <table>
-                    <tr>
-                        <td>username:</td>
-                        <td><input type=\"text\" name=\"username\"> </td>
+// 	<div id=\"content\">
+//                   <h1> Register </h1>
+//                     <form action=\"controller.php\" method=\"post\">
+//                 <input type=\"hidden\" name=\"cmd\" value=\"addBlogger\">
+//                 <table>
+//                     <tr>
+//                         <td>username:</td>
+//                         <td><input type=\"text\" name=\"username\"> </td>
 
-                    </tr>
-                    <tr>
-                        <td>password:</td>
-                        <td><input type=\"password\" name=\"password\"></td>
-                    </tr>
-                    <tr>
-                        <td>e-mail address:</td>
-                        <td><input type=\"email\" name=\"email\"></td>
-                    </tr>
-                    <tr>
-                        <td>Blog title:</td>
-                        <td><input type=\"text\" name=\"blogtitle\"></td>
-                    </tr>
-                    <tr>
-                        <td><input type=\"submit\" value=\"Add User\"></td>
-                        <td></td>
+//                     </tr>
+//                     <tr>
+//                         <td>password:</td>
+//                         <td><input type=\"password\" name=\"password\"></td>
+//                     </tr>
+//                     <tr>
+//                         <td>e-mail address:</td>
+//                         <td><input type=\"email\" name=\"email\"></td>
+//                     </tr>
+//                     <tr>
+//                         <td>Blog title:</td>
+//                         <td><input type=\"text\" name=\"blogtitle\"></td>
+//                     </tr>
+//                     <tr>
+//                         <td><input type=\"submit\" value=\"Add User\"></td>
+//                         <td></td>
 
-                    </tr> 
+//                     </tr> 
                     
                 
-            </div>
-            </form>
-            ";
+//             </div>
+//             </form>
+//             ";
   
-        }
+//         }
 
-           public function bloggerList(){
+//            public function bloggerList(){
            
-            echo "
-                 <div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
+//             echo "
+//                  <div id=\"bloggerlist\">
+//                     <h3> blogger list </h3>";
                     
-          //        echo"  in blofferlist";
-                  $DBM = new DBManager();
-                  $DBM->outerretrieveallblogsanddisplay();
-            echo "</div>
-            ";
-        }
+//           //        echo"  in blofferlist";
+//                   $DBM = new DBManager();
+//                   $DBM->outerretrieveallblogsanddisplay();
+//             echo "</div>
+//             ";
+//         }
         
 
         
-    }  
-    
+//     }  
+
+// Registration view
+class View4 extends OutsideView
+{
+    public function __construct()
+    {
+        $this->top();
+        $this->menu();
+        $this->content();
+        $this->bottom();
+    }
+
+    public function content()
+    {
+        echo '
+            <main id="content" class="auth-page">
+                <section class="auth-panel">
+                    <h1>Create your account</h1>
+                    <p class="auth-intro">
+                        Join Blogger and share your ideas.
+                    </p>
+
+                    <form method="post" action="controller.php">
+                        <input type="hidden" name="cmd" value="addBlogger">
+
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                autocomplete="username"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                autocomplete="new-password"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blogtitle">Blog title</label>
+                            <input
+                                type="text"
+                                id="blogtitle"
+                                name="blogtitle"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="auth-button">
+                            Create account
+                        </button>
+                    </form>
+
+                    <p class="auth-footer">
+                        Already registered?
+                        <a href="controller.php?cmd=login">Log in</a>
+                    </p>
+                </section>
+            </main>
+        ';
+    }
+}
+   
 class View5 extends InsideView {
     public function __construct($info){
             $this->top();
@@ -1735,33 +1935,33 @@ class DBManager{
               
                 }
                 
-              public function addComment(){  
-                  echo $_POST['id'];
-                  echo $_POST['comments'];
-                  $dummy ="Guest";
-                  $userid = $_POST['id'];
-                $comments = $_POST['comments'];
+            //   public function addComment(){  
+            //       echo $_POST['id'];
+            //       echo $_POST['comments'];
+            //       $dummy ="Guest";
+            //       $userid = $_POST['id'];
+            //     $comments = $_POST['comments'];
                 
-                $query = "INSERT INTO comments (postid,body,author)
-                            VALUE ('$userid','$comments','$dummy')";
-                $this->db->exec($query);   
+            //     $query = "INSERT INTO comments (postid,body,author)
+            //                 VALUE ('$userid','$comments','$dummy')";
+            //     $this->db->exec($query);   
                   
-              }
+            //   }
               
               
               
-              public function addComment1(){  
-                  echo $_POST['id'];
-                  echo $_POST['comments'];
-                  $dummy = $_COOKIE['username'];
-                  $userid = $_POST['id'];
-                $comments = $_POST['comments'];
+            //   public function addComment1(){  
+            //       echo $_POST['id'];
+            //       echo $_POST['comments'];
+            //       $dummy = $_COOKIE['username'];
+            //       $userid = $_POST['id'];
+            //     $comments = $_POST['comments'];
                 
-                $query = "INSERT INTO comments (postid,body,author)
-                            VALUE ('$userid','$comments','$dummy')";
-                $this->db->exec($query);   
+            //     $query = "INSERT INTO comments (postid,body,author)
+            //                 VALUE ('$userid','$comments','$dummy')";
+            //     $this->db->exec($query);   
                   
-              }
+            //   }
 
   /*         public function retrieveblogsandnotdisplay(){
                
@@ -1818,6 +2018,53 @@ class DBManager{
 
         //             }
         //    }
+
+
+            
+            public function addComment()
+            {
+                $postId = (int) ($_POST['id'] ?? 0);
+                $comment = trim($_POST['comments'] ?? '');
+
+                if ($postId <= 0 || $comment === '') {
+                    return;
+                }
+
+                $query = "
+                    INSERT INTO comments (postid, body, author)
+                    VALUES (:postid, :body, :author)
+                ";
+
+                $statement = $this->db->prepare($query);
+                $statement->execute([
+                    'postid' => $postId,
+                    'body' => $comment,
+                    'author' => 'Guest'
+                ]);
+            }
+
+            public function addComment1()
+            {
+                $postId = (int) ($_POST['id'] ?? 0);
+                $comment = trim($_POST['comments'] ?? '');
+                $author = $_COOKIE['username'] ?? 'Guest';
+
+                if ($postId <= 0 || $comment === '') {
+                    return;
+                }
+
+                $query = "
+                    INSERT INTO comments (postid, body, author)
+                    VALUES (:postid, :body, :author)
+                ";
+
+                $statement = $this->db->prepare($query);
+                $statement->execute([
+                    'postid' => $postId,
+                    'body' => $comment,
+                    'author' => $author
+                ]);
+            }
 
             
             public function retrieveallblogsanddisplay() {
@@ -1886,6 +2133,28 @@ class DBManager{
             }
 
            
+            public function getPostById($postId)
+            {
+                $query = "
+                    SELECT
+                        post.id,
+                        post.title,
+                        post.body,
+                        user.username,
+                        user.blogtitle
+                    FROM post
+                    INNER JOIN user ON post.bloggerid = user.id
+                    WHERE post.id = :post_id
+                    LIMIT 1
+                ";
+
+                $statement = $this->db->prepare($query);
+                $statement->execute(['post_id' => (int) $postId]);
+
+                return $statement->fetch(PDO::FETCH_ASSOC);
+            }
+ 
+           
            public function outerretrieveallblogsanddisplay(){
                
                
@@ -1934,7 +2203,7 @@ class DBManager{
                     if ($info['id'] == $blogger['bloggerid']){
                     $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
                     $dummy1= "b".$i;
-                    echo $dummy1;
+                //    echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -1972,7 +2241,7 @@ class DBManager{
                  //   if ($info['id'] == $blogger['bloggerid']){
                     $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
                     $dummy1= "b".$i;
-                    echo $dummy1;
+              //      echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -2012,7 +2281,7 @@ class DBManager{
      //               if ($info['id'] == $blogger['bloggerid']){
                     $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
                     $dummy1= "b".$i;
-                    echo $dummy1;
+              //      echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -2049,7 +2318,7 @@ class DBManager{
      //               if ($info['id'] == $blogger['bloggerid']){
                      $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
                      $dummy1= "b".$i;
-                      echo $dummy1;
+              //        echo $dummy1;
             //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
                  //  echo "{$blogger['id']}  herer";
                //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
@@ -2137,7 +2406,7 @@ class DBManager{
              
                     $dummy = "blooger"."{$blogger['bloggerid']} <br>";
             
-                    echo $dummy;
+            //        echo $dummy;
                    
                     }
            }
@@ -2196,8 +2465,8 @@ class DBManager{
                $data['textarea']=$textarea;
                $data['blogtitle'] =$_POST['blogtitle'];
                    
-                echo "we are in first blog";
-                echo $_POST['blogtitle'];
+      //          echo "we are in first blog";
+                // echo $_POST['blogtitle'];
                 
               
                 $query ="INSERT into post(bloggerid,title,body)
@@ -2227,117 +2496,229 @@ class DBManager{
             
  
             
+            public function displayPreviousBlogs($info)
+            {
+                $this->renderPreviousBlogs($info, 'addComment');
+            }
+
+            public function displayPreviousBlogs1($info)
+            {
+                $this->renderPreviousBlogs($info, 'addComment1');
+            }
+
+            private function renderPreviousBlogs($info, $command)
+            {
+                $userId = (int) $info['id'];
+
+                $query = "
+                    SELECT id, bloggerid, title, body
+                    FROM post
+                    WHERE bloggerid = :user_id
+                    ORDER BY id DESC
+                ";
+
+                $statement = $this->db->prepare($query);
+                $statement->execute(['user_id' => $userId]);
+
+                $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                if (!$posts) {
+                    echo '<p class="empty-state">No previous posts yet.</p>';
+                    return;
+                }
+
+                $commentQuery = $this->db->prepare("
+                    SELECT id, body
+                    FROM comments
+                    WHERE postid = :post_id
+                    ORDER BY id ASC
+                ");
+
+                echo '<section class="previous-posts">';
+                echo '<h2>Previous posts</h2>';
+
+                foreach ($posts as $post) {
+                    $postId = (int) $post['id'];
+                    $title = htmlspecialchars(
+                        $post['title'] ?? '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $body = htmlspecialchars(
+                        $post['body'] ?? '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    echo '<article class="blog-post">';
+                    echo '<h3>' . $title . '</h3>';
+                    echo '<p class="post-excerpt">' .
+                        nl2br($body) .
+                        '</p>';
+
+                    echo '<form method="post" action="controller.php">';
+                    echo '<input type="hidden" name="cmd" value="' .
+                        htmlspecialchars($command, ENT_QUOTES, 'UTF-8') .
+                        '">';
+                    // echo '<input type="hidden" name="id" value="' .
+                    //     $postId . '">';
+
+                    // // Keep the existing field for compatibility with the old controller.
+                    // echo '<input type="hidden" name="blogcomment" value="comments">';
+                    // echo '<input type="hidden" name="postid" value="' .
+                    //     (int) $post['bloggerid'] . '">';
+                    echo '<input type="hidden" name="id" value="' .
+                        $postId . '">';
+                    echo '<input type="hidden" name="postid" value="' .
+                        $postId . '">';
+                    echo '<label for="comment-' . $postId . '">Add a comment</label>';
+                    echo '<textarea id="comment-' . $postId .
+                        '" name="comments" rows="3" placeholder="Write a comment..." required></textarea>';
+                    echo '<button type="submit">Save comment</button>';
+                    echo '</form>';
+
+                    $commentQuery->execute(['post_id' => $postId]);
+                    $comments = $commentQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                    if ($comments) {
+                        echo '<div class="post-comments">';
+                        echo '<h4>Comments</h4>';
+
+                        foreach ($comments as $comment) {
+                            $commentId = (int) $comment['id'];
+                            $commentBody = htmlspecialchars(
+                                $comment['body'] ?? '',
+                                ENT_QUOTES,
+                                'UTF-8'
+                            );
+
+                            echo '<p class="comment">';
+                            echo '<span class="comment-label">Comment #' .
+                                $commentId . '</span> ';
+             //               echo $commentBody;
+                            echo '</p>';
+                        }
+
+                        echo '</div>';
+                    }
+
+                    echo '</article>';
+                }
+
+                echo '</section>';
+            }
+
             
-            public function displayPreviousBlogs($info){
-                   echo "<br><br><b>Previous Blogs <br> <br>";
-                   echo "i'm in display previous blogs";
-                   echo "info ".$info['id'];
-                    $user_id = $info['id'];
-                    $post = array();
-                    $dummy = array();
-                    $comments1 = array();
-                    $dummy1 = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                    $resultSet = $this->db->query($query);
+            // public function displayPreviousBlogs($info){
+            //        echo "<br><br><b>Previous Blogs <br> <br>";
+            //        echo "i'm in display previous blogs";
+            //        echo "info ".$info['id'];
+            //         $user_id = $info['id'];
+            //         $post = array();
+            //         $dummy = array();
+            //         $comments1 = array();
+            //         $dummy1 = array();
+            //         // get the blogs from the database
+            //         $query = "select * from post";
+            //         $resultSet = $this->db->query($query);
                
                     
-                    for($i=0;$i<$resultSet->rowCount();$i++){
+            //         for($i=0;$i<$resultSet->rowCount();$i++){
                     
-                            $post = $resultSet->fetch();
-                            $dummy = "comment"."{$post['id']} <br>";
+            //                 $post = $resultSet->fetch();
+            //                 $dummy = "comment"."{$post['id']} <br>";
                      
-                            if ($post['bloggerid'] == $user_id ){
+            //                 if ($post['bloggerid'] == $user_id ){
                                 
-                             $dummy2 = $post['id'] ;
-                             $dummy3 = $post['bloggerid'];
-                             echo"           <div id=\"content\">                      
-                             <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                                  <input type=\"hidden\" name=\"cmd\" value=\"addComment\">
-                                   <input type=\"hidden\" name=\"id\" value=$dummy2>
-                                   <input type=\"hidden\" name=\"blogcomment\" value=comments > 
-                                    <input type=\"hidden\" name=\"postid\" value=$dummy3 > ";
+            //                  $dummy2 = $post['id'] ;
+            //                  $dummy3 = $post['bloggerid'];
+            //                  echo"           <div id=\"content\">                      
+            //                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
+            //                       <input type=\"hidden\" name=\"cmd\" value=\"addComment\">
+            //                        <input type=\"hidden\" name=\"id\" value=$dummy2>
+            //                        <input type=\"hidden\" name=\"blogcomment\" value=comments > 
+            //                         <input type=\"hidden\" name=\"postid\" value=$dummy3 > ";
                                 
-                                    echo "<hr align=\"left\"width=\"100%\">";
-                                    echo "<br><br><br>Title:{$post['title']}<br>";
-                                    echo "<textarea readonly name=\"txtarea1\" ROWS=6 COLS=40> {$post['body']}
-                                    </textarea> <br><br><br>";
+            //                         echo "<hr align=\"left\"width=\"100%\">";
+            //                         echo "<br><br><br>Title:{$post['title']}<br>";
+            //                         echo "<textarea readonly name=\"txtarea1\" ROWS=6 COLS=40> {$post['body']}
+            //                         </textarea> <br><br><br>";
 
-                               echo "<textarea id= {$post['bloggerid']} name=\"comments\" >Add Comment here </textarea><br>";
-                               echo "<input type=\"submit\" value=\"Save\" >";
-                               $query1 = "select * from comments";
-                               $resultSet1 = $this->db->query($query1);
-                               for($i=0;$i<$resultSet1->rowCount();$i++){
-                                  $comments1 = $resultSet1->fetch();
-                                  if ($comments1['postid']== $post['id'] ){
-                                       $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
-                                       echo $dummy1;
-                                    } 
+            //                    echo "<textarea id= {$post['bloggerid']} name=\"comments\" >Add Comment here </textarea><br>";
+            //                    echo "<input type=\"submit\" value=\"Save\" >";
+            //                    $query1 = "select * from comments";
+            //                    $resultSet1 = $this->db->query($query1);
+            //                    for($i=0;$i<$resultSet1->rowCount();$i++){
+            //                       $comments1 = $resultSet1->fetch();
+            //                       if ($comments1['postid']== $post['id'] ){
+            //                            $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
+            //                            echo $dummy1;
+            //                         } 
                            
-                             }
-                              echo "</FORM>  
-                        </div>
-            ";
-                        }
+            //                  }
+            //                   echo "</FORM>  
+            //             </div>
+            // ";
+            //             }
                          
-                }    
-            }
+            //     }    
+            // }
             
             
-            public function displayPreviousBlogs1($info){
-                   echo "<br><br><b>Previous Blogs <br> <br>";
-                   echo "i'm in display previous blogs";
-                   echo "info ".$info['id'];
-                    $user_id = $info['id'];
-                    $post = array();
-                    $dummy = array();
-                    $comments1 = array();
-                    $dummy1 = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                    $resultSet = $this->db->query($query);
+            // public function displayPreviousBlogs1($info){
+            //        echo "<br><br><b>Previous Blogs <br> <br>";
+            //        echo "i'm in display previous blogs";
+            //        echo "info ".$info['id'];
+            //         $user_id = $info['id'];
+            //         $post = array();
+            //         $dummy = array();
+            //         $comments1 = array();
+            //         $dummy1 = array();
+            //         // get the blogs from the database
+            //         $query = "select * from post";
+            //         $resultSet = $this->db->query($query);
                
                     
-                    for($i=0;$i<$resultSet->rowCount();$i++){
+            //         for($i=0;$i<$resultSet->rowCount();$i++){
                     
-                            $post = $resultSet->fetch();
-                            $dummy = "comment"."{$post['id']} <br>";
+            //                 $post = $resultSet->fetch();
+            //                 $dummy = "comment"."{$post['id']} <br>";
                      
-                            if ($post['bloggerid'] == $user_id ){
+            //                 if ($post['bloggerid'] == $user_id ){
                                 
-                             $dummy2 = $post['id'] ;
-                             $dummy3 = $post['bloggerid'];
-                             echo"           <div id=\"content\">                      
-                             <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                                  <input type=\"hidden\" name=\"cmd\" value=\"addComment1\">
-                                   <input type=\"hidden\" name=\"id\" value=$dummy2>
-                                   <input type=\"hidden\" name=\"blogcomment\" value=comments > 
-                                    <input type=\"hidden\" name=\"postid\" value=$dummy3 > ";
+            //                  $dummy2 = $post['id'] ;
+            //                  $dummy3 = $post['bloggerid'];
+            //                  echo"           <div id=\"content\">                      
+            //                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
+            //                       <input type=\"hidden\" name=\"cmd\" value=\"addComment1\">
+            //                        <input type=\"hidden\" name=\"id\" value=$dummy2>
+            //                        <input type=\"hidden\" name=\"blogcomment\" value=comments > 
+            //                         <input type=\"hidden\" name=\"postid\" value=$dummy3 > ";
                                 
-                                    echo "<hr align=\"left\"width=\"100%\">";
-                                    echo "<br><br><br>Title:{$post['title']}<br>";
-                                    echo "<textarea readonly name=\"txtarea1\" ROWS=6 COLS=40> {$post['body']}
-                                    </textarea> <br><br><br>";
+            //                         echo "<hr align=\"left\"width=\"100%\">";
+            //                         echo "<br><br><br>Title:{$post['title']}<br>";
+            //                         echo "<textarea readonly name=\"txtarea1\" ROWS=6 COLS=40> {$post['body']}
+            //                         </textarea> <br><br><br>";
 
-                               echo "<textarea id= {$post['bloggerid']} name=\"comments\" >Add Comment here </textarea><br>";
-                               echo "<input type=\"submit\" value=\"Save\" >";
-                               $query1 = "select * from comments";
-                               $resultSet1 = $this->db->query($query1);
-                               for($i=0;$i<$resultSet1->rowCount();$i++){
-                                  $comments1 = $resultSet1->fetch();
-                                  if ($comments1['postid']== $post['id'] ){
-                                       $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
-                                       echo $dummy1;
-                                    } 
+            //                    echo "<textarea id= {$post['bloggerid']} name=\"comments\" >Add Comment here </textarea><br>";
+            //                    echo "<input type=\"submit\" value=\"Save\" >";
+            //                    $query1 = "select * from comments";
+            //                    $resultSet1 = $this->db->query($query1);
+            //                    for($i=0;$i<$resultSet1->rowCount();$i++){
+            //                       $comments1 = $resultSet1->fetch();
+            //                       if ($comments1['postid']== $post['id'] ){
+            //                            $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
+            //                            echo $dummy1;
+            //                         } 
                            
-                             }
-                              echo "</FORM>  
-                        </div>
-            ";
-                        }
+            //                  }
+            //                   echo "</FORM>  
+            //             </div>
+            // ";
+            //             }
                          
-                }    
-            }
+            //     }    
+            // }
             
             
             

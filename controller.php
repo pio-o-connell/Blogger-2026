@@ -18,7 +18,7 @@
             $cmd = $_GET['cmd'];
         } 
    
-        echo "$cmd";
+    //    echo "$cmd";
         switch($cmd){
             case "":   
                 new View1(); 
@@ -38,7 +38,7 @@
                 break;
             case "addComment":       
               //  echo $_POST['id'];
-                echo $_POST['postid'];
+               // echo $_POST['postid'];
                 $dummy = $_POST['postid'];
                  $DBM = new DBManager();
                  $result1 = $DBM->addComment();
@@ -46,18 +46,18 @@
                  new View3($result1);
                 break;
             case "addComment1":
-                echo "add Comment1";
-                echo $_POST['postid'];
+             //   echo "add Comment1";
+             //   echo $_POST['postid'];
                 $DBM = new DBManager();
                 $dummy = $_POST['postid'];
-                echo $_COOKIE['username'];
+        //        echo $_COOKIE['username'];
                 $result1 = $DBM->addComment1();
                  $result1['id'] =$dummy;
                  new View31($result1);
             
                 break;
             case "add":
-                echo "add";
+              //  echo "add";
                 $DBM = new DBManager();
              //   $data = $DBM->getBlogindex($_COOKIE['username']);
              //   $DBM->processblog();
@@ -68,7 +68,7 @@
            
                 break;
             case "addBlogger":
-                echo "addBlogger";
+          //      echo "addBlogger";
                 $data = handleAdduser();
                 
             
@@ -79,7 +79,7 @@
    
                 break;
             case "addPost":
-                echo "AddPost";
+          //      echo "AddPost";
                 echo $_POST['textarea'];
             //    $data = handleAddpost();
             //    $data = handleViewBlogDetails();
@@ -93,7 +93,7 @@
                 
                 break;
             case "addPost1":
-                echo "AddPost1";
+           //     echo "AddPost1";
                
                 $data = handleFirstAddpost();
          //       handleViewBlogDetails($data);
@@ -102,9 +102,9 @@
                 break;
                 
             case "openblog":
-                echo "openBlof";
+         //       echo "openBlof";
                 $bloggerid = $_GET['bloggerid'];
-                echo $bloggerid;
+              //  echo $bloggerid;
                 
                 $DBM = new DBManager();
                 $data = $DBM->getBlogindex($_COOKIE['username']);
@@ -119,18 +119,30 @@
                new View5($data);
                 echo "hullo";*/
                 break;
+        //     case "openblog1":
+        //         echo "openBlof1";
+        //         $bloggerid = $_GET['bloggerid'];
+        //         $info['id']=$bloggerid;
+        //        // $DBM = new DBManager();
+        //         new View31($info);
+        //        // new View51($info);
+        //         //$data = $DBM->displayPreviousBlogs($info);
+        //    //     echo $bloggerid;
+        //         break;
+             
             case "openblog1":
-                echo "openBlof1";
-                $bloggerid = $_GET['bloggerid'];
-                $info['id']=$bloggerid;
-               // $DBM = new DBManager();
-                new View31($info);
-               // new View51($info);
-                //$data = $DBM->displayPreviousBlogs($info);
-           //     echo $bloggerid;
+                $postId = isset($_GET['bloggerid'])
+                    ? (int) $_GET['bloggerid']
+                    : 0;
+
+                $DBM = new DBManager();
+                $post = $DBM->getPostById($postId);
+
+                new ViewSinglePost($post);
                 break;
+   
             case "openblog9":
-                echo "openBlog9";
+             //   echo "openBlog9";
                 $bloggerid = $_GET['bloggerid'];
                 $info['id']=$bloggerid;
                 new View3($info);
@@ -152,17 +164,17 @@
                 
                 break;
             case "delete":
-                echo "delete";
+           //     echo "delete";
                 new View51();
                 break;
             case "delete1":
-                echo "delete1";
+         //       echo "delete1";
                
                 handleDeleteBlogs();
               
                 break;
             case "delete2":
-                echo "delete2";
+          //      echo "delete2";
               
                 handleDeleteBlogs1();
                 $DBM = new DBManager();
@@ -182,13 +194,13 @@
                 new View9($data);
                 break;
             case "deleterefresh":
-                echo "deleterefresh";
+       //         echo "deleterefresh";
                 $bloggerid = $_GET['blogid'];
       //          echo $bloggerid;
                 
                 break;
             case "deleteBlogs":
-                echo "delete blogs";
+         //       echo "delete blogs";
                 $DBM = new DBManager();
                 $data = $DBM->getBlogindex($_COOKIE['username']);
         //        echo $data['reset'];
@@ -197,7 +209,7 @@
                 new View6($data);
                 break;
             case "openblog2":
-                echo "delete all Bloggs";
+     //           echo "delete all Bloggs";
                 $bloggerid=  $_GET['bloggerid'];
                 $info['bloggerid']=$bloggerid;
          //       $DBM = new DBManager();
@@ -207,7 +219,7 @@
                 new View7($info);
                 break;
             case "openblog4":
-                echo "deleting users";
+      //          echo "deleting users";
           //      echo $_GET['userid'];
                 $info['id']=$_GET['userid'];
          //       $DBM = new DBManager();
@@ -220,19 +232,19 @@
                 
                 break;
             case "deleteUsers":
-                echo "delete users";
+        //        echo "delete users";
                 $DBM = new DBManager();
                 $result1 = $DBM->getBlogindex($_COOKIE['username']);
                 $result1['reset1'] = 0;
                 new View9($result1);
                 break;
             case "suspendBloogers":
-                echo "suspend Bloogers";
+       //         echo "suspend Bloogers";
                 $result1 = $DBM->getBlogindex($_COOKIE['username']);
                 new View8($result1);
                 break;
             case "suspendUsers":
-                echo "suspend users";
+       //         echo "suspend users";
                 $DBM = new DBManager();
                 $result1 = $DBM->getBlogindex($_COOKIE['username']);
                 $result1['reset2']=0;
@@ -240,7 +252,7 @@
                
                 break;
             case "Suspend":
-                echo "Suspend";
+        //        echo "Suspend";
          //       echo $_POST['b1'];
          //       echo $_POST['b2'];
                 handleSuspendUsers();
@@ -260,7 +272,7 @@
   //              echo $_COOKIE["username"];
                 break;
             case "add":
-                echo "add";
+         //       echo "add";
                 break;
             
                 
