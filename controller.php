@@ -24,15 +24,15 @@
                 new View1(); 
                 break;
             case "register":
-                echo "register";
+    //            echo "register";
                 new View4();
                 break;
             case "login":
-                echo "login";
+    //            echo "login";
                 new View2();
                 break;
             case "loginRequest":
-                echo "loginRequest";
+     //           echo "loginRequest";
                 handleLogin();
                 
                 break;

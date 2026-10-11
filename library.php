@@ -180,52 +180,75 @@ abstract class OutsideView {
 
             echo " 
 
-	<div id=\"content\">
-                  <h1> Add a post!!</h1>
-                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-
-                 
-                        <input type=\"hidden\" name=\"cmd\" value=\"addPost\">
-                       // <textarea>
-                       <textarea name=\"textarea\" ROWS=6 COLS=50>
-                        Add post here!
-                        </textarea>
+                <div id=\"content\">
+                            <h1> Add a post!!</h1>
+                            <FORM METHOD=\"post\" ACTION=\"controller.php\">
 
                             
-        
-                <input type=\"submit\" value=\"addPost\">
-            </FORM>
-              
-                
-            </div>
-            ";
-  
-        }
+                                    <input type=\"hidden\" name=\"cmd\" value=\"addPost\">
+                                // <textarea>
+                                <textarea name=\"textarea\" ROWS=6 COLS=50>
+                                    Add post here!
+                                    </textarea>
+
+                                        
+                    
+                            <input type=\"submit\" value=\"addPost\">
+                        </FORM>
+                        
+                            
+                        </div>
+                        ";
+            
+                    }
 
     
     
-     function top(){
+    //  function top(){
             
             
-            echo "
+    //         echo "
             
-            <html>
+    //         <html>
 
-            <head>
+    //         <head>
 
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
+	// <link rel=\"stylesheet\" href=\"insidestyles.css\">
+    //         </head>
 
-            <body>
+    //         <body>
 
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Header</h1>
-		</div>
+	// <div id=\"main\">
+	// 	<div id=\"header\">
+	// 		<h1>Header</h1>
+	// 	</div>
             
-            ";
+    //         ";
             
-        }
+    //     }
+
+ 
+    public function top() {
+        echo "
+        <!DOCTYPE html>
+        <html lang=\"en\">
+        <head>
+            <meta charset=\"UTF-8\">
+            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+            <title>Blogger | Ideas worth sharing</title>
+            <link rel=\"stylesheet\" href=\"insidestyles.css\">
+        </head>
+        <body>
+            <div id=\"main\">
+                <header id=\"header\">
+                    <a class=\"site-logo\" href=\"controller.php\">
+                        <img src=\"icon.jpg\" alt=\"Blogger logo\">
+                    </a>
+                    <p class=\"site-tagline\">Ideas worth sharing.</p>
+                </header>
+        ";
+    }
+
         
        public function menu(){
             echo "
@@ -453,6 +476,63 @@ class View1 extends OutsideView{
 //     }
 
 // Login view
+// class View2 extends OutsideView
+// {
+//     public function __construct()
+//     {
+//         $this->top();
+//         $this->menu();
+//         $this->content();
+//         $this->bottom();
+//     }
+
+//     public function content()
+//     {
+//         echo '
+//             <main id="content" class="auth-page">
+//                 <section class="auth-panel">
+//                     <h1>Welcome back</h1>
+//                     <p class="auth-intro">Log in to your Blogger account.</p>
+
+//                     <form method="post" action="controller.php">
+//                         <input type="hidden" name="cmd" value="loginRequest">
+
+//                         <div class="form-group">
+//                             <label for="username">Username</label>
+//                             <input
+//                                 type="text"
+//                                 id="username"
+//                                 name="username"
+//                                 autocomplete="username"
+//                                 required
+//                             >
+//                         </div>
+
+//                         <div class="form-group">
+//                             <label for="password">Password</label>
+//                             <input
+//                                 type="password"
+//                                 id="password"
+//                                 name="password"
+//                                 autocomplete="current-password"
+//                                 required
+//                             >
+//                         </div>
+
+//                         <button type="submit" class="auth-button">Log in</button>
+//                     </form>
+
+//                     <p class="auth-footer">
+//                         New to Blogger?
+//                         <a href="controller.php?cmd=register">Create an account</a>
+//                     </p>
+//                 </section>
+//             </main>
+//         ';
+//     }
+// }
+
+
 class View2 extends OutsideView
 {
     public function __construct()
@@ -468,11 +548,20 @@ class View2 extends OutsideView
         echo '
             <main id="content" class="auth-page">
                 <section class="auth-panel">
+
+                    <p class="auth-eyebrow">BLOGGER.COM</p>
+
                     <h1>Welcome back</h1>
-                    <p class="auth-intro">Log in to your Blogger account.</p>
+
+                    <p class="auth-intro">
+                        Log in to your account to continue reading
+                        and sharing your thoughts.
+                    </p>
 
                     <form method="post" action="controller.php">
-                        <input type="hidden" name="cmd" value="loginRequest">
+                        <input type="hidden"
+                               name="cmd"
+                               value="loginRequest">
 
                         <div class="form-group">
                             <label for="username">Username</label>
@@ -481,6 +570,7 @@ class View2 extends OutsideView
                                 id="username"
                                 name="username"
                                 autocomplete="username"
+                                placeholder="Enter your username"
                                 required
                             >
                         </div>
@@ -492,23 +582,33 @@ class View2 extends OutsideView
                                 id="password"
                                 name="password"
                                 autocomplete="current-password"
+                                placeholder="Enter your password"
                                 required
                             >
                         </div>
 
-                        <button type="submit" class="auth-button">Log in</button>
+                        <button type="submit" class="auth-button">
+                            Log in
+                        </button>
                     </form>
 
                     <p class="auth-footer">
                         New to Blogger?
-                        <a href="controller.php?cmd=register">Create an account</a>
+                        <a href="controller.php?cmd=register">
+                            Create an account
+                        </a>
                     </p>
+
                 </section>
             </main>
         ';
     }
 }
-    
+
+
+
+
+
 class View3 extends OutsideView {
     public function __construct($info){
             $this->top();
@@ -1442,120 +1542,270 @@ class View6 extends InsideView {
             ";
         }    
 }
-class View7 extends InsideView {
-    public function __construct($info){
-            $this->top();
-            $this->menu();
-        //    $this->bloggerList();
+
+// class View7 extends InsideView {
+//     public function __construct($info){
+//             $this->top();
+//             $this->menu();
+//         //    $this->bloggerList();
             
  
-            $this->content($info);
-            $this->bloggerList();
+//             $this->content($info);
+//             $this->bloggerList();
             
-            $this->bottom();
+//             $this->bottom();
 
             
-        }
+//         }
         
-       public function content($info){
+//        public function content($info){
 
-            echo " 
+//             echo " 
 
-	<div id=\"content\">
-                  <h1> Administrator  -Delete Blogs</h1>
-                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                    <input type=\"hidden\" name=\"cmd\" value=\"delete2\">
+// 	<div id=\"content\">
+//                   <h1> Administrator  -Delete Blogs</h1>
+//                   <FORM METHOD=\"post\" ACTION=\"controller.php\">
+//                     <input type=\"hidden\" name=\"cmd\" value=\"delete2\">
                    
-                    <input type=\"hidden\" name=\"blogtitle\" value=>";
-              $DBM = new DBManager();
-              $DBM->retrieveallblogsanddisplay1($info);
+//                     <input type=\"hidden\" name=\"blogtitle\" value=>";
+//               $DBM = new DBManager();
+//               $DBM->retrieveallblogsanddisplay1($info);
               
-              if ($info['reset'] != 0)
-           {/*echo "</tr>
+//               if ($info['reset'] != 0)
+//            {/*echo "</tr>
                     
-                       <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                        </textarea>" ; */
-           //    echo "here".$info['bloggerid'];
-               $DBM = new DBManager();
-               $DBM->retrievebody($info);
+//                        <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
+//                         </textarea>" ; */
+//            //    echo "here".$info['bloggerid'];
+//                $DBM = new DBManager();
+//                $DBM->retrievebody($info);
                     
-           }             
-               echo"     <input type=\"submit\" value=\"send data\">
+//            }             
+//                echo"     <input type=\"submit\" value=\"send data\">
                     
-            </FORM>
-           ";
+//             </FORM>
+//            ";
             
-           echo "</div>";
+//            echo "</div>";
             
             
   
-        }
+//         }
 
     
     
-     function top(){
+//      function top(){
             
             
-            echo "
+//             echo "
             
-            <html>
+//             <html>
 
-            <head>
+//             <head>
 
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
+// 	<link rel=\"stylesheet\" href=\"insidestyles.css\">
+//             </head>
 
-            <body>
+//             <body>
 
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
+// 	<div id=\"main\">
+// 		<div id=\"header\">
+// 			<h1>Blogger.com</h1>
+// 		</div>
             
-            ";
+//             ";
             
-        }
+//         }
         
-       public function menu(){
-            echo "
-                 <div id=\"menu\">             
-                       <a href=\"controller.php?cmd=deleteUsers\">Delete <br> Users</a><br>
-                       <a href=\"controller.php?cmd=suspendUsers\">Suspend<br> Users</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
+//        public function menu(){
+//             echo "
+//                  <div id=\"menu\">             
+//                        <a href=\"controller.php?cmd=deleteUsers\">Delete <br> Users</a><br>
+//                        <a href=\"controller.php?cmd=suspendUsers\">Suspend<br> Users</a><br>
+//                        <a href=\"controller.php?cmd=logout\">logout</a><br>
                        
-            </div>
+//             </div>
 
 
-            ";
+//             ";
             
             
-        }
+//         }
         
-       public function bloggerList(){
+//        public function bloggerList(){
            
-            echo "<div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
+//             echo "<div id=\"bloggerlist\">
+//                     <h3> blogger list </h3>";
                     
-          //        echo"  in blofferlist";
-                  $DBM = new DBManager();
-                  $DBM->retrieveallblogsanddisplay();
-            echo "</div>
+//           //        echo"  in blofferlist";
+//                   $DBM = new DBManager();
+//                   $DBM->retrieveallblogsanddisplay();
+//             echo "</div>
                 
-            ";
+//             ";
 
            
            
-       }
+//        }
         
-        function bottom(){
-            echo "
-            </div>
+//         function bottom(){
+//             echo "
+//             </div>
 
+//             </body>
+//             </html>        
+//             ";
+//         }    
+// }
+
+
+
+class View7 extends InsideView
+{
+    public function __construct($info)
+    {
+        $this->top();
+        $this->menu();
+        $this->content($info);
+        $this->bloggerList();
+        $this->bottom();
+    }
+
+    public function content($info)
+    {
+        echo '
+   
+                <main id="content" class="admin-delete-page">
+                <header class="page-heading">
+                    <h1>Manage blog posts</h1>
+
+                </header>
+
+                <section class="admin-delete-panel">
+
+                    <form method="post" action="controller.php">
+
+                        <input type="hidden" name="cmd" value="delete2">
+                        <input type="hidden" name="blogtitle" value="">
+
+                     <!--   <div class="admin-section-heading">
+                            <p>
+                                Choose Delete to remove a post, or Keep
+                                to leave it unchanged.
+                            </p>
+                        </div> -->
+
+                        <div class="admin-delete-options">
+        ';
+        
+
+
+        $DBM = new DBManager();
+        $DBM->retrieveallblogsanddisplay1($info);
+
+        if (isset($info['reset']) && $info['reset'] != 0) {
+            $DBM = new DBManager();
+            $DBM->retrievebody($info);
+        }
+
+        echo '
+                        </div>
+
+                        <div class="admin-form-actions">
+                            <p>
+                                Posts marked Delete will be submitted
+                                for removal.
+                            </p>
+
+                            <button type="submit" class="auth-button">
+                                Submit changes
+                            </button>
+                        </div>
+
+                    </form>
+
+                </section>
+
+            </main>
+        ';
+    }
+
+    // public function top()
+    // {
+    //     echo '
+    //         <html lang="en">
+    //         <head>
+    //             <meta charset="UTF-8">
+    //             <meta name="viewport"
+    //                   content="width=device-width, initial-scale=1">
+    //             <title>Blogger — Administration</title>
+    //             <link rel="stylesheet" href="insidestyles.css">
+    //         </head>
+    //         <body>
+
+    //         <div id="main">
+
+    //             <div id="header">
+    //                 <h1 class="site-logo">Blogger<span>.</span>com</h1>
+    //                 <p class="site-tagline">
+    //                     Your space to write and share
+    //                 </p>
+    //             </div>
+    //     ';
+    // }
+
+    public function menu()
+    {
+        echo '
+            <nav id="menu" aria-label="Administration navigation">
+
+                <div class="menu-account">
+                    <a href="controller.php?cmd=deleteUsers">
+                        Delete users
+                    </a>
+
+                    <a href="controller.php?cmd=suspendUsers">
+                        Suspend users
+                    </a>
+                </div>
+
+                <a href="controller.php?cmd=logout">
+                    Log out
+                </a>
+
+            </nav>
+        ';
+    }
+
+    public function bloggerList()
+    {
+        echo '
+            <section id="bloggerlist">
+                <h2>Recent blog posts</h2>
+                <p class="blog-list-intro">
+                    Browse posts published by Blogger users.
+                </p>
+        ';
+
+        $DBM = new DBManager();
+        $DBM->retrieveallblogsanddisplay();
+
+        echo '
+            </section>
+        ';
+    }
+
+    public function bottom()
+    {
+        echo '
+            </div>
             </body>
-            </html>        
-            ";
-        }    
+            </html>
+        ';
+    }
 }
+
+
 class View8 extends InsideView {
     public function __construct($info){
             $this->top();

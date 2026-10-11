@@ -181,43 +181,75 @@ abstract class OutsideView {
 
     
     
-     function top(){
+    //  function top(){
             
             
-            echo "
+    //         echo "
             
-            <html>
+    //         <html>
 
-            <head>
+    //         <head>
 
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
+	// <link rel=\"stylesheet\" href=\"insidestyles.css\">
+    //         </head>
 
-            <body>
+    //         <body>
 
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Header</h1>
-		</div>
+	// <div id=\"main\">
+	// 	<div id=\"header\">
+	// 		<h1>Header</h1>
+	// 	</div>
             
-            ";
+    //         ";
             
-        }
+    //     }
         
-       public function menu(){
+       public function top() {
             echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=login\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=register\">Delete</a><br>
-                       <a href=\"controller.php?cmd=register\">logout</a><br>
-                       
-            </div>
-
-
+            <!DOCTYPE html>
+            <html lang=\"en\">
+            <head>
+                <meta charset=\"UTF-8\">
+                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+                <title>Blogger | Ideas worth sharing</title>
+                <link rel=\"stylesheet\" href=\"myStyles.css\">
+            </head>
+            <body>
+                <div id=\"main\">
+                <header id=\"header\">
+                    <a class=\"site-logo\" href=\"controller.php\">
+                        <img src=\"YOUR-REAL-LOGO-PATH\" alt=\"Blogger\">
+                    </a>
+                    <p class=\"site-tagline\">Ideas worth sharing.</p>
+                </header>
             ";
+        } 
+
+
+    //    public function menu(){
+    //         echo "
+    //              <div id=\"menu\">
+    //             <a href=\"controller.php?cmd=login\">Add</a> <br>               
+    //                    <a href=\"controller.php?cmd=register\">Delete</a><br>
+    //                    <a href=\"controller.php?cmd=register\">logout</a><br>
+                       
+    //         </div>
+
+
+    //         ";
             
             
-        }
+    //     }
+
+       public function menu() {
+            echo "
+                <nav id=\"menu\" aria-label=\"Administration navigation\">
+                    <a href=\"controller.php?cmd=login\">Add</a>
+                    <a href=\"controller.php?cmd=register\">Delete</a>
+                    <a href=\"controller.php?cmd=register\">Log out</a>
+                </nav>
+            ";
+        } 
         
        public function bloggerList(){
            
