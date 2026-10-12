@@ -569,10 +569,7 @@ class View4 extends OutsideView
 class View5 extends InsideView {
     public function __construct($info){
             $this->top();
-            $this->menu();
-        //    $this->bloggerList();
-            
- 
+            $this->menu(); 
             $this->content($info);
             $this->bloggerList();
             
@@ -617,8 +614,6 @@ class View5 extends InsideView {
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
-                    
-          //        echo"  in blofferlist";
                   $DBM = new DBManager();
                   $DBM->retrieveblogsanddisplay();
             echo "</div>
@@ -791,58 +786,192 @@ class View6 extends InsideView {
 
 
 
+// class View7 extends InsideView
+// {
+//     // public function __construct($info)
+//     // {
+//     //     $this->top();
+//     //     $this->menu();
+//     //     $this->adminMenu();     // Left panel
+//     //     $this->content($info);  // Right panel: Manage blog posts
+//     //     $this->recentPosts();   // Right panel: Recent blog posts
+//     //     $this->bottom();
+//     // }   
+    
+//     public function __construct($info)
+//     {
+//         $this->top();
+//         $this->adminMenu();     // Horizontal admin navigation
+//         $this->content($info);  // Left panel: Manage blog posts
+//         $this->recentPosts();   // Right panel: Recent blog posts
+//         $this->bottom();
+//     }
+
+
+//     // Empty menu space with existing divider styling
+//     public function menu()
+//     {
+//         parent::menu();
+//     }
+
+//     // 1. Left panel: administration navigation
+//     // public function adminMenu()
+//     // {
+//     //     echo '
+//     //         <nav id="admin-menu" aria-label="Administration navigation">
+//     //             <div class="menu-account">
+//     //                 <a href="controller.php?cmd=deleteUsers">
+//     //                     Delete users
+//     //                 </a>
+
+//     //                 <a href="controller.php?cmd=suspendUsers">
+//     //                     Suspend users
+//     //                 </a>
+//     //             </div>
+
+//     //             <a href="controller.php?cmd=logout">
+//     //                 Log out
+//     //             </a>
+//     //         </nav>
+//     //     ';
+//     // }
+    
+//     public function adminMenu()
+//     {
+//         echo '
+//             <nav id="admin-menu" class="admin-navigation"
+//                 aria-label="Administration navigation">
+
+//                 <a href="controller.php?cmd=blogs">Blogs</a>
+
+//                 <div class="menu-account">
+//                     <a href="controller.php?cmd=users">Users</a>
+//                     <a href="controller.php?cmd=logout">Log out</a>
+//                 </div>
+
+//             </nav>
+//         ';
+//     }
+
+
+//     // 2. left panel, bottom: Manage blog posts
+//     public function content($info)
+//     {
+//         echo '
+//             <main id="content" class="admin-delete-page">
+//                 <header class="page-heading">
+//                 </header>
+
+//                 <section class="admin-delete-panel">
+//                     <form method="post" action="controller.php">
+//                         <input type="hidden" name="cmd" value="delete2">
+//                         <input type="hidden" name="blogtitle" value="">
+
+//                         <div class="admin-delete-options">
+//         ';
+
+//         $DBM = new DBManager();
+//         $DBM->retrieveallblogsanddisplay1($info);
+
+//         if (isset($info['reset']) && $info['reset'] != 0) {
+//             $DBM = new DBManager();
+//             $DBM->retrievebody($info);
+//         }
+
+//         echo '
+//                         </div>
+
+//                       <div class="admin-form-actions"> 
+//                             <p class="delete-blog-notice">
+//                                 Posts marked Delete will be submitted
+//                                 for removal.
+//                             </p>
+
+//                             <button type="submit" class="auth-button">
+//                                 Submit changes
+//                             </button>
+//                         </div>
+//                     </form>
+//                 </section>
+//             </main>
+//         ';
+//     }
+
+// // 3. the right panel, top: Recent blog posts
+    
+//     public function recentPosts()
+//     {
+//         echo '
+//             <section id="bloggerlist">
+//                 <div class="page-heading">
+//                     <h2>Recent blog posts</h2>
+//                 </div>
+
+//               <!--  <p class="blog-list-intro">
+//                     Browse posts published by Blogger users.
+//                 </p> -->
+//         ';
+
+//         $DBM = new DBManager();
+//         $DBM->retrieveallblogsanddisplay();
+
+//         echo '
+//             </section>
+//         ';
+//     }
+
+//     public function bottom()
+//     {
+//         echo '
+//             </div>
+//             </body>
+//             </html>
+//         ';
+//     }
+// }
+
+
 class View7 extends InsideView
 {
     public function __construct($info)
     {
         $this->top();
-        $this->menu();
-        $this->adminMenu();     // Left panel
-        $this->content($info);  // Right panel: Manage blog posts
+        $this->adminMenu();     // Horizontal admin navigation
+        $this->content($info);  // Left panel: Manage blog posts
         $this->recentPosts();   // Right panel: Recent blog posts
         $this->bottom();
-    }   
-
-    // Empty menu space with existing divider styling
-    public function menu()
-    {
-        parent::menu();
     }
 
-    // 1. Left panel: administration navigation
+    // Horizontal administration navigation
     public function adminMenu()
     {
         echo '
-            <nav id="admin-menu" aria-label="Administration navigation">
-                <div class="menu-account">
-                    <a href="controller.php?cmd=deleteUsers">
-                        Delete users
-                    </a>
+            <nav id="admin-menu" class="admin-navigation"
+                 aria-label="Administration navigation">
 
-                    <a href="controller.php?cmd=suspendUsers">
-                        Suspend users
-                    </a>
+                <a href="controller.php?cmd=blogs">Blogs</a>
+
+                <div class="menu-account">
+                    <a href="controller.php?cmd=users">Users</a>
+                    <a href="controller.php?cmd=logout">Log out</a>
                 </div>
 
-                <a href="controller.php?cmd=logout">
-                    Log out
-                </a>
             </nav>
         ';
     }
 
-    // 2. Right panel, bottom: Manage blog posts
+    // Left panel: Manage blog posts
     public function content($info)
     {
         echo '
             <main id="content" class="admin-delete-page">
                 <header class="page-heading">
+                    
                 </header>
 
                 <section class="admin-delete-panel">
                     <form method="post" action="controller.php">
                         <input type="hidden" name="cmd" value="delete2">
-                        <input type="hidden" name="blogtitle" value="">
 
                         <div class="admin-delete-options">
         ';
@@ -851,14 +980,13 @@ class View7 extends InsideView
         $DBM->retrieveallblogsanddisplay1($info);
 
         if (isset($info['reset']) && $info['reset'] != 0) {
-            $DBM = new DBManager();
             $DBM->retrievebody($info);
         }
 
         echo '
                         </div>
 
-                      <div class="admin-form-actions"> 
+                        <div class="admin-form-actions">
                             <p class="delete-blog-notice">
                                 Posts marked Delete will be submitted
                                 for removal.
@@ -874,37 +1002,14 @@ class View7 extends InsideView
         ';
     }
 
-    // 3. Right panel, top: recent blog posts
-    // public function recentPosts()
-    // {
-    //     echo '
-    //         <section id="bloggerlist">
-    //             <h2>Recent blog posts</h2>
-
-    //             <p class="blog-list-intro">
-    //                 Browse posts published by Blogger users.
-    //             </p>
-    //     ';
-
-    //     $DBM = new DBManager();
-    //     $DBM->retrieveallblogsanddisplay();
-
-    //     echo '
-    //         </section>
-    //     ';
-    // }
-    
+    // Right panel: Recent blog posts
     public function recentPosts()
     {
         echo '
             <section id="bloggerlist">
                 <div class="page-heading">
-                    <h2>Recent blog posts</h2>
+                    
                 </div>
-
-              <!--  <p class="blog-list-intro">
-                    Browse posts published by Blogger users.
-                </p> -->
         ';
 
         $DBM = new DBManager();
@@ -924,6 +1029,7 @@ class View7 extends InsideView
         ';
     }
 }
+
 
 
 class View8 extends InsideView {
@@ -1394,9 +1500,7 @@ class DBManager{
                     }
            }
                    
-
-
-           
+     
             public function retrieveallblogsanddisplay1($info)
             {
                 $query = "SELECT * FROM post";
@@ -1407,15 +1511,13 @@ class DBManager{
                         <div class="delete-blog-heading">
                             <span>Blog post</span>
                             <span>Delete</span>
-                            <span>Keep</span>
                         </div>
                 ';
 
-                $i = 0;
-
                 while ($blogger = $resultSet->fetch()) {
 
-                    $radioName = "b" . $i;
+                    // Use the actual database ID, not the list position.
+                    $postId = (int) $blogger['id'];
 
                     // Prepare the first line of the blog body.
                     $body = $blogger['body'] ?? '';
@@ -1442,12 +1544,6 @@ class DBManager{
                         $firstLine = substr($firstLine, 0, 157) . '...';
                     }
 
-                    $id = htmlspecialchars(
-                        (string) $blogger['id'],
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-
                     $title = htmlspecialchars(
                         $blogger['title'] ?? '',
                         ENT_QUOTES,
@@ -1465,8 +1561,7 @@ class DBManager{
 
                             <div class="delete-blog-details">
                                 <div class="delete-blog-title">
-                                 <!--   Blog #' . $id . ' &mdash; ' . $title . ' -->
-                                 ' . $title . '
+                                    ' . $title . '
                                 </div>
 
                                 <div class="delete-blog-preview">'
@@ -1475,96 +1570,55 @@ class DBManager{
                             </div>
 
                             <label class="delete-blog-choice">
-                                <input type="radio"
-                                    name="' . $radioName . '"
-                                    value="Y">
+                                <input type="checkbox"
+                                    name="deletePosts[]"
+                                    value="' . $postId . '">
                                 <span class="visually-hidden">Delete</span>
-                            </label>
-
-                            <label class="delete-blog-choice">
-                                <input type="radio"
-                                    name="' . $radioName . '"
-                                    value="N"
-                                    checked>
-                                <span class="visually-hidden">Keep</span>
                             </label>
 
                         </div>
                     ';
-
-                    $i++;
                 }
 
                 echo '</div>';
             }
 
            
-           public function retrieveallusersdisplay($info){
-               
-                    
-                    $user = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from user";
-                    $resultSet = $this->db->query($query);
-                    
-                    echo "Delete users <br>";
-                    echo " Y\tN <br>";
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
+            public function retrieveallusersdisplay1($info){
+                
+                
+                $user = array();
+                $dummy = array();
+                // get the blogs from the database
+                $query = "select * from user";
+                $resultSet = $this->db->query($query);
+                
+                echo "Suspend users <br>";
+                echo " Y\tN <br>";
+                for($i=0;$i<$resultSet->rowCount();$i++){
+                
+        
                     $user = $resultSet->fetch();
-             
+            
 
                     $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
                     $dummy1= "b".$i;
 
-                  echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
-                  echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
-                   echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $dummy</a><br>";
-                   
-                   
 
+                    if ($user['suspend']){
+                    echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
+                    echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" >";
                     }
-           }
-           
-           
-           
-                     public function retrieveallusersdisplay1($info){
-               
-                    
-                    $user = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from user";
-                    $resultSet = $this->db->query($query);
-                    
-                    echo "Suspend users <br>";
-                    echo " Y\tN <br>";
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
-                     $user = $resultSet->fetch();
-             
-
-                     $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
-                     $dummy1= "b".$i;
-
- 
-                      if ($user['suspend']){
-                        echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
-                        echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" >";
-                      }
-                      else {
-                        echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
-                        echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";  
-                      }
-                      echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
-                   
-                   
-
+                    else {
+                    echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
+                    echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";  
                     }
-           }
+                    echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
+                    
+                    
+
+                        }
+            }
            
            
            
@@ -1834,28 +1888,53 @@ class DBManager{
             }
               
             
-            function deleteBloogs1(){
+ 
+
+
             
+            public function deleteBloogs1()
+            {
+                // Nothing selected: leave all posts untouched.
+                if (
+                    !isset($_POST['deletePosts']) ||
+                    !is_array($_POST['deletePosts'])
+                ) {
+                    return;
+                }
 
-            $query = "select * from post";
-            $resultSet = $this->db->query($query);                  
-           for($i=0;$i<$resultSet->rowCount();$i++){
-                 $post = $resultSet->fetch();
+                // Validate and collect positive integer IDs.
+                $postIds = [];
 
-                     if ($_POST['b'.$i] == "Y") {
+                foreach ($_POST['deletePosts'] as $submittedId) {
+                    $id = filter_var(
+                        $submittedId,
+                        FILTER_VALIDATE_INT,
+                        ['options' => ['min_range' => 1]]
+                    );
 
-                      $dummy1 = $post['id'];
-                      $query1 = "delete post from post where id = $dummy1";
-                      $resultSet1 = $this->db->query($query1);
-                     }
-                     else {
+                    if ($id !== false) {
+                        $postIds[] = $id;
+                    }
+                }
 
-                      }         
-                               
-                           
-                  }
+                // Remove duplicate IDs.
+                $postIds = array_unique($postIds);
+
+                if (empty($postIds)) {
+                    return;
+                }
+
+                // Use a prepared statement for safe deletion.
+                $statement = $this->db->prepare(
+                    "DELETE FROM post WHERE id = ?"
+                );
+
+                foreach ($postIds as $id) {
+                    $statement->execute([$id]);
+                }
             }
-            
+
+
             function deleteUsers(){
             
 

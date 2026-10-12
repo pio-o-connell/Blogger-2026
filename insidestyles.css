@@ -1,5 +1,7 @@
-/* Main page layout */
 
+/* =========================================================
+   Main page layout
+   ========================================================= */
 
 /* Shared centred white page */
 #main {
@@ -17,6 +19,11 @@
     overflow: auto;
 }
 
+/* View7: two equal-width content panels */
+#main.admin-view7 {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+}
 
 /* Shared page background */
 body {
@@ -28,107 +35,67 @@ body {
     line-height: 1.7;
 }
 
-/* Admin sidebar menu */
-/* #menu {
+
+/* =========================================================
+   Administrator navigation — View7
+   ========================================================= */
+
+#admin-menu.admin-navigation {
+    grid-column: 1 / -1;
+    grid-row: auto;
     width: 100%;
-    height: auto;
-    padding: 20px;
+    min-height: 58px;
+    padding: 14px 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 28px;
 
     border: none;
-    float: none;
+    border-bottom: 1px solid #e5e4dc;
     box-sizing: border-box;
+}
 
+/* Users and Log out grouped on the right */
+#admin-menu.admin-navigation .menu-account {
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-} */
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+}
 
-/* Admin menu buttons */
-/* #menu a {
-    display: block;
-    width: 50%;
-    padding: 12px 14px;
-    margin: 6px 0;
+/* Plain text links matching the homepage */
+#admin-menu.admin-navigation a {
+    display: inline-block;
+    width: auto;
+    padding: 9px 0;
+    margin: 0;
 
-    background: #386747;
-    color: #ffffff;
+    background: transparent;
+    color: #252923;
+    border-radius: 0;
 
-    border-radius: 5px;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
-
     font-size: 14px;
-    font-weight: 600;
+    font-weight: normal;
 
     box-sizing: border-box;
-    transition: background 0.2s ease;
-} */
-
-/* #menu a:hover {
-    background: #294d35;
-    color: #ffffff;
-    text-decoration: none;
-} */
-
-/* Administrator navigation — shared horizontal style */
-
-
-/* Administration sidebar */
-#admin-menu {
-    grid-column: 1;
-    grid-row: 3;
-
-    width: 100%;
-    height: auto;
-    padding: 20px;
-
-    border: none;
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
 }
 
-/* Group the account-management links vertically */
-#admin-menu .menu-account {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Administration buttons */
-#admin-menu a {
-    display: block;
-    width: 50%;
-    padding: 12px 14px;
-    margin: 6px 0;
-
-    background: #386747;
-    color: #ffffff;
-
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    box-sizing: border-box;
-    transition: background 0.2s ease;
-}
-
-/* Button hover */
-#admin-menu a:hover {
-    background: #294d35;
-    color: #ffffff;
-    text-decoration: none;
+#admin-menu.admin-navigation a:hover {
+    background: transparent;
+    color: #386747;
+    text-decoration: underline;
 }
 
 
-
+/* =========================================================
+   Standard navigation menu
+   ========================================================= */
 
 #menu {
     grid-column: 1 / -1;
@@ -173,7 +140,11 @@ body {
     text-decoration: underline;
 }
 
-/* Main content panel */
+
+/* =========================================================
+   Main content panels
+   ========================================================= */
+
 #content {
     float: none;
     width: 100%;
@@ -183,18 +154,12 @@ body {
     box-sizing: border-box;
 }
 
-/* Blogger list panel */
-/* #bloggerlist {
-    float: none;
-    width: 100%;
-    padding: 20px;
-
-    border: none;
-    box-sizing: border-box;
-
-    grid-column: 2;
-    grid-row: 3;
-} */
+/* View7: Manage blog posts — left panel */
+#main.admin-view7 #content {
+    grid-column: 1;
+    grid-row: auto;
+    min-width: 0;
+}
 
 #bloggerlist {
     float: none;
@@ -207,7 +172,18 @@ body {
     grid-column: 2;
 }
 
-/* Login and registration pages */
+/* View7: Recent blog posts — right panel */
+#main.admin-view7 #bloggerlist {
+    grid-column: 2;
+    grid-row: auto;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   Login and registration pages
+   ========================================================= */
+
 .auth-page {
     max-width: 520px;
     margin: 48px auto;
@@ -286,38 +262,10 @@ body {
     font-weight: 600;
 }
 
-/* Site logo */
-/* .site-logo img {
-    display: block;
-    width: 100px;
-    height: 100px;
 
-    object-fit: contain;
-    margin: 0 auto;
-} */
-
-/* Site tagline */
-/* .site-tagline {
-    color: #777b73;
-    margin: 10px 0 0;
-} */
-
-/* Shared centred header and divider */
-/* #header {
-    grid-column: 1 / -1;
-    text-align: center;
-
-    padding: 12px 0 24px;
-    margin-bottom: 12px;
-
-    border: none;
-    border-bottom: 1px solid #e5e4dc;
-} */
-
-/* Shared centred header and divider */
-
-
-/* Shared Blogger branding */
+/* =========================================================
+   Site logo and header
+   ========================================================= */
 
 .site-logo {
     display: block;
@@ -345,10 +293,6 @@ body {
     text-align: center;
 }
 
-
-
-
-
 #header {
     grid-column: 1 / -1;
     text-align: center;
@@ -359,8 +303,10 @@ body {
 }
 
 
+/* =========================================================
+   Blog deletion list
+   ========================================================= */
 
-/* Blog deletion list */
 .delete-blog-list {
     width: 100%;
     margin: 20px 0;
@@ -370,10 +316,10 @@ body {
     box-sizing: border-box;
 }
 
-/* Column headings */
+/* Column headings: blog post and delete checkbox */
 .delete-blog-heading {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 75px 75px;
+    grid-template-columns: minmax(0, 1fr) 75px;
     gap: 10px;
     align-items: center;
 
@@ -387,7 +333,7 @@ body {
 /* Each blog row */
 .delete-blog-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 75px 75px;
+    grid-template-columns: minmax(0, 1fr) 75px;
     gap: 10px;
     align-items: center;
 
@@ -418,14 +364,14 @@ body {
     text-decoration: underline;
 }
 
-/* Radio buttons */
+/* Delete checkboxes */
 .delete-blog-choice {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.delete-blog-choice input[type="radio"] {
+.delete-blog-choice input[type="checkbox"] {
     width: 17px;
     height: 17px;
     margin: 0;
@@ -445,35 +391,15 @@ body {
     border: 0;
 }
 
-/* Small screens */
-@media (max-width: 480px) {
-    .delete-blog-heading,
-    .delete-blog-row {
-        grid-template-columns: minmax(0, 1fr) 42px 42px;
-        gap: 6px;
-        padding: 12px 8px;
-    }
 
-    .delete-blog-heading {
-        font-size: 12px;
-    }
-
-    .delete-blog-title {
-        font-size: 13px;
-    }
-}
-
+/* =========================================================
+   Blog deletion headings and descriptions
+   ========================================================= */
 
 /* Centre the Manage blog posts heading */
 .admin-delete-page .page-heading {
     text-align: center;
 }
-
-/* .admin-delete-page .page-heading h1 {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-} */
 
 /* Consistent admin page headings */
 .admin-delete-page .page-heading h1,
@@ -519,27 +445,15 @@ body {
 }
 
 
-/* #bloggerlist .page-heading {
-    text-align: center;
-}
-
-#bloggerlist .page-heading h2 {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-} */
+/* =========================================================
+   Recent blog posts
+   ========================================================= */
 
 /* Recent blog posts — match the homepage styling */
 #bloggerlist > .page-heading {
     text-align: center;
     margin: 0 0 12px;
 }
-
-/* #bloggerlist > .page-heading h2 {
-    margin: 0 auto;
-    text-align: center;
-    color: #26382d;
-} */
 
 /* Introduction beneath the heading */
 #bloggerlist .blog-list-intro {
@@ -606,21 +520,23 @@ body {
 }
 
 
-/* Make Recent blog posts match Manage blog posts */
-/* #bloggerlist > .page-heading h2 {
-    font-family: inherit;
-    font-size: 2em;
-    font-weight: bold;
-    line-height: normal;
-    color: inherit;
-    margin: 0 auto;
-    text-align: center;
+/* =========================================================
+   Small screens
+   ========================================================= */
+
+@media (max-width: 480px) {
+    .delete-blog-heading,
+    .delete-blog-row {
+        grid-template-columns: minmax(0, 1fr) 42px;
+        gap: 6px;
+        padding: 12px 8px;
+    }
+
+    .delete-blog-heading {
+        font-size: 12px;
+    }
+
+    .delete-blog-title {
+        font-size: 13px;
+    }
 }
-
-#bloggerlist .blog-post h3 a {
-    color: #294d35; */
-/* } */
-
-/* #bloggerlist .blog-post h3 a:hover {
-    color: #386747;
-} */

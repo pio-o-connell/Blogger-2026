@@ -1,0 +1,257 @@
+#main {
+	width:800px;
+	margin:auto;
+	border:none;
+	overflow:auto;
+}
+
+
+
+#menu{
+	height:40px;
+	border:black solid 1px;
+                  text-align:right;
+                  float:left;
+  /*                width:100px;*/
+	
+}
+
+#bloggerlist{
+                float:left;
+                width:100px;
+                border:white solid 1px;
+}
+
+
+#content{
+	float:left;
+	width:576px;
+	border:white solid 1px;
+	padding:10px
+       
+}
+
+
+/* Login and registration pages */
+
+.auth-page {
+    max-width: 520px;
+    margin: 48px auto;
+    padding: 0 20px;
+}
+
+.auth-panel {
+    padding: 36px;
+    background: #fff;
+    border: 1px solid #e5e7e5;
+    border-radius: 8px;
+}
+
+.auth-panel h1 {
+    margin-top: 0;
+    color: #26382d;
+}
+
+.auth-intro {
+    color: #68736b;
+    margin-bottom: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd4ce;
+    border-radius: 5px;
+    font: inherit;
+}
+
+.form-group input:focus {
+    outline: 2px solid #4caf50;
+    outline-offset: 1px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-button:hover {
+    background: #244f33;
+}
+
+.auth-footer {
+    margin: 24px 0 0;
+    color: #68736b;
+}
+
+.auth-footer a {
+    color: #2f6542;
+    font-weight: 600;
+}
+
+
+.site-logo img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+
+
+/* Admin sidebar menu */
+#menu {
+    float: left;
+    width: 180px;
+    height: auto;
+ /*   padding: 20px 12px;*/
+    padding: 60px 12px 20px;
+    border: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+/* Admin menu buttons */
+#menu a {
+    display: block;
+    width: 50%;
+    padding: 12px 14px;
+    margin: 6px 0;
+    background: #386747;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    box-sizing: border-box;
+    transition: background 0.2s ease;
+}
+
+#menu a:hover {
+    background: #294d35;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Two-column admin layout */
+#main {
+    width: min(1100px, calc(100% - 40px));
+    margin: 30px auto;
+    padding: 0 24px;
+    border: none;
+    overflow: auto;
+}
+
+/* Left panel: one-third */
+#menu {
+    float: left;
+    width: 15%;
+    height: auto;
+    padding: 20px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+/* Right panel: two-thirds */
+#content,
+#bloggerlist {
+    float: right;
+    width: 85%;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
+}
+
+
+/* Align the left menu and right content at the top */
+#main {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    align-items: start;
+}
+
+
+
+#menu {
+    float: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#content,
+#bloggerlist {
+    float: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#bloggerlist {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+
+
+/* Shared Blogger look: warm background and white page */
+body {
+    margin: 0;
+    background: #f5f4ef;
+    color: #252923;
+    font-family: Arial, sans-serif;
+}
+
+/* White page surface */
+#main {
+    width: min(1100px, calc(100% - 40px));
+    margin: 30px auto;
+    padding: 24px;
+    background: #ffffff;
+    border: none;
+    box-sizing: border-box;
+}
+
+
+
+/* Same centred logo as the homepage */
+
+.site-tagline {
+    color: #777b73;
+    margin: 10px 0 0;
+}
+
+/* Shared centred header and divider */
+#header {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 12px 0 24px;
+    margin-bottom: 12px;
+    border: none;
+    border-bottom: 1px solid #e5e4dc;
+}
