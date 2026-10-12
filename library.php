@@ -1,118 +1,29 @@
 <?php
 
 
-
-
-
-// abstract class OutsideView{
-        
-
-//     //     function top(){
-            
-            
-//     //         echo "
-            
-//     //         <html>
-
-//     //         <head>
-
-// 	// <link rel=\"stylesheet\" href=\"mystyles.css\">
-//     //         </head>
-
-//     //         <body>
-
-// 	// <div id=\"main\">
-// 	// 	<div id=\"header\">
-// 	// 		<h1>Header</h1>
-// 	// 	</div>
-            
-//     //         ";
-            
-//     //     }
-        
-//         public function top() {
-//             echo "
-//                 <header id=\"header\">
-//                     <a class=\"site-logo\" href=\"controller.php\">
-//                         <img src=\"icon.jpeg\" alt=\"Blogger logo\">
-//                     </a>
-//                     <p class=\"site-tagline\">Ideas worth sharing.</p>
-//                 </header>
-//             ";
-//         }
-
-
-
-//        public function menu(){
-//             echo "
-//                  <div id=\"menu\">
-//                 <a href=\"controller.php?cmd=login\">Login</a> &nbsp;                
-//                        <a href=\"controller.php?cmd=register\">Register</a>
-//             </div>
-
-
-//             ";
-            
-            
-//         }
-        
-//        public function bloggerList(){
-//             echo "
-//                  <div id=\"bloggerlist\">
-//                     <h3> blogger list </h3>";
-                 
-//                    $DBM = new DBManager();
-//                    $DBM->retrieveallblogsanddisplay();  
-            
-//             echo "</div>"
-//             ;
-           
-           
-//        }
-        
-//         function bottom(){
-//             echo "
-//             </div>
-
-//             </body>
-//             </html>        
-//             ";
-//         }
-        
-       
-
- 
-    
-        
-
-        
-//     }
-
-
-
-
 abstract class OutsideView {
 
     public function top() {
-        echo "
-        <!DOCTYPE html>
-        <html lang=\"en\">
-        <head>
-            <meta charset=\"UTF-8\">
-            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-            <title>Blogger | Ideas worth sharing</title>
-            <link rel=\"stylesheet\" href=\"myStyles.css\">
-        </head>
+    echo "
+    <!DOCTYPE html>
+    <html lang=\"en\">
+    <head>
+        <meta charset=\"UTF-8\">
+        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+        <title>Blogger | Ideas worth sharing</title>
+        <link rel=\"stylesheet\" href=\"myStyles.css\">
+    </head>
 
-        <body>
-            <div id=\"main\">
+    <body>
+        <div id=\"main\">
 
-                <header id=\"header\">
-                    <a class=\"site-logo\" href=\"controller.php\">
-                        <img src=\"icon.jpg\" alt=\"Blogger logo\">
-                    </a>
-                    <p class=\"site-tagline\">Ideas worth sharing.</p>
-                </header>
+            <header id=\"header\">
+                <a class=\"site-logo\" href=\"controller.php\">
+                    <img src=\"icon.jpg\" alt=\"Blogger logo\">
+                </a>
+                <p class=\"site-tagline\">Ideas worth sharing.</p>
+            </header>
+
         ";
     }
 
@@ -164,446 +75,233 @@ abstract class OutsideView {
             $this->top();
             $this->menu();
             $this->content($info);
-            $this->bloggerList();
-            
- 
-          
-            
-            
-            $this->bottom();
-
-            
+            $this->bloggerList();       
+            $this->bottom();           
         }
+    
+        public function top() {
+                echo "
+                <!DOCTYPE html>
+                <html lang=\"en\">
+                <head>
+                    <meta charset=\"UTF-8\">
+                    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+                    <title>Blogger | Ideas worth sharing</title>
+                    <link rel=\"stylesheet\" href=\"insidestyles.css\">
+                </head>
+                <body>
+                    <div id=\"main\">
+                        <header id=\"header\">
+                            <a class=\"site-logo\" href=\"controller.php\">
+                                <img src=\"icon.jpg\" alt=\"Blogger logo\">
+                            </a>
+                            <p class=\"site-tagline\">Ideas worth sharing.</p>
+                        </header>
+                ";
+            }    
+
+        
+            public function menu() {
+                echo "
+                    <div id=\"menu\"></div>
+                ";
+            }         
         
 
-        public function content($info){
+            public function content($info){
 
-            echo " 
+                echo " 
 
-                <div id=\"content\">
-                            <h1> Add a post!!</h1>
-                            <FORM METHOD=\"post\" ACTION=\"controller.php\">
+                    <div id=\"content\">
+                                <h1> Add a post!!</h1>
+                                <FORM METHOD=\"post\" ACTION=\"controller.php\">
 
-                            
-                                    <input type=\"hidden\" name=\"cmd\" value=\"addPost\">
-                                // <textarea>
-                                <textarea name=\"textarea\" ROWS=6 COLS=50>
-                                    Add post here!
-                                    </textarea>
+                                
+                                        <input type=\"hidden\" name=\"cmd\" value=\"addPost\">
+                                    // <textarea>
+                                    <textarea name=\"textarea\" ROWS=6 COLS=50>
+                                        Add post here!
+                                        </textarea>
 
-                                        
-                    
-                            <input type=\"submit\" value=\"addPost\">
-                        </FORM>
+                                            
                         
+                                <input type=\"submit\" value=\"addPost\">
+                            </FORM>
                             
-                        </div>
-                        ";
-            
-                    }
-
-    
-    
-    //  function top(){
-            
-            
-    //         echo "
-            
-    //         <html>
-
-    //         <head>
-
-	// <link rel=\"stylesheet\" href=\"insidestyles.css\">
-    //         </head>
-
-    //         <body>
-
-	// <div id=\"main\">
-	// 	<div id=\"header\">
-	// 		<h1>Header</h1>
-	// 	</div>
-            
-    //         ";
-            
-    //     }
-
- 
-    public function top() {
-        echo "
-        <!DOCTYPE html>
-        <html lang=\"en\">
-        <head>
-            <meta charset=\"UTF-8\">
-            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-            <title>Blogger | Ideas worth sharing</title>
-            <link rel=\"stylesheet\" href=\"insidestyles.css\">
-        </head>
-        <body>
-            <div id=\"main\">
-                <header id=\"header\">
-                    <a class=\"site-logo\" href=\"controller.php\">
-                        <img src=\"icon.jpg\" alt=\"Blogger logo\">
-                    </a>
-                    <p class=\"site-tagline\">Ideas worth sharing.</p>
-                </header>
-        ";
-    }
+                                
+                            </div>
+                            ";       
+                        }
 
         
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=login\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=register\">Delete</a><br>
-                       <a href=\"controller.php?cmd=register\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
-        
-       public function bloggerList(){
-           
-           
-            echo "
-                 <div id=\"bloggerlist\">               
-                    <h3> blogger list </h3>";
-          //echo "in bloggerlist";
-           // $DBM = new DBManager();
-          //  $DBM->retrieveblogs();
- // get the blogs from the database
- /*               $query = "select * from post";
-                $resultSet = $this->db->query($query);
-               
-    
-                for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-                    echo " here at least";
-                    $blogger = $resultSet->fetch();
-                    
-                    echo "<a href=\"controller.php?cmd=openblog\"> blogger['bloggerid']</a><br>";
-                    
-         //           if ($username == $blogger['username']){
-                       
-                  }
-*/
+            public function bloggerList()
+            {
 
                 
-            echo "</div>";
-
-           
-           
-       }
+                    echo "
+                        <div id=\"bloggerlist\">               
+                            <h3> blogger list </h3>";
         
-        function bottom(){
-            echo "
-            </div>
+                    echo "</div>";               
+            }
+        
+            public function bottom(){
+                echo "
+                </div>
 
-            </body>
-            </html>        
-            ";
-        }   
-    
-    
+                </body>
+                </html>        
+                ";
+            }       
 }    
     
 
 // splash screen view
-class View1 extends OutsideView{
+    class View1 extends OutsideView{
+            
         
+            public function __construct(){
+                $this->top();
+                $this->menu();
+                $this->bloggerList();
+                
     
-        public function __construct(){
+                $this->content();
+                
+                
+                $this->bottom();
+
+                
+            }
+        
+            public function content() {
+
+                echo "
+                    <section id=\"content\">
+
+                        <p class=\"post-meta\">WELCOME TO BLOGGER</p>
+
+                        <h1>Ideas worth sharing.</h1>
+
+                        <p>
+                            A place to share your thoughts, experiences and ideas
+                            with the world.
+                        </p>
+
+                        <p>
+                            Discover posts from our community, explore different
+                            perspectives, and find something interesting to read.
+                        </p>
+
+                        <div class=\"welcome-actions\">
+                            <a class=\"read-more\" href=\"controller.php?cmd=register\">
+                                Start your own blog &rarr;
+                            </a>
+
+                            <a class=\"read-more\" href=\"controller.php?cmd=login\">
+                                Sign in &rarr;
+                            </a>
+                        </div>
+
+                    </section>
+                ";
+
+            }
+
+            public function bloggerList() {
+
+                echo "
+                    <aside id=\"bloggerlist\">
+                        <h2>Explore our blogs</h2>
+                        <p class=\"blog-list-intro\">
+                            Meet our writers and discover their latest posts.
+                        </p>
+                ";
+
+                $DBM = new DBManager();
+                $DBM->retrieveallblogsanddisplay();
+
+                echo "
+                    </aside>
+                ";
+            }
+
+            
+        }
+
+
+
+    class View2 extends OutsideView
+    {
+        public function __construct()
+        {
             $this->top();
             $this->menu();
-            $this->bloggerList();
-            
- 
             $this->content();
-            
-            
             $this->bottom();
-
-            
-        }
-        
-
-        // public function content(){
-
-        //     echo "
-
-        //     <div id=\"content\">
-        //                 <h1> Welcome to blogger.com </h1>
-                        
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-        //                 blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  blah blah  
-                        
-        //             </div>
-        //             ";
-        
-        // }
-        public function content() {
-
-            echo "
-                <section id=\"content\">
-
-                    <p class=\"post-meta\">WELCOME TO BLOGGER</p>
-
-                    <h1>Ideas worth sharing.</h1>
-
-                    <p>
-                        A place to share your thoughts, experiences and ideas
-                        with the world.
-                    </p>
-
-                    <p>
-                        Discover posts from our community, explore different
-                        perspectives, and find something interesting to read.
-                    </p>
-
-                    <div class=\"welcome-actions\">
-                        <a class=\"read-more\" href=\"controller.php?cmd=register\">
-                            Start your own blog &rarr;
-                        </a>
-
-                        <a class=\"read-more\" href=\"controller.php?cmd=login\">
-                            Sign in &rarr;
-                        </a>
-                    </div>
-
-                </section>
-            ";
-
         }
 
-        // public function bloggerList(){
-           
-        //     echo "
-        //          <div id=\"bloggerlist\">
-        //             <h3> blogger list </h3>";
-                    
-        //   //        echo"  in blofferlist";
-        //           $DBM = new DBManager();
-        //           $DBM->outerretrieveallblogsanddisplay();
-        //     echo "</div>
-        //     ";
-        // }
-        public function bloggerList() {
+        public function content()
+        {
+            echo '
+                <main id="content" class="auth-page">
+                    <section class="auth-panel">
 
-            echo "
-                <aside id=\"bloggerlist\">
-                    <h2>Explore our blogs</h2>
-                    <p class=\"blog-list-intro\">
-                        Meet our writers and discover their latest posts.
-                    </p>
-            ";
+                        <p class="auth-eyebrow">BLOGGER.COM</p>
 
-            $DBM = new DBManager();
-            $DBM->retrieveallblogsanddisplay();
+                        <h1>Welcome back</h1>
 
-            echo "
-                </aside>
-            ";
+                        <p class="auth-intro">
+                            Log in to your account to continue reading
+                            and sharing your thoughts.
+                        </p>
+
+                        <form method="post" action="controller.php">
+                            <input type="hidden"
+                                name="cmd"
+                                value="loginRequest">
+
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    autocomplete="username"
+                                    placeholder="Enter your username"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    autocomplete="current-password"
+                                    placeholder="Enter your password"
+                                    required
+                                >
+                            </div>
+
+                            <button type="submit" class="auth-button">
+                                Log in
+                            </button>
+                        </form>
+
+                        <p class="auth-footer">
+                            New to Blogger?
+                            <a href="controller.php?cmd=register">
+                                Create an account
+                            </a>
+                        </p>
+
+                    </section>
+                </main>
+            ';
         }
-
-        
     }
-// // login view    
-// class View2 extends OutsideView{
-        
-    
-//         public function __construct(){
-//             $this->top();
-//             $this->menu();
-//             $this->bloggerList();
-            
- 
-//             $this->content();
-            
-            
-//             $this->bottom();
-
-            
-//         }
-        
-
-//         public function content(){
-
-//             echo "
-
-// 	<div id=\"content\">
-//                   <h1> login </h1>
-//                    <FORM METHOD=\"post\" ACTION=\"controller.php\">
-
-                 
-//                         <input type=\"hidden\" name=\"cmd\" value=\"loginRequest\">
-                
-//                 Username: <input type=\"text\" name=\"username\"> <br>
-//                 Password: <input type=\"password\" name=\"password\"> <br>
-//                 <input type=\"submit\"\ value=\"loginRequest\">
-//             </FORM>
-
-                
-//             </div>
-//             ";
-  
-//         }
-        
-//         public function bloggerList(){
-           
-//             echo "
-//                  <div id=\"bloggerlist\">
-//                     <h3> blogger list </h3>";
-                    
-//           //        echo"  in blofferlist";
-//                   $DBM = new DBManager();
-//                   $DBM->outerretrieveallblogsanddisplay();
-//             echo "</div>
-//             ";
-//         }
-    
-        
-
-        
-//     }
-
-// Login view
-// class View2 extends OutsideView
-// {
-//     public function __construct()
-//     {
-//         $this->top();
-//         $this->menu();
-//         $this->content();
-//         $this->bottom();
-//     }
-
-//     public function content()
-//     {
-//         echo '
-//             <main id="content" class="auth-page">
-//                 <section class="auth-panel">
-//                     <h1>Welcome back</h1>
-//                     <p class="auth-intro">Log in to your Blogger account.</p>
-
-//                     <form method="post" action="controller.php">
-//                         <input type="hidden" name="cmd" value="loginRequest">
-
-//                         <div class="form-group">
-//                             <label for="username">Username</label>
-//                             <input
-//                                 type="text"
-//                                 id="username"
-//                                 name="username"
-//                                 autocomplete="username"
-//                                 required
-//                             >
-//                         </div>
-
-//                         <div class="form-group">
-//                             <label for="password">Password</label>
-//                             <input
-//                                 type="password"
-//                                 id="password"
-//                                 name="password"
-//                                 autocomplete="current-password"
-//                                 required
-//                             >
-//                         </div>
-
-//                         <button type="submit" class="auth-button">Log in</button>
-//                     </form>
-
-//                     <p class="auth-footer">
-//                         New to Blogger?
-//                         <a href="controller.php?cmd=register">Create an account</a>
-//                     </p>
-//                 </section>
-//             </main>
-//         ';
-//     }
-// }
-
-
-class View2 extends OutsideView
-{
-    public function __construct()
-    {
-        $this->top();
-        $this->menu();
-        $this->content();
-        $this->bottom();
-    }
-
-    public function content()
-    {
-        echo '
-            <main id="content" class="auth-page">
-                <section class="auth-panel">
-
-                    <p class="auth-eyebrow">BLOGGER.COM</p>
-
-                    <h1>Welcome back</h1>
-
-                    <p class="auth-intro">
-                        Log in to your account to continue reading
-                        and sharing your thoughts.
-                    </p>
-
-                    <form method="post" action="controller.php">
-                        <input type="hidden"
-                               name="cmd"
-                               value="loginRequest">
-
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                autocomplete="username"
-                                placeholder="Enter your username"
-                                required
-                            >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                autocomplete="current-password"
-                                placeholder="Enter your password"
-                                required
-                            >
-                        </div>
-
-                        <button type="submit" class="auth-button">
-                            Log in
-                        </button>
-                    </form>
-
-                    <p class="auth-footer">
-                        New to Blogger?
-                        <a href="controller.php?cmd=register">
-                            Create an account
-                        </a>
-                    </p>
-
-                </section>
-            </main>
-        ';
-    }
-}
 
 
 
@@ -625,190 +323,73 @@ class View3 extends OutsideView {
             
         }
         
-       public function content($info){
+    public function content($info){
 
-        /*   echo " 
-
-	<div id=\"content\">
-                  <h1> Welcome Guest  </h1>
-                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                    <input type=\"hidden\" name=\"cmd\" value=\"10\">
-                    <input type=\"hidden\" name=\"id\" value=\"{$info['id']}\">
-                    <input type=\"hidden\" name=\"blogtitle\" > "; */
+                    $DBM = new DBManager();           
+                    $data = $DBM->displayPreviousBlogs($info);
                     
-            /*     echo " <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                                                                   </textarea>
-                    <input type=\"submit\" value=\"send data\">";*/
-                     $DBM = new DBManager();
+    }
+       
+    public function bloggerList(){
+        
+        echo "
+                <div id=\"bloggerlist\">
+                <h3> blogger list </h3>";
                 
-                     $data = $DBM->displayPreviousBlogs($info);
-                    
-                    
-      /*      echo "</FORM>  
-                       
-              
-                
-           </div>
-            ";*/
-           
-                    
-
-
-             
-  
-        }
-
+        //        echo"  in blofferlist";
+                $DBM = new DBManager();
+                $DBM->outerretrieveallblogsanddisplay();
+        echo "</div>
+        ";
+    }
     
-    
-     function top(){
-            
-            
-            echo "
-            
-            <html>
+    function bottom(){
+        echo "
+        </div>
 
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=delete\">Delete</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
-        
-       public function bloggerList(){
-           
-            echo "
-                 <div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
-                    
-          //        echo"  in blofferlist";
-                  $DBM = new DBManager();
-                  $DBM->outerretrieveallblogsanddisplay();
-            echo "</div>
-            ";
-        }
-        
-        function bottom(){
-            echo "
-            </div>
-
-            </body>
-            </html>        
-            ";
-        }    
+        </body>
+        </html>        
+        ";
+    }    
 }  
 
 class View31 extends OutsideView {
     public function __construct($info){
             $this->top();
             $this->menu();
-        //    $this->bloggerList();
-            
- 
-            
            $this->bloggerList();
             $this->content($info);
-        //    $this->bloggerList();
-            $this->bottom();
-
-            
+            $this->bottom();           
         }
         
        public function content($info){
 
            echo " 
 
-	<div id=\"content\">
-                  <h1> Welcome Guest  </h1>
-                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                    <input type=\"hidden\" name=\"cmd\" value=\"addPost1\">
-                    <input type=\"hidden\" name=\"id\" value=\"{$info['id']}\">
-                    <input type=\"hidden\" name=\"blogtitle\" > "; 
+            <div id=\"content\">
+                        <h1> Welcome Guest  </h1>
+                        <FORM METHOD=\"post\" ACTION=\"controller.php\">
+                            <input type=\"hidden\" name=\"cmd\" value=\"addPost1\">
+                            <input type=\"hidden\" name=\"id\" value=\"{$info['id']}\">
+                            <input type=\"hidden\" name=\"blogtitle\" > "; 
+                            
+                        echo " <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
+                                                                        </textarea>
+                            <input type=\"submit\" value=\"send data\">";
+                            $DBM = new DBManager();
+                        
+                            $data = $DBM->displayPreviousBlogs1($info);
+                            
+                            
+                    echo "</FORM>  
+                            
                     
-                echo " <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                                                                   </textarea>
-                    <input type=\"submit\" value=\"send data\">";
-                     $DBM = new DBManager();
-                
-                     $data = $DBM->displayPreviousBlogs1($info);
-                    
-                    
-            echo "</FORM>  
-                       
-              
-                
-           </div>
-            ";
+                        
+                </div>
+                    ";
            
-                    
-
-
-             
-  
         }
 
-    
-    
-     function top(){
-            
-            
-            echo "
-            
-            <html>
-
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=delete\">Delete</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
         
        public function bloggerList(){
            
@@ -823,7 +404,7 @@ class View31 extends OutsideView {
             ";
         }
         
-        function bottom(){
+        public function bottom(){
             echo "
             </div>
 
@@ -901,227 +482,7 @@ class ViewSinglePost extends OutsideView
 
 
 
-/*class View31 extends OutsideView {
-    public function __construct($info){
-            $this->top();
-         //
-           $this->menu();
-        //    $this->bloggerList();
-            
- 
-            
-            
-            $this->content($info);
-            $this->bloggerList();
-            
-            $this->bottom();
 
-            
-        }
-        
-   /*    public function content($info){
-
-           echo " 
-
-	<div id=\"content\">
-                  <h1> Welcome  to blooger#{$info['id']} 's blogs </h1>
-                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                    <input type=\"hidden\" name=\"cmd\" value=\"addPost\">
-                    <input type=\"hidden\" name=\"id\" value=\"{$info['id']}\">
-                    <input type=\"hidden\" name=\"blogtitle\" >";
-                    
-                       <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                        </textarea>
-                    <input type=\"submit\" value=\"send data\">";
-            
-                    $DBM = new DBManager();
-                
-                     $data = $DBM->displayPreviousBlogs($info);
-
-
-
-echo"
-
-</FORM>
-               
-                
-            </div>
-            ";
-  
-        }
-     public function content($info){
-
-          echo " 
-
-	<div id=\"content\">
-                  <h1> Welcome Guest  </h1>
-                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                    <input type=\"hidden\" name=\"cmd\" value=\"10\">
-                    <input type=\"hidden\" name=\"id\" value=\"{$info['id']}\">
-                    <input type=\"hidden\" name=\"blogtitle\" > "; 
-                    
-                 echo " <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                                                                   </textarea>
-                    <input type=\"submit\" value=\"send data\">";
-                     $DBM = new DBManager();
-                
-                     $data = $DBM->displayPreviousBlogs($info);
-                    
-                    
-           echo "</FORM>  
-                       
-              
-                
-           </div>
-            ";
-           
-                    
-
-
-             
-  
-        }
-    
-    
-     function top(){
-            
-            
-            echo "
-            
-            <html>
-
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=delete\">Delete</a><br>
-                       <a href=\"controller.php?cmd=logout\">Back</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
-        
-       public function bloggerList(){
-           
-            echo "
-                 <div id=\"bloggerlist\">
-                    <h3> blogger list </h3>";
-                    
-          //        echo"  in blofferlist";
-                  $DBM = new DBManager();
-                  $DBM->retrieveallblogsanddisplay();
-            echo "</div>
-            ";
-
-           
-           
-       }
-        
-        function bottom(){
-            echo "
-            </div>
-
-            </body>
-            </html>        
-            ";
-        }    
-}     */  
-// register view   
-
-
-// class View4 extends OutsideView{
-        
-    
-//         public function __construct(){
-//             $this->top();
-//             $this->menu();
-//             $this->bloggerList();
-            
- 
-//             $this->content();
-            
-            
-//             $this->bottom();
-
-            
-//         }
-        
-
-//         public function content(){
-
-//             echo "
-
-// 	<div id=\"content\">
-//                   <h1> Register </h1>
-//                     <form action=\"controller.php\" method=\"post\">
-//                 <input type=\"hidden\" name=\"cmd\" value=\"addBlogger\">
-//                 <table>
-//                     <tr>
-//                         <td>username:</td>
-//                         <td><input type=\"text\" name=\"username\"> </td>
-
-//                     </tr>
-//                     <tr>
-//                         <td>password:</td>
-//                         <td><input type=\"password\" name=\"password\"></td>
-//                     </tr>
-//                     <tr>
-//                         <td>e-mail address:</td>
-//                         <td><input type=\"email\" name=\"email\"></td>
-//                     </tr>
-//                     <tr>
-//                         <td>Blog title:</td>
-//                         <td><input type=\"text\" name=\"blogtitle\"></td>
-//                     </tr>
-//                     <tr>
-//                         <td><input type=\"submit\" value=\"Add User\"></td>
-//                         <td></td>
-
-//                     </tr> 
-                    
-                
-//             </div>
-//             </form>
-//             ";
-  
-//         }
-
-//            public function bloggerList(){
-           
-//             echo "
-//                  <div id=\"bloggerlist\">
-//                     <h3> blogger list </h3>";
-                    
-//           //        echo"  in blofferlist";
-//                   $DBM = new DBManager();
-//                   $DBM->outerretrieveallblogsanddisplay();
-//             echo "</div>
-//             ";
-//         }
-        
-
-        
-//     }  
 
 // Registration view
 class View4 extends OutsideView
@@ -1249,43 +610,7 @@ class View5 extends InsideView {
 
     
     
-     function top(){
-            
-            
-            echo "
-            
-            <html>
-
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=deleteBlogs\">Delete</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
+  
         
        public function bloggerList(){
            
@@ -1359,45 +684,6 @@ class View51 extends InsideView {
         }
 
     
-    
-     function top(){
-            
-            
-            echo "
-            
-            <html>
-
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=deleteBlogs\">Delete</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
-        
        public function bloggerList(){
            
             echo "
@@ -1456,11 +742,7 @@ class View6 extends InsideView {
            $DBM->retrieveuserblogsanddisplay($info);
            
            if ($info['reset'] != 0)
-           {/*echo "</tr>
-                    
-                       <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                        </textarea>" ; */
-           //    echo "here".$info['bloggerid'];
+           {
                $DBM = new DBManager();
                $DBM->retrievebody($info);
                     
@@ -1479,43 +761,7 @@ class View6 extends InsideView {
 
     
     
-     function top(){
-            
-            
-            echo "
-            
-            <html>
-
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=deleteBlogs\">Delete</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
+    
         
        public function bloggerList(){
            
@@ -1543,123 +789,9 @@ class View6 extends InsideView {
         }    
 }
 
-// class View7 extends InsideView {
-//     public function __construct($info){
-//             $this->top();
-//             $this->menu();
-//         //    $this->bloggerList();
-            
- 
-//             $this->content($info);
-//             $this->bloggerList();
-            
-//             $this->bottom();
-
-            
-//         }
-        
-//        public function content($info){
-
-//             echo " 
-
-// 	<div id=\"content\">
-//                   <h1> Administrator  -Delete Blogs</h1>
-//                   <FORM METHOD=\"post\" ACTION=\"controller.php\">
-//                     <input type=\"hidden\" name=\"cmd\" value=\"delete2\">
-                   
-//                     <input type=\"hidden\" name=\"blogtitle\" value=>";
-//               $DBM = new DBManager();
-//               $DBM->retrieveallblogsanddisplay1($info);
-              
-//               if ($info['reset'] != 0)
-//            {/*echo "</tr>
-                    
-//                        <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-//                         </textarea>" ; */
-//            //    echo "here".$info['bloggerid'];
-//                $DBM = new DBManager();
-//                $DBM->retrievebody($info);
-                    
-//            }             
-//                echo"     <input type=\"submit\" value=\"send data\">
-                    
-//             </FORM>
-//            ";
-            
-//            echo "</div>";
-            
-            
-  
-//         }
-
-    
-    
-//      function top(){
-            
-            
-//             echo "
-            
-//             <html>
-
-//             <head>
-
-// 	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-//             </head>
-
-//             <body>
-
-// 	<div id=\"main\">
-// 		<div id=\"header\">
-// 			<h1>Blogger.com</h1>
-// 		</div>
-            
-//             ";
-            
-//         }
-        
-//        public function menu(){
-//             echo "
-//                  <div id=\"menu\">             
-//                        <a href=\"controller.php?cmd=deleteUsers\">Delete <br> Users</a><br>
-//                        <a href=\"controller.php?cmd=suspendUsers\">Suspend<br> Users</a><br>
-//                        <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-//             </div>
 
 
-//             ";
-            
-            
-//         }
-        
-//        public function bloggerList(){
-           
-//             echo "<div id=\"bloggerlist\">
-//                     <h3> blogger list </h3>";
-                    
-//           //        echo"  in blofferlist";
-//                   $DBM = new DBManager();
-//                   $DBM->retrieveallblogsanddisplay();
-//             echo "</div>
-                
-//             ";
-
-           
-           
-//        }
-        
-//         function bottom(){
-//             echo "
-//             </div>
-
-//             </body>
-//             </html>        
-//             ";
-//         }    
-// }
-
-
-
+/*
 class View7 extends InsideView
 {
     public function __construct($info)
@@ -1669,6 +801,29 @@ class View7 extends InsideView
         $this->content($info);
         $this->bloggerList();
         $this->bottom();
+    }
+
+    public function menu()
+    {
+        echo '
+            <nav id="menu" aria-label="Administration navigation">
+
+                <div class="menu-account">
+                    <a href="controller.php?cmd=deleteUsers">
+                        Delete users
+                    </a>
+
+                    <a href="controller.php?cmd=suspendUsers">
+                        Suspend users
+                    </a>
+                </div>
+
+                <a href="controller.php?cmd=logout">
+                    Log out
+                </a>
+
+            </nav>
+        ';
     }
 
     public function content($info)
@@ -1729,36 +884,188 @@ class View7 extends InsideView
             </main>
         ';
     }
+    
 
-    // public function top()
-    // {
-    //     echo '
-    //         <html lang="en">
-    //         <head>
-    //             <meta charset="UTF-8">
-    //             <meta name="viewport"
-    //                   content="width=device-width, initial-scale=1">
-    //             <title>Blogger — Administration</title>
-    //             <link rel="stylesheet" href="insidestyles.css">
-    //         </head>
-    //         <body>
 
-    //         <div id="main">
-
-    //             <div id="header">
-    //                 <h1 class="site-logo">Blogger<span>.</span>com</h1>
-    //                 <p class="site-tagline">
-    //                     Your space to write and share
-    //                 </p>
-    //             </div>
-    //     ';
-    // }
-
-    public function menu()
+    public function bloggerList()
     {
         echo '
-            <nav id="menu" aria-label="Administration navigation">
+            <section id="bloggerlist">
+                <h2>Recent blog posts</h2>
+                <p class="blog-list-intro">
+                    Browse posts published by Blogger users.
+                </p>
+        ';
 
+        $DBM = new DBManager();
+        $DBM->retrieveallblogsanddisplay();
+
+        echo '
+            </section>
+        ';
+    }
+
+    public function bottom()
+    {
+        echo '
+            </div>
+            </body>
+            </html>
+        ';
+    }
+}*/
+
+
+// class View7 extends InsideView
+// {
+//     public function __construct($info)
+//     {
+//         $this->top();
+//         $this->menu();
+//         $this->content($info);
+//         $this->bloggerList($info);
+//         $this->recentPosts();
+//         $this->bottom();
+//     }
+
+//     // 1. Empty menu space inherited from InsideView.
+//     // Keeps the existing menu divider styling.
+//     public function menu()
+//     {
+//         parent::menu();
+//     }
+
+//     // 2. Administration navigation.
+//     public function content($info)
+//     {
+//         echo '
+//             <nav id="menu" aria-label="Administration navigation">
+
+//                 <div class="menu-account">
+//                     <a href="controller.php?cmd=deleteUsers">
+//                         Delete users
+//                     </a>
+
+//                     <a href="controller.php?cmd=suspendUsers">
+//                         Suspend users
+//                     </a>
+//                 </div>
+
+//                 <a href="controller.php?cmd=logout">
+//                     Log out
+//                 </a>
+
+//             </nav>
+//         ';
+
+//         // 3. Manage blog posts form.
+//         echo '
+//             <main id="content" class="admin-delete-page">
+
+//                 <header class="page-heading">
+//                     <h1>Manage blog posts</h1>
+//                 </header>
+
+//                 <section class="admin-delete-panel">
+
+//                     <form method="post" action="controller.php">
+
+//                         <input type="hidden" name="cmd" value="delete2">
+//                         <input type="hidden" name="blogtitle" value="">
+
+//                         <div class="admin-delete-options">
+//         ';
+
+//         $DBM = new DBManager();
+//         $DBM->retrieveallblogsanddisplay1($info);
+
+//         if (isset($info['reset']) && $info['reset'] != 0) {
+//             $DBM = new DBManager();
+//             $DBM->retrievebody($info);
+//         }
+
+//         echo '
+//                         </div>
+
+//                         <div class="admin-form-actions">
+//                             <p>
+//                                 Posts marked Delete will be submitted
+//                                 for removal.
+//                             </p>
+
+//                             <button type="submit" class="auth-button">
+//                                 Submit changes
+//                             </button>
+//                         </div>
+
+//                     </form>
+
+//                 </section>
+
+//             </main>
+//         ';
+//     }
+
+//     // 4. Separate recent blog posts section.
+//     public function bloggerList($info = null)
+//     {
+//         // No output here; retained for compatibility if needed.
+//     }
+
+//     public function recentPosts()
+//     {
+//         echo '
+//             <section id="bloggerlist">
+
+//                 <h2>Recent blog posts</h2>
+
+//                 <p class="blog-list-intro">
+//                     Browse posts published by Blogger users.
+//                 </p>
+//         ';
+
+//         $DBM = new DBManager();
+//         $DBM->retrieveallblogsanddisplay();
+
+//         echo '
+//             </section>
+//         ';
+//     }
+
+//     // 5. Close the page.
+//     public function bottom()
+//     {
+//         echo '
+//             </div>
+//             </body>
+//             </html>
+//         ';
+//     }
+// }
+
+class View7 extends InsideView
+{
+    public function __construct($info)
+    {
+        $this->top();
+        $this->menu();
+        $this->adminMenu();     // Left panel
+        $this->content($info);  // Right panel: Manage blog posts
+        $this->recentPosts();   // Right panel: Recent blog posts
+        $this->bottom();
+    }   
+
+    // Empty menu space with existing divider styling
+    public function menu()
+    {
+        parent::menu();
+    }
+
+    // 1. Left panel: administration navigation
+    public function adminMenu()
+    {
+        echo '
+            <nav id="admin-menu" aria-label="Administration navigation">
                 <div class="menu-account">
                     <a href="controller.php?cmd=deleteUsers">
                         Delete users
@@ -1772,19 +1079,85 @@ class View7 extends InsideView
                 <a href="controller.php?cmd=logout">
                     Log out
                 </a>
-
             </nav>
         ';
     }
 
-    public function bloggerList()
+    // 2. Right panel, bottom: Manage blog posts
+    public function content($info)
+    {
+        echo '
+            <main id="content" class="admin-delete-page">
+                <header class="page-heading">
+                    <h1>Manage blog posts</h1>
+                </header>
+
+                <section class="admin-delete-panel">
+                    <form method="post" action="controller.php">
+                        <input type="hidden" name="cmd" value="delete2">
+                        <input type="hidden" name="blogtitle" value="">
+
+                        <div class="admin-delete-options">
+        ';
+
+        $DBM = new DBManager();
+        $DBM->retrieveallblogsanddisplay1($info);
+
+        if (isset($info['reset']) && $info['reset'] != 0) {
+            $DBM = new DBManager();
+            $DBM->retrievebody($info);
+        }
+
+        echo '
+                        </div>
+
+                      <div class="admin-form-actions"> 
+                            <p class="delete-blog-notice">
+                                Posts marked Delete will be submitted
+                                for removal.
+                            </p>
+
+                            <button type="submit" class="auth-button">
+                                Submit changes
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </main>
+        ';
+    }
+
+    // 3. Right panel, top: recent blog posts
+    // public function recentPosts()
+    // {
+    //     echo '
+    //         <section id="bloggerlist">
+    //             <h2>Recent blog posts</h2>
+
+    //             <p class="blog-list-intro">
+    //                 Browse posts published by Blogger users.
+    //             </p>
+    //     ';
+
+    //     $DBM = new DBManager();
+    //     $DBM->retrieveallblogsanddisplay();
+
+    //     echo '
+    //         </section>
+    //     ';
+    // }
+    
+    public function recentPosts()
     {
         echo '
             <section id="bloggerlist">
-                <h2>Recent blog posts</h2>
-                <p class="blog-list-intro">
+                <div class="page-heading">
+                    <h2>Recent blog posts</h2>
+                </div>
+
+              <!--  <p class="blog-list-intro">
                     Browse posts published by Blogger users.
-                </p>
+                </p> -->
         ';
 
         $DBM = new DBManager();
@@ -1825,84 +1198,32 @@ class View8 extends InsideView {
 
             echo " 
 
-	<div id=\"content\">
-                  <h1> Administrator -- Suspend Users </h1>
-                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-                    <input type=\"hidden\" name=\"cmd\" value=\"Suspend\">
-                    <input type=\"hidden\" name=\"id\" value=>
-                    <input type=\"hidden\" name=\"blogtitle\" value=>";
-                    
-    //                  $DBM = new DBManager();
-    //                 $DBM->displayBloggers($info) ;
-                $DBM = new DBManager();
-           //     $DBM->displayUsers($info); 
-             
-                $DBM->retrieveallusersdisplay1($info);
-            
-              if ($info['reset2'] != 0)
-               {/*echo "</tr>
-                    
-                       <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                        </textarea>" ; */
-           //    echo "here".$info['bloggerid'];
-               $DBM = new DBManager();
-               $DBM->retrieveuserdetails($info);
-                    
-               }           
+            <div id=\"content\">
+                        <h1> Administrator -- Suspend Users </h1>
+                        <FORM METHOD=\"post\" ACTION=\"controller.php\">
+                            <input type=\"hidden\" name=\"cmd\" value=\"Suspend\">
+                            <input type=\"hidden\" name=\"id\" value=>
+                            <input type=\"hidden\" name=\"blogtitle\" value=>";
+                            
+        
+                    $DBM = new DBManager();                   
+                    $DBM->retrieveallusersdisplay1($info);                   
+                    if ($info['reset2'] != 0)
+                    {
+                    $DBM = new DBManager();
+                    $DBM->retrieveuserdetails($info);
+                            
+                    }           
 
-                     
-                     echo"     <input type=\"submit\" value=\"send data\">
-                    
-            </FORM>
-           ";
+                            
+                    echo"     <input type=\"submit\" value=\"send data\">
+                            
+                    </FORM>
+                ";
            
-           echo "</div>";
-            
-            
-  
+            echo "</div>"; 
         }
-
-    
-    
-     function top(){
-            
-            
-            echo "
-            
-            <html>
-
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Suspend</a> <br>               
-                       <a href=\"controller.php?cmd=deleteUsers\">Delete<br>User</a><br>
-                       <a href=\"controller.php?cmd=suspendUsers\">Suspend<br>User</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
-        
+       
        public function bloggerList(){
            
             echo "
@@ -1913,13 +1234,10 @@ class View8 extends InsideView {
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
-            ";
-
-           
-           
+            ";                     
        }
         
-        function bottom(){
+        public function bottom(){
             echo "
             </div>
 
@@ -1960,11 +1278,7 @@ class View9 extends InsideView {
               $DBM->retrieveallusersdisplay($info);
             
               if ($info['reset1'] != 0)
-               {/*echo "</tr>
-                    
-                       <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
-                        </textarea>" ; */
-           //    echo "here".$info['bloggerid'];
+               {
                $DBM = new DBManager();
                $DBM->retrieveuserdetails($info);
                     
@@ -1972,8 +1286,7 @@ class View9 extends InsideView {
 
       echo "   <input type=\"submit\" value=\"delete users\">   </FORM>
            ";
-       //    $DBM = new DBManager();
-      //     $DBM->processComments();   
+
            echo "</div>";
             
             
@@ -1982,44 +1295,7 @@ class View9 extends InsideView {
 
     
     
-     function top(){
-            
-            
-            echo "
-            
-            <html>
 
-            <head>
-
-	<link rel=\"stylesheet\" href=\"insidestyles.css\">
-            </head>
-
-            <body>
-
-	<div id=\"main\">
-		<div id=\"header\">
-			<h1>Blogger.com</h1>
-		</div>
-            
-            ";
-            
-        }
-        
-       public function menu(){
-            echo "
-                 <div id=\"menu\">
-                <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=deleteUsers\">Delete<br>Users</a><br>
-                       <a href=\"controller.php?cmd=suspendUsers\">Suspend<br>Users</a><br>
-                       <a href=\"controller.php?cmd=logout\">logout</a><br>
-                       
-            </div>
-
-
-            ";
-            
-            
-        }
         
        public function bloggerList(){
            
@@ -2185,89 +1461,7 @@ class DBManager{
               
                 }
                 
-            //   public function addComment(){  
-            //       echo $_POST['id'];
-            //       echo $_POST['comments'];
-            //       $dummy ="Guest";
-            //       $userid = $_POST['id'];
-            //     $comments = $_POST['comments'];
-                
-            //     $query = "INSERT INTO comments (postid,body,author)
-            //                 VALUE ('$userid','$comments','$dummy')";
-            //     $this->db->exec($query);   
-                  
-            //   }
-              
-              
-              
-            //   public function addComment1(){  
-            //       echo $_POST['id'];
-            //       echo $_POST['comments'];
-            //       $dummy = $_COOKIE['username'];
-            //       $userid = $_POST['id'];
-            //     $comments = $_POST['comments'];
-                
-            //     $query = "INSERT INTO comments (postid,body,author)
-            //                 VALUE ('$userid','$comments','$dummy')";
-            //     $this->db->exec($query);   
-                  
-            //   }
-
-  /*         public function retrieveblogsandnotdisplay(){
-               
-               
-                    $blogger = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                     $resultSet = $this->db->query($query);
-               
-                    
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
-                    $blogger = $resultSet->fetch();
-             //     
-                    $dummy = "blooger"."{$blogger['bloggerid']} <br>";
-            //
-            
-                    
-                    
-                    
-                         
-
-                    }
-           }*/
-           
-           
-        //      public function retrieveallblogsanddisplay(){
-               
-               
-        //             $blogger = array();
-        //             $dummy = array();
-        //             // get the blogs from the database
-        //             $query = "select * from post";
-        //              $resultSet = $this->db->query($query);
-               
-                    
-        //             for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
-        //             $blogger = $resultSet->fetch();
-             
-        //             $dummy = "blooger"."{$blogger['bloggerid']} <br>";
-           
-        //     //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
-                  
-        //             echo "<a href=\"controller.php?cmd=openblog1&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
-        //            // echo "<input type=\"checkbox\" name=\"{$blogger['bloggerid']}\" value=\"{$blogger['bloggerid']}\"";
-                    
-                    
-                    
-                         
-
-        //             }
-        //    }
+     
 
 
             
@@ -2422,10 +1616,7 @@ class DBManager{
              
                     $dummy = "blooger"."{$blogger['bloggerid']} <br>";
            
-            //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
-                  
-                 //   echo "<a href=\"controller.php?cmd=openbloga&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
-                   // echo "<input type=\"checkbox\" name=\"{$blogger['bloggerid']}\" value=\"{$blogger['bloggerid']}\"";
+
                     echo "<a href=\"controller.php?cmd=openblog9&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
                     
                     
@@ -2453,12 +1644,7 @@ class DBManager{
                     if ($info['id'] == $blogger['bloggerid']){
                     $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
                     $dummy1= "b".$i;
-                //    echo $dummy1;
-            //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
-                 //  echo "{$blogger['id']}  herer";
-               //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
-               //    echo "<a href=\"controller.php?cmd=openblog&amp;bloggerid={$blogger['id']}\"> $dummy</a>";
-                  // echo "<input type=\"checkbox\" name=\"$dummy1\" value=\"{$blogger['id']}\" checked>";
+
  //
                   echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked>";
                   echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\">";
@@ -2472,45 +1658,201 @@ class DBManager{
            
            
            
-                public function retrieveallblogsanddisplay1($info){
+        //         public function retrieveallblogsanddisplay1($info){
                
                     
-                    $blogger = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                    $resultSet = $this->db->query($query);
+        //             $blogger = array();
+        //             $dummy = array();
+        //             // get the blogs from the database
+        //             $query = "select * from post";
+        //             $resultSet = $this->db->query($query);
                     
-                    echo "Delete blogs <br>";
-                    echo " Y\tN <br>";
-                    for($i=0;$i<$resultSet->rowCount();$i++){
+        //             echo "Delete blogs <br>";
+        //             echo " Y\tN <br>";
+        //             for($i=0;$i<$resultSet->rowCount();$i++){
                     
             
-                    $blogger = $resultSet->fetch();
+        //             $blogger = $resultSet->fetch();
              
-                 //   if ($info['id'] == $blogger['bloggerid']){
-                    $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
-                    $dummy1= "b".$i;
-              //      echo $dummy1;
-            //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
-                 //  echo "{$blogger['id']}  herer";
-               //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
-               //    echo "<a href=\"controller.php?cmd=openblog&amp;bloggerid={$blogger['id']}\"> $dummy</a>";
-                  // echo "<input type=\"checkbox\" name=\"$dummy1\" value=\"{$blogger['id']}\" checked>";
- //
-                  echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
-                  echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
-                   echo "<a href=\"controller.php?cmd=openblog2&amp;bloggerid={$blogger['id']}\"> $dummy</a><br>";
+        //          //   if ($info['id'] == $blogger['bloggerid']){
+        //             $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
+        //             $dummy1= "b".$i;
+
+        //           echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
+        //           echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
+        //            echo "<a href=\"controller.php?cmd=openblog2&amp;bloggerid={$blogger['id']}\"> $dummy</a><br>";
                    
                    
-              //      }
+
                     
                     
                          
 
-                    }
-           }
+        //             }
+        //    }
+
+        
+            // public function retrieveallblogsanddisplay1($info)
+            // {
+            //     $blogger = array();
+
+            //     // Get the blogs from the database
+            //     $query = "select * from post";
+            //     $resultSet = $this->db->query($query);
+
+            //     echo '
+            //         <div class="delete-blog-list">
+            //             <div class="delete-blog-heading">
+            //                 <span>Blog post</span>
+            //                 <span>Delete</span>
+            //                 <span>Keep</span>
+            //             </div>
+            //     ';
+
+            //     for ($i = 0; $i < $resultSet->rowCount(); $i++) {
+
+            //         $blogger = $resultSet->fetch();
+
+            //         $dummy1 = "b" . $i;
+
+            //         echo '
+            //             <div class="delete-blog-row">
+
+            //                 <a class="delete-blog-title"
+            //                 href="controller.php?cmd=openblog2&amp;bloggerid='
+            //                 . htmlspecialchars($blogger['id'], ENT_QUOTES, 'UTF-8') . '">
+            //                     Blog #' . htmlspecialchars($blogger['id'], ENT_QUOTES, 'UTF-8') . '
+            //                     &nbsp; ' . htmlspecialchars($blogger['title'], ENT_QUOTES, 'UTF-8') . '
+            //                 </a>
+
+            //                 <label class="delete-blog-choice">
+            //                     <input type="radio"
+            //                         name="' . $dummy1 . '"
+            //                         value="Y">
+            //                     <span class="visually-hidden">Delete</span>
+            //                 </label>
+
+            //                 <label class="delete-blog-choice">
+            //                     <input type="radio"
+            //                         name="' . $dummy1 . '"
+            //                         value="N"
+            //                         checked>
+            //                     <span class="visually-hidden">Keep</span>
+            //                 </label>
+
+            //             </div>
+            //         ';
+            //     }
+
+            //     echo '</div>';
+            // }
+
            
+            public function retrieveallblogsanddisplay1($info)
+            {
+                $query = "SELECT * FROM post";
+                $resultSet = $this->db->query($query);
+
+                echo '
+                    <div class="delete-blog-list">
+                        <div class="delete-blog-heading">
+                            <span>Blog post</span>
+                            <span>Delete</span>
+                            <span>Keep</span>
+                        </div>
+                ';
+
+                $i = 0;
+
+                while ($blogger = $resultSet->fetch()) {
+
+                    $radioName = "b" . $i;
+
+                    // Prepare the first line of the blog body.
+                    $body = $blogger['body'] ?? '';
+
+                    // Convert HTML line breaks and paragraph endings to new lines.
+                    $body = preg_replace('/<br\s*\/?>/i', "\n", $body);
+                    $body = preg_replace(
+                        '/<\/(p|div|li|h[1-6])\s*>/i',
+                        "\n",
+                        $body
+                    );
+
+                    // Remove HTML markup and split into lines.
+                    $body = html_entity_decode(
+                        strip_tags($body),
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    $lines = preg_split('/\R+/', trim($body));
+                    $firstLine = trim($lines[0] ?? '');
+
+                    // Keep the preview short.
+                    // if (mb_strlen($firstLine) > 160) {
+                    //     $firstLine = mb_substr($firstLine, 0, 157) . '...';
+                    // }
+                    if (strlen($firstLine) > 160) {
+                        $firstLine = substr($firstLine, 0, 157) . '...';
+                    }
+
+                    $id = htmlspecialchars(
+                        (string) $blogger['id'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    $title = htmlspecialchars(
+                        $blogger['title'] ?? '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    $preview = htmlspecialchars(
+                        $firstLine,
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    echo '
+                        <div class="delete-blog-row">
+
+                            <div class="delete-blog-details">
+                                <div class="delete-blog-title">
+                                 <!--   Blog #' . $id . ' &mdash; ' . $title . ' -->
+                                 ' . $title . '
+                                </div>
+
+                                <div class="delete-blog-preview">'
+                                    . ($preview !== '' ? $preview : 'No preview available.')
+                                . '</div>
+                            </div>
+
+                            <label class="delete-blog-choice">
+                                <input type="radio"
+                                    name="' . $radioName . '"
+                                    value="Y">
+                                <span class="visually-hidden">Delete</span>
+                            </label>
+
+                            <label class="delete-blog-choice">
+                                <input type="radio"
+                                    name="' . $radioName . '"
+                                    value="N"
+                                    checked>
+                                <span class="visually-hidden">Keep</span>
+                            </label>
+
+                        </div>
+                    ';
+
+                    $i++;
+                }
+
+                echo '</div>';
+            }
+
            
            public function retrieveallusersdisplay($info){
                
@@ -2528,22 +1870,16 @@ class DBManager{
             
                     $user = $resultSet->fetch();
              
-     //               if ($info['id'] == $blogger['bloggerid']){
+
                     $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
                     $dummy1= "b".$i;
-              //      echo $dummy1;
-            //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
-                 //  echo "{$blogger['id']}  herer";
-               //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
-               //    echo "<a href=\"controller.php?cmd=openblog&amp;bloggerid={$blogger['id']}\"> $dummy</a>";
-                  // echo "<input type=\"checkbox\" name=\"$dummy1\" value=\"{$blogger['id']}\" checked>";
- //
+
                   echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
                   echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
                    echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $dummy</a><br>";
                    
                    
-                //    }
+
                     }
            }
            
@@ -2565,15 +1901,10 @@ class DBManager{
             
                      $user = $resultSet->fetch();
              
-     //               if ($info['id'] == $blogger['bloggerid']){
+
                      $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
                      $dummy1= "b".$i;
-              //        echo $dummy1;
-            //         echo "<a href=\"controller.php?cmd=openblog\">$dummy </a>";
-                 //  echo "{$blogger['id']}  herer";
-               //     echo "<a href=\"controller.php?cmd=deleterefesh&amp;blogid={$blogger['id']}\"> $dummy</a>";
-               //    echo "<a href=\"controller.php?cmd=openblog&amp;bloggerid={$blogger['id']}\"> $dummy</a>";
-                  // echo "<input type=\"checkbox\" name=\"$dummy1\" value=\"{$blogger['id']}\" checked>";
+
  
                       if ($user['suspend']){
                         echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
@@ -2586,7 +1917,7 @@ class DBManager{
                       echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
                    
                    
-                //    }
+
                     }
            }
            
@@ -2636,7 +1967,7 @@ class DBManager{
               
              }       
               
-     //     }
+
           }
              } 
           
@@ -2656,30 +1987,12 @@ class DBManager{
              
                     $dummy = "blooger"."{$blogger['bloggerid']} <br>";
             
-            //        echo $dummy;
+
                    
                     }
            }
            
-   /*        public function getDetailsandnotdisplay(){
-                    $blogger = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                    $resultSet = $this->db->query($query);
-               
-                    
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            //        echo "retrieveblogs";
-                    $blogger = $resultSet->fetch();
-             //       echo "{$blogger['blogid']} <br>";
-                    $dummy = "blooger"."{$blogger['bloggerid']} <br>";
-            //
-            //        echo $dummy;
-                    }
-           }
-            */
+
            
            
            
@@ -2715,8 +2028,7 @@ class DBManager{
                $data['textarea']=$textarea;
                $data['blogtitle'] =$_POST['blogtitle'];
                    
-      //          echo "we are in first blog";
-                // echo $_POST['blogtitle'];
+
                 
               
                 $query ="INSERT into post(bloggerid,title,body)
@@ -2738,7 +2050,7 @@ class DBManager{
                 $resultSet = $this->db->query($query);
                 for($i=0;$i<$resultSet->rowCount();$i++){
                     $user = $resultSet->fetch();
-               //     echo "{$user['username']} {$user['password']} <br>";  
+
                 echo "<input type=checkbox name={$user['username']} value={$user['username']}> {$user['username']}<br>";
                 }
                 return $resultSet;
@@ -2810,13 +2122,7 @@ class DBManager{
                     echo '<input type="hidden" name="cmd" value="' .
                         htmlspecialchars($command, ENT_QUOTES, 'UTF-8') .
                         '">';
-                    // echo '<input type="hidden" name="id" value="' .
-                    //     $postId . '">';
 
-                    // // Keep the existing field for compatibility with the old controller.
-                    // echo '<input type="hidden" name="blogcomment" value="comments">';
-                    // echo '<input type="hidden" name="postid" value="' .
-                    //     (int) $post['bloggerid'] . '">';
                     echo '<input type="hidden" name="id" value="' .
                         $postId . '">';
                     echo '<input type="hidden" name="postid" value="' .
