@@ -791,258 +791,6 @@ class View6 extends InsideView {
 
 
 
-/*
-class View7 extends InsideView
-{
-    public function __construct($info)
-    {
-        $this->top();
-        $this->menu();
-        $this->content($info);
-        $this->bloggerList();
-        $this->bottom();
-    }
-
-    public function menu()
-    {
-        echo '
-            <nav id="menu" aria-label="Administration navigation">
-
-                <div class="menu-account">
-                    <a href="controller.php?cmd=deleteUsers">
-                        Delete users
-                    </a>
-
-                    <a href="controller.php?cmd=suspendUsers">
-                        Suspend users
-                    </a>
-                </div>
-
-                <a href="controller.php?cmd=logout">
-                    Log out
-                </a>
-
-            </nav>
-        ';
-    }
-
-    public function content($info)
-    {
-        echo '
-   
-                <main id="content" class="admin-delete-page">
-                <header class="page-heading">
-                    <h1>Manage blog posts</h1>
-
-                </header>
-
-                <section class="admin-delete-panel">
-
-                    <form method="post" action="controller.php">
-
-                        <input type="hidden" name="cmd" value="delete2">
-                        <input type="hidden" name="blogtitle" value="">
-
-                     <!--   <div class="admin-section-heading">
-                            <p>
-                                Choose Delete to remove a post, or Keep
-                                to leave it unchanged.
-                            </p>
-                        </div> -->
-
-                        <div class="admin-delete-options">
-        ';
-        
-
-
-        $DBM = new DBManager();
-        $DBM->retrieveallblogsanddisplay1($info);
-
-        if (isset($info['reset']) && $info['reset'] != 0) {
-            $DBM = new DBManager();
-            $DBM->retrievebody($info);
-        }
-
-        echo '
-                        </div>
-
-                        <div class="admin-form-actions">
-                            <p>
-                                Posts marked Delete will be submitted
-                                for removal.
-                            </p>
-
-                            <button type="submit" class="auth-button">
-                                Submit changes
-                            </button>
-                        </div>
-
-                    </form>
-
-                </section>
-
-            </main>
-        ';
-    }
-    
-
-
-    public function bloggerList()
-    {
-        echo '
-            <section id="bloggerlist">
-                <h2>Recent blog posts</h2>
-                <p class="blog-list-intro">
-                    Browse posts published by Blogger users.
-                </p>
-        ';
-
-        $DBM = new DBManager();
-        $DBM->retrieveallblogsanddisplay();
-
-        echo '
-            </section>
-        ';
-    }
-
-    public function bottom()
-    {
-        echo '
-            </div>
-            </body>
-            </html>
-        ';
-    }
-}*/
-
-
-// class View7 extends InsideView
-// {
-//     public function __construct($info)
-//     {
-//         $this->top();
-//         $this->menu();
-//         $this->content($info);
-//         $this->bloggerList($info);
-//         $this->recentPosts();
-//         $this->bottom();
-//     }
-
-//     // 1. Empty menu space inherited from InsideView.
-//     // Keeps the existing menu divider styling.
-//     public function menu()
-//     {
-//         parent::menu();
-//     }
-
-//     // 2. Administration navigation.
-//     public function content($info)
-//     {
-//         echo '
-//             <nav id="menu" aria-label="Administration navigation">
-
-//                 <div class="menu-account">
-//                     <a href="controller.php?cmd=deleteUsers">
-//                         Delete users
-//                     </a>
-
-//                     <a href="controller.php?cmd=suspendUsers">
-//                         Suspend users
-//                     </a>
-//                 </div>
-
-//                 <a href="controller.php?cmd=logout">
-//                     Log out
-//                 </a>
-
-//             </nav>
-//         ';
-
-//         // 3. Manage blog posts form.
-//         echo '
-//             <main id="content" class="admin-delete-page">
-
-//                 <header class="page-heading">
-//                     <h1>Manage blog posts</h1>
-//                 </header>
-
-//                 <section class="admin-delete-panel">
-
-//                     <form method="post" action="controller.php">
-
-//                         <input type="hidden" name="cmd" value="delete2">
-//                         <input type="hidden" name="blogtitle" value="">
-
-//                         <div class="admin-delete-options">
-//         ';
-
-//         $DBM = new DBManager();
-//         $DBM->retrieveallblogsanddisplay1($info);
-
-//         if (isset($info['reset']) && $info['reset'] != 0) {
-//             $DBM = new DBManager();
-//             $DBM->retrievebody($info);
-//         }
-
-//         echo '
-//                         </div>
-
-//                         <div class="admin-form-actions">
-//                             <p>
-//                                 Posts marked Delete will be submitted
-//                                 for removal.
-//                             </p>
-
-//                             <button type="submit" class="auth-button">
-//                                 Submit changes
-//                             </button>
-//                         </div>
-
-//                     </form>
-
-//                 </section>
-
-//             </main>
-//         ';
-//     }
-
-//     // 4. Separate recent blog posts section.
-//     public function bloggerList($info = null)
-//     {
-//         // No output here; retained for compatibility if needed.
-//     }
-
-//     public function recentPosts()
-//     {
-//         echo '
-//             <section id="bloggerlist">
-
-//                 <h2>Recent blog posts</h2>
-
-//                 <p class="blog-list-intro">
-//                     Browse posts published by Blogger users.
-//                 </p>
-//         ';
-
-//         $DBM = new DBManager();
-//         $DBM->retrieveallblogsanddisplay();
-
-//         echo '
-//             </section>
-//         ';
-//     }
-
-//     // 5. Close the page.
-//     public function bottom()
-//     {
-//         echo '
-//             </div>
-//             </body>
-//             </html>
-//         ';
-//     }
-// }
-
 class View7 extends InsideView
 {
     public function __construct($info)
@@ -1089,7 +837,6 @@ class View7 extends InsideView
         echo '
             <main id="content" class="admin-delete-page">
                 <header class="page-heading">
-                    <h1>Manage blog posts</h1>
                 </header>
 
                 <section class="admin-delete-panel">
@@ -1229,8 +976,7 @@ class View8 extends InsideView {
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
-                    
-          //        echo"  in blofferlist";
+
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
@@ -1251,9 +997,6 @@ class View9 extends InsideView {
     public function __construct($info){
             $this->top();
             $this->menu();
-        //    $this->bloggerList();
-            
- 
             $this->content($info);
             $this->bloggerList();
             
@@ -1303,7 +1046,6 @@ class View9 extends InsideView {
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
                     
-          //        echo"  in blofferlist";
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
@@ -1331,10 +1073,7 @@ class DBManager{
         
         public function __construct(){
             
-          // $address = 'mysql:host=localhost:3306;dbname=blogger';
-        //    $address = 'mysql:host=localhost:3306;dbname=blogger';
-        //    $username = 'root';
-        //    $password = '';
+
            
             $address = 'mysql:host=127.0.0.1;port=3307;dbname=blogger';
             $username = 'root';
@@ -1421,7 +1160,7 @@ class DBManager{
                 $email = $_POST['email'];
                 $blogtitle = $_POST['blogtitle'];
                 $suspend = 0;
- //               $body = "bejaysus";
+
                 $blogger = array();
                 $data = array();
                 $data['blogtitle']=$blogtitle;
@@ -1655,97 +1394,7 @@ class DBManager{
                     }
            }
                    
-           
-           
-           
-        //         public function retrieveallblogsanddisplay1($info){
-               
-                    
-        //             $blogger = array();
-        //             $dummy = array();
-        //             // get the blogs from the database
-        //             $query = "select * from post";
-        //             $resultSet = $this->db->query($query);
-                    
-        //             echo "Delete blogs <br>";
-        //             echo " Y\tN <br>";
-        //             for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
-        //             $blogger = $resultSet->fetch();
-             
-        //          //   if ($info['id'] == $blogger['bloggerid']){
-        //             $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
-        //             $dummy1= "b".$i;
 
-        //           echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
-        //           echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
-        //            echo "<a href=\"controller.php?cmd=openblog2&amp;bloggerid={$blogger['id']}\"> $dummy</a><br>";
-                   
-                   
-
-                    
-                    
-                         
-
-        //             }
-        //    }
-
-        
-            // public function retrieveallblogsanddisplay1($info)
-            // {
-            //     $blogger = array();
-
-            //     // Get the blogs from the database
-            //     $query = "select * from post";
-            //     $resultSet = $this->db->query($query);
-
-            //     echo '
-            //         <div class="delete-blog-list">
-            //             <div class="delete-blog-heading">
-            //                 <span>Blog post</span>
-            //                 <span>Delete</span>
-            //                 <span>Keep</span>
-            //             </div>
-            //     ';
-
-            //     for ($i = 0; $i < $resultSet->rowCount(); $i++) {
-
-            //         $blogger = $resultSet->fetch();
-
-            //         $dummy1 = "b" . $i;
-
-            //         echo '
-            //             <div class="delete-blog-row">
-
-            //                 <a class="delete-blog-title"
-            //                 href="controller.php?cmd=openblog2&amp;bloggerid='
-            //                 . htmlspecialchars($blogger['id'], ENT_QUOTES, 'UTF-8') . '">
-            //                     Blog #' . htmlspecialchars($blogger['id'], ENT_QUOTES, 'UTF-8') . '
-            //                     &nbsp; ' . htmlspecialchars($blogger['title'], ENT_QUOTES, 'UTF-8') . '
-            //                 </a>
-
-            //                 <label class="delete-blog-choice">
-            //                     <input type="radio"
-            //                         name="' . $dummy1 . '"
-            //                         value="Y">
-            //                     <span class="visually-hidden">Delete</span>
-            //                 </label>
-
-            //                 <label class="delete-blog-choice">
-            //                     <input type="radio"
-            //                         name="' . $dummy1 . '"
-            //                         value="N"
-            //                         checked>
-            //                     <span class="visually-hidden">Keep</span>
-            //                 </label>
-
-            //             </div>
-            //         ';
-            //     }
-
-            //     echo '</div>';
-            // }
 
            
             public function retrieveallblogsanddisplay1($info)
@@ -1789,10 +1438,6 @@ class DBManager{
                     $lines = preg_split('/\R+/', trim($body));
                     $firstLine = trim($lines[0] ?? '');
 
-                    // Keep the preview short.
-                    // if (mb_strlen($firstLine) > 160) {
-                    //     $firstLine = mb_substr($firstLine, 0, 157) . '...';
-                    // }
                     if (strlen($firstLine) > 160) {
                         $firstLine = substr($firstLine, 0, 157) . '...';
                     }
@@ -2151,7 +1796,7 @@ class DBManager{
                             echo '<p class="comment">';
                             echo '<span class="comment-label">Comment #' .
                                 $commentId . '</span> ';
-             //               echo $commentBody;
+
                             echo '</p>';
                         }
 
@@ -2164,184 +1809,24 @@ class DBManager{
                 echo '</section>';
             }
 
-            
-            // public function displayPreviousBlogs($info){
-            //        echo "<br><br><b>Previous Blogs <br> <br>";
-            //        echo "i'm in display previous blogs";
-            //        echo "info ".$info['id'];
-            //         $user_id = $info['id'];
-            //         $post = array();
-            //         $dummy = array();
-            //         $comments1 = array();
-            //         $dummy1 = array();
-            //         // get the blogs from the database
-            //         $query = "select * from post";
-            //         $resultSet = $this->db->query($query);
-               
-                    
-            //         for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            //                 $post = $resultSet->fetch();
-            //                 $dummy = "comment"."{$post['id']} <br>";
-                     
-            //                 if ($post['bloggerid'] == $user_id ){
-                                
-            //                  $dummy2 = $post['id'] ;
-            //                  $dummy3 = $post['bloggerid'];
-            //                  echo"           <div id=\"content\">                      
-            //                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-            //                       <input type=\"hidden\" name=\"cmd\" value=\"addComment\">
-            //                        <input type=\"hidden\" name=\"id\" value=$dummy2>
-            //                        <input type=\"hidden\" name=\"blogcomment\" value=comments > 
-            //                         <input type=\"hidden\" name=\"postid\" value=$dummy3 > ";
-                                
-            //                         echo "<hr align=\"left\"width=\"100%\">";
-            //                         echo "<br><br><br>Title:{$post['title']}<br>";
-            //                         echo "<textarea readonly name=\"txtarea1\" ROWS=6 COLS=40> {$post['body']}
-            //                         </textarea> <br><br><br>";
-
-            //                    echo "<textarea id= {$post['bloggerid']} name=\"comments\" >Add Comment here </textarea><br>";
-            //                    echo "<input type=\"submit\" value=\"Save\" >";
-            //                    $query1 = "select * from comments";
-            //                    $resultSet1 = $this->db->query($query1);
-            //                    for($i=0;$i<$resultSet1->rowCount();$i++){
-            //                       $comments1 = $resultSet1->fetch();
-            //                       if ($comments1['postid']== $post['id'] ){
-            //                            $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
-            //                            echo $dummy1;
-            //                         } 
-                           
-            //                  }
-            //                   echo "</FORM>  
-            //             </div>
-            // ";
-            //             }
-                         
-            //     }    
-            // }
-            
-            
-            // public function displayPreviousBlogs1($info){
-            //        echo "<br><br><b>Previous Blogs <br> <br>";
-            //        echo "i'm in display previous blogs";
-            //        echo "info ".$info['id'];
-            //         $user_id = $info['id'];
-            //         $post = array();
-            //         $dummy = array();
-            //         $comments1 = array();
-            //         $dummy1 = array();
-            //         // get the blogs from the database
-            //         $query = "select * from post";
-            //         $resultSet = $this->db->query($query);
-               
-                    
-            //         for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            //                 $post = $resultSet->fetch();
-            //                 $dummy = "comment"."{$post['id']} <br>";
-                     
-            //                 if ($post['bloggerid'] == $user_id ){
-                                
-            //                  $dummy2 = $post['id'] ;
-            //                  $dummy3 = $post['bloggerid'];
-            //                  echo"           <div id=\"content\">                      
-            //                  <FORM METHOD=\"post\" ACTION=\"controller.php\">
-            //                       <input type=\"hidden\" name=\"cmd\" value=\"addComment1\">
-            //                        <input type=\"hidden\" name=\"id\" value=$dummy2>
-            //                        <input type=\"hidden\" name=\"blogcomment\" value=comments > 
-            //                         <input type=\"hidden\" name=\"postid\" value=$dummy3 > ";
-                                
-            //                         echo "<hr align=\"left\"width=\"100%\">";
-            //                         echo "<br><br><br>Title:{$post['title']}<br>";
-            //                         echo "<textarea readonly name=\"txtarea1\" ROWS=6 COLS=40> {$post['body']}
-            //                         </textarea> <br><br><br>";
-
-            //                    echo "<textarea id= {$post['bloggerid']} name=\"comments\" >Add Comment here </textarea><br>";
-            //                    echo "<input type=\"submit\" value=\"Save\" >";
-            //                    $query1 = "select * from comments";
-            //                    $resultSet1 = $this->db->query($query1);
-            //                    for($i=0;$i<$resultSet1->rowCount();$i++){
-            //                       $comments1 = $resultSet1->fetch();
-            //                       if ($comments1['postid']== $post['id'] ){
-            //                            $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
-            //                            echo $dummy1;
-            //                         } 
-                           
-            //                  }
-            //                   echo "</FORM>  
-            //             </div>
-            // ";
-            //             }
-                         
-            //     }    
-            // }
-            
-            
-            
-            
-  /*           public function displayPreviousBlogs($info){
-                   echo "<br><br><b>Previous Blogs <br> <br>";
-            //        echo "i'm in display previous blogs";
-            //        echo "info ".$info['id'];
-                    $user_id = $info['id'];
-                    $post = array();
-                    $dummy = array();
-                    $comments1 = array();
-                    $dummy1 = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                    $resultSet = $this->db->query($query);
-               
-                    
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-                            $post = $resultSet->fetch();
-                            $dummy = "comment"."{$post['id']} <br>";
-                     
-                            if ($post['bloggerid'] == $user_id ){
-                                
-                                echo "<hr align=\"left\"width=\"100%\">";
-                                echo "<br><br><br>Title:{$post['title']}<br>";
-                                echo "<textarea name=\"textarea\" ROWS=6 COLS=40> {$post['body']}
-                                </textarea> <br><br><br>";
-                                $query1 = "select * from comments";
-                                $resultSet1 = $this->db->query($query1);
-                                for($i=0;$i<$resultSet1->rowCount();$i++){
-                                     $comments1 = $resultSet1->fetch();
-                                     if ($comments1['postid']== $post['id'] ){
-                                         $dummy1 = "&nbsp&nbsp&nbsp<i>comment# "."{$comments1['id']}"."{$comments1['body']}</i> <br>";
-                                  
-                                       
-                                         echo $dummy1;
-                                    } 
-                           
-                             }
-                        }
-                }   
-            }*/
             function deleteBloogs(){
-            
-           // echo $_POST['b7'];
-           //e echo $_POST['id'];
+
             
             $query = "select * from post";
             $resultSet = $this->db->query($query);
-        //    $dummy = $_POST['b7'];
-      //      $query1 = "delete * from post where id = '$dummy'";
-     //       $resultSet = $this->db->query($query1);   
-//where \'id\' =\'$POST[\'b\'.$i]";   
+ 
                     
            for($i=0;$i<$resultSet->rowCount();$i++){
                  $post = $resultSet->fetch();
                  if ($post['bloggerid'] == $_POST['id'] )
                      if ($_POST['b'.$i] == "Y") {
-     //                 echo "Removing record index".$i." value".$_POST['b'.$i]."from database <br>";
+
                       $dummy1 = $post['id'];
                       $query1 = "delete post from post where id = $dummy1";
                       $resultSet1 = $this->db->query($query1);
                      }
                      else {
-   //                      echo " Not Removing record index".$i." value".$_POST['b'.$i]."from database <br>";  
+   
                       }         
                                
                            
@@ -2351,27 +1836,20 @@ class DBManager{
             
             function deleteBloogs1(){
             
-       //     echo $_POST['b7'];
-      //      echo $_POST['id'];
-            
+
             $query = "select * from post";
-            $resultSet = $this->db->query($query);
-       //     $dummy = $_POST['b7'];
-      //      $query1 = "delete * from post where id = '$dummy'";
-     //       $resultSet = $this->db->query($query1);   
-//where \'id\' =\'$POST[\'b\'.$i]";   
-                    
+            $resultSet = $this->db->query($query);                  
            for($i=0;$i<$resultSet->rowCount();$i++){
                  $post = $resultSet->fetch();
-  //               if ($post['bloggerid'] == $_POST['id'] )
+
                      if ($_POST['b'.$i] == "Y") {
-            //          echo "Removing record index".$i." value".$_POST['b'.$i]."from database <br>";
+
                       $dummy1 = $post['id'];
                       $query1 = "delete post from post where id = $dummy1";
                       $resultSet1 = $this->db->query($query1);
                      }
                      else {
-             //            echo " Not Removing record index".$i." value".$_POST['b'.$i]."from database <br>";  
+
                       }         
                                
                            
@@ -2380,27 +1858,24 @@ class DBManager{
             
             function deleteUsers(){
             
-       //     echo $_POST['b7'];
-      //      echo $_POST['id'];
+
             
             $query = "select * from user";
             $resultSet = $this->db->query($query);
             $dummy = $_POST['b7'];
-      //      $query1 = "delete * from post where id = '$dummy'";
-     //       $resultSet = $this->db->query($query1);   
-//where \'id\' =\'$POST[\'b\'.$i]";   
+
                     
            for($i=0;$i<$resultSet->rowCount();$i++){
                  $user = $resultSet->fetch();
-  //               if ($post['bloggerid'] == $_POST['id'] )
+
                      if ($_POST['b'.$i] == "Y") {
-           //               echo "Deleting record index".$i." value".$_POST['b'.$i]."from database <br>";
+
                           $dummy1 = $user['id'];
                        $query1 = "delete user from user where id = $dummy1";
                         $resultSet1 = $this->db->query($query1);
                      }
                      else {
-            //             echo " Not Deleting record index".$i." value".$_POST['b'.$i]."from database <br>";  
+
                       }         
                                
                            
@@ -2412,21 +1887,19 @@ class DBManager{
                 $query = "select * from user";
             $resultSet = $this->db->query($query);
             $dummy = $_POST['b7'];
-      //      $query1 = "delete * from post where id = '$dummy'";
-     //       $resultSet = $this->db->query($query1);   
-//where \'id\' =\'$POST[\'b\'.$i]";   
+
                     
            for($i=0;$i<$resultSet->rowCount();$i++){
                  $user = $resultSet->fetch();
-  //               if ($post['bloggerid'] == $_POST['id'] )
+
                      if ($_POST['b'.$i] == "Y") {
-     //                 echo "Updating record index".$i." value".$_POST['b'.$i]."from database <br>";
+
                       $dummy1 = $user['id'];
                       $query1 = "update user set suspend=1  where id = $dummy1";
                      
                      }
                      else {
-     //                   echo " Updating record index".$i." value".$_POST['b'.$i]."from database <br>"; 
+
                         $dummy1 = $user['id'];
                         $query1 = "update user set suspend=0  where id = $dummy1";
                       }         
