@@ -1,8 +1,7 @@
 <?php
    include("library.php");
-   
-  // start point for script 
-  main();
+
+   main();
    
    
 
@@ -180,40 +179,6 @@
    
   
    
- /*  function handleAddpost($data){
-       if (isset($_COOKIE['username'])){       
-
-           
-           new InsideView($data);
-
-       } 
-       else{
-           new View2();
-       }
-           $DBM = new DBManager();
-           $DBM->processBlog();
-       
-       
-       //new View2();
-        
-
-     
-     //  return $info;
-   }*/
-   
-  /* function handleAddpost(){
-       if (isset($_COOKIE['username'])){       
-
-           
-          
-
-       } 
-       else{
-        
-       }
-       
-       
-   }*/
    
    
    function handleLogin(){
@@ -230,16 +195,12 @@
                 $result1['reset']=0;
                 new View7($result1);
        }
- //      if (($result =="blogger")|| ($result == "rmiller")){
         else if ($result == "blogger")   {
            // no output before setCookie
            setCookie("username",$_POST['username'],time()+3600 );
                 $result1 = $DBM->getBlogindex($_POST['username']);
                 
                 new View51($result1);
-           
-               
-       //    new View5($result);
            
         }else{
            
@@ -268,17 +229,13 @@
     function handleAddpost($data){
         
         $DBM = new DBManager();
-  //      $DBM->addBlogger();
         $data = $DBM->processBlog($data);
         
         return $data;
     }
      function handleFirstAddpost(){
        
-        $DBM = new DBManager();
-  //      $DBM->addBlogger();
-        // $DBM->processFirstBlog();
-        
+        $DBM = new DBManager();       
        return $DBM->processFirstBlog();
        
     }
