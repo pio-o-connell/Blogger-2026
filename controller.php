@@ -247,7 +247,7 @@
          return $info;
      }
      
-          function handleDeleteBlogs1()
+    function handleDeleteBlogs1()
      {
          $DBM = new DBManager();
          $info = $DBM->deleteBloogs1();

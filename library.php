@@ -784,116 +784,34 @@ class View6 extends InsideView {
 }
 
 
-// class View7 extends InsideView
-// {
-//     public function __construct($info)
-//     {
-//         $this->top();
-//         $this->adminMenu();     // Horizontal admin navigation
-//         $this->content($info);  // Left panel: Manage blog posts
-//         $this->recentPosts();   // Right panel: Recent blog posts
-//         $this->bottom();
-//     }
-
-//     // Horizontal administration navigation
-//     public function adminMenu()
-//     {
-//         echo '
-//             <nav id="admin-menu" class="admin-navigation"
-//                  aria-label="Administration navigation">
-
-//                 <a href="controller.php?cmd=blogs">Blogs</a>
-
-//                 <div class="menu-account">
-//                     <a href="controller.php?cmd=users">Users</a>
-//                     <a href="controller.php?cmd=logout">Log out</a>
-//                 </div>
-
-//             </nav>
-//         ';
-//     }
-
-//     // Left panel: Manage blog posts
-//     public function content($info)
-//     {
-//         echo '
-//             <main id="content" class="admin-delete-page">
-//                 <header class="page-heading">
-                    
-//                 </header>
-
-//                 <section class="admin-delete-panel">
-//                     <form method="post" action="controller.php">
-//                         <input type="hidden" name="cmd" value="delete2">
-
-//                         <div class="admin-delete-options">
-//         ';
-
-//         $DBM = new DBManager();
-//         $DBM->retrieveallblogsanddisplay1($info);
-
-//         if (isset($info['reset']) && $info['reset'] != 0) {
-//             $DBM->retrievebody($info);
-//         }
-
-//         echo '
-//                         </div>
-
-//                         <div class="admin-form-actions">
-//                             <p class="delete-blog-notice">
-//                                 Posts marked Delete will be submitted
-//                                 for removal.
-//                             </p>
-
-//                             <button type="submit" class="auth-button">
-//                                 Submit changes
-//                             </button>
-//                         </div>
-//                     </form>
-//                 </section>
-//             </main>
-//         ';
-//     }
-
-    // Right panel: Recent blog posts
-//     public function recentPosts()
-//     {
-//         echo '
-//             <section id="bloggerlist">
-//                 <div class="page-heading">
-                    
-//                 </div>
-//         ';
-
-//         $DBM = new DBManager();
-//         $DBM->retrieveallblogsanddisplay();
-
-//         echo '
-//             </section>
-//         ';
-//     }
-
-//     public function bottom()
-//     {
-//         echo '
-//             </div>
-//             </body>
-//             </html>
-//         ';
-//     }
-// }
-
 class View7 extends InsideView
 {
+    // public function __construct($info)
+    // {
+    //     $this->top('admin-view7');
+    //     $this->adminMenu();
+    //     $this->content($info);
+    //    // $this->postComments();
+    //     $this->postComments($info);
+    //    // $this->recentPosts();
+    //     $this->bottom();
+    // }
     public function __construct($info)
     {
+        $DBM = new DBManager();
+
+        // Default to the most recent post when none is selected.
+        if (empty($info['bloggerid'])) {
+            $info['bloggerid'] = $DBM->getMostRecentPostId();
+        }
+
         $this->top('admin-view7');
         $this->adminMenu();
         $this->content($info);
-        $this->recentPosts();
+        $this->postComments($info);
+        // $this->recentPosts();
         $this->bottom();
     }
-
     // Horizontal administration navigation
     public function adminMenu()
     {
@@ -930,11 +848,11 @@ class View7 extends InsideView
         ';
 
         $DBM = new DBManager();
-        $DBM->retrieveallblogsanddisplay1($info);
-
-        if (isset($info['reset']) && $info['reset'] != 0) {
-            $DBM->retrievebody($info);
-        }
+     //   $DBM->retrieveallblogsanddisplay1($info);
+        $DBM->retrieveAdminBlogPosts($info);
+        // if (isset($info['reset']) && $info['reset'] != 0) {
+        //     $DBM->retrievebody($info);
+        // }
 
         echo '
                         </div>
@@ -953,6 +871,169 @@ class View7 extends InsideView
                 </section>
             </main>
         ';
+    }
+
+    // Right panel: Comments for the selected blog post
+    // public function postComments()
+    // {
+    //     echo '
+    //         <section id="bloggerlist">
+    //             <div class="page-heading">
+
+    //             </div>
+    //     ';
+
+    //     // Retrieve and display comments for the selected post here.
+
+    //     echo '
+    //         </section>
+    //     ';
+    // }
+    // Right panel: Comments for the selected blog post
+    
+    // public function postComments($info)
+    // {
+    //     $postId = isset($info['bloggerid'])
+    //         ? (int) $info['bloggerid']
+    //         : 0;
+
+    //     echo '
+    //         <section id="bloggerlist">
+    //             <div class="page-heading">
+    //                 <h2>Post comments</h2>
+    //             </div>
+    //     ';
+
+    //     if ($postId <= 0) {
+    //         echo '<p class="blog-list-intro">
+    //                 Select a blog post from the left to view its comments.
+    //             </p>';
+    //     } else {
+    //         $DBM = new DBManager();
+    //         $comments = $DBM->getCommentsForPost($postId);
+
+    //         echo '<p class="blog-list-intro">
+    //                 Comments for post #' . $postId . '
+    //             </p>';
+
+    //         if (empty($comments)) {
+    //             echo '<p>No comments have been added to this post yet.</p>';
+    //         } else {
+    //             foreach ($comments as $comment) {
+    //                 $commentId = (int) $comment['id'];
+    //                 $body = htmlspecialchars(
+    //                     $comment['body'] ?? '',
+    //                     ENT_QUOTES,
+    //                     'UTF-8'
+    //                 );
+
+    //                 echo '
+    //                     <article class="blog-post">
+    //                         <p class="post-meta">Comment #' . $commentId . '</p>
+    //                         <p class="post-excerpt">' . nl2br($body) . '</p>
+    //                     </article>
+    //                 ';
+    //             }
+    //         }
+    //     }
+
+    //     echo '</section>';
+    // }
+    // Right panel: Selected blog post and its comments
+    public function postComments($info)
+    {
+        $postId = isset($info['bloggerid'])
+            ? (int) $info['bloggerid']
+            : 0;
+
+        echo '
+            <section id="bloggerlist">
+                <div class="page-heading">
+                    <h2>Selected blog post</h2>
+                </div>
+        ';
+
+        if ($postId <= 0) {
+            echo '
+                <p class="blog-list-intro">
+                    No blog posts are available yet.
+                </p>
+            ';
+            echo '</section>';
+            return;
+        }
+
+        $DBM = new DBManager();
+        $post = $DBM->getPostById($postId);
+
+        if (!$post) {
+            echo '
+                <p class="blog-list-intro">
+                    The selected blog post could not be found.
+                </p>
+            ';
+            echo '</section>';
+            return;
+        }
+
+        $title = htmlspecialchars(
+            $post['title'] ?? '',
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        $body = htmlspecialchars(
+            $post['body'] ?? '',
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
+        echo '
+            <article class="blog-post">
+                <h3>' . $title . '</h3>
+                <div class="post-excerpt">'
+                    . nl2br($body) .
+                '</div>
+            </article>
+
+            <div class="page-heading">
+                <h2>Comments</h2>
+            </div>
+        ';
+
+        $comments = $DBM->getCommentsForPost($postId);
+
+        if (empty($comments)) {
+            echo '
+                <p class="blog-list-intro">
+                    No comments have been added to this post yet.
+                </p>
+            ';
+        } else {
+            foreach ($comments as $comment) {
+                $commentId = (int) $comment['id'];
+
+                $commentBody = htmlspecialchars(
+                    $comment['body'] ?? '',
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+
+                echo '
+                    <article class="blog-post">
+                        <p class="post-meta">
+                            Comment #' . $commentId . '
+                        </p>
+
+                        <div class="post-excerpt">'
+                            . nl2br($commentBody) .
+                        '</div>
+                    </article>
+                ';
+            }
+        }
+
+        echo '</section>';
     }
 
     // Right panel: Recent blog posts
@@ -1145,14 +1226,7 @@ class DBManager{
                 $error_message = $e->getMessage();
                 echo $error_message;
                 exit();
-           } 
-           
-           
-           
-           
-           
-           
-           
+           }           
         }
         
         public function processLogin($username, $password){
@@ -1212,6 +1286,7 @@ class DBManager{
               
                 return $data;   
         }
+
         public function addBlogger(){
                 
                 $username = $_POST['username'];
@@ -1258,8 +1333,94 @@ class DBManager{
                 return $data;
               
                 }
+
+        public function getMostRecentPostId()
+        {
+            $query = $this->db->query(
+                'SELECT id FROM post ORDER BY id DESC LIMIT 1'
+            );
+
+            $postId = $query->fetchColumn();
+
+            return $postId === false ? 0 : (int) $postId;
+        }
                 
-     
+        public function retrieveAdminBlogPosts($info = [])
+        {
+            $query = $this->db->prepare(
+                'SELECT id, title, body
+                FROM post
+                ORDER BY id DESC'
+            );
+
+            $query->execute();
+            $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            echo '
+                <div class="delete-blog-list">
+                    <div class="delete-blog-heading">
+                        <span>Blog post</span>
+                        <span>Delete</span>
+                    </div>
+            ';
+
+            if (empty($posts)) {
+                echo '
+                    <div class="delete-blog-row">
+                        <p>No blog posts found.</p>
+                    </div>
+                ';
+            } else {
+                foreach ($posts as $post) {
+                    $postId = (int) $post['id'];
+
+                    $title = htmlspecialchars(
+                        $post['title'] ?? '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    $body = trim(strip_tags($post['body'] ?? ''));
+                    $preview = preg_split('/\R/', $body)[0] ?? '';
+
+                    if (strlen($preview) > 120) {
+                        $preview = substr($preview, 0, 120) . '...';
+                    }
+
+                    $preview = htmlspecialchars(
+                        $preview,
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    echo '
+                        <div class="delete-blog-row">
+                            <div class="delete-blog-details">
+                                <a class="delete-blog-title"
+                                href="controller.php?cmd=openblog2&amp;bloggerid='
+                                . $postId . '">'
+                                . $title .
+                                '</a>
+
+                                <div class="delete-blog-preview">'
+                                    . $preview .
+                                '</div>
+                            </div>
+
+                            <label class="delete-blog-choice">
+                                <input type="checkbox"
+                                    name="deletePosts[]"
+                                    value="' . $postId . '">
+                                <span class="visually-hidden">Delete</span>
+                            </label>
+                        </div>
+                    ';
+                }
+            }
+
+            echo '</div>';
+        }
+
 
 
             
@@ -1308,7 +1469,26 @@ class DBManager{
                 ]);
             }
 
-            
+            public function getCommentsForPost($postId)
+            {
+                $postId = (int) $postId;
+
+                if ($postId <= 0) {
+                    return [];
+                }
+
+                $query = $this->db->prepare(
+                    'SELECT id, body
+                    FROM comments
+                    WHERE postid = :post_id
+                    ORDER BY id ASC'
+                );
+
+                $query->execute(['post_id' => $postId]);
+
+                return $query->fetchAll(PDO::FETCH_ASSOC);
+            }
+
             public function retrieveallblogsanddisplay() {
 
                 $query = "
@@ -1373,8 +1553,7 @@ class DBManager{
                     ";
                 }
             }
-
-           
+          
             public function getPostById($postId)
             {
                 $query = "
