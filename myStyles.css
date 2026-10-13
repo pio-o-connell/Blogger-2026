@@ -654,6 +654,14 @@ input[type="submit"]:hover {
     transition: color 0.2s ease;
 }
 
+#menu .home-text {
+    display: inline-block;
+    padding: 9px 0;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+}
+
 #menu a:hover {
     color: var(--accent-hover);
     text-decoration: underline;

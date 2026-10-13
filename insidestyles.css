@@ -20,8 +20,14 @@
 }
 
 /* View7: two equal-width content panels */
-#main.admin-view7 {
+/* #main.admin-view7 {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+} */
+
+/* View7: Manage posts 40% | Recent posts 60% */
+#main.admin-view7 {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     align-items: start;
 }
 
@@ -68,7 +74,7 @@ body {
 }
 
 /* Plain text links matching the homepage */
-#admin-menu.admin-navigation a {
+/* #admin-menu.admin-navigation a {
     display: inline-block;
     width: auto;
     padding: 9px 0;
@@ -84,12 +90,39 @@ body {
     font-weight: normal;
 
     box-sizing: border-box;
+} */
+
+/* #admin-menu.admin-navigation a:hover {
+    background: transparent;
+    color: #386747;
+    text-decoration: underline;
+} */
+
+#admin-menu.admin-navigation a {
+    display: inline-block;
+    width: auto;
+    padding: 9px 0;
+    margin: 0;
+    background: transparent;
+    color: #386747;
+    border-radius: 0;
+    text-align: left;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: normal;
+    box-sizing: border-box;
 }
 
 #admin-menu.admin-navigation a:hover {
     background: transparent;
-    color: #386747;
+    color: #292775;
     text-decoration: underline;
+}
+
+#admin-menu.admin-navigation .admin-menu-title {
+    color: #386747;
+    font-size: 14px;
+    font-weight: normal;
 }
 
 

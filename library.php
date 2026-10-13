@@ -30,7 +30,8 @@ abstract class OutsideView {
     public function menu() {
         echo "
             <nav id=\"menu\" aria-label=\"Main navigation\">
-                <a href=\"controller.php\">Home</a>
+
+              <span class=\"home-text\">Home</span>
 
                 <div class=\"menu-account\">
                     <a href=\"controller.php?cmd=login\">Login</a>
@@ -79,7 +80,11 @@ abstract class OutsideView {
             $this->bottom();           
         }
     
-        public function top() {
+            public function top($mainClass = '') {
+                $classAttribute = $mainClass !== ''
+                    ? ' class="' . htmlspecialchars($mainClass, ENT_QUOTES, 'UTF-8') . '"'
+                    : '';
+
                 echo "
                 <!DOCTYPE html>
                 <html lang=\"en\">
@@ -90,7 +95,7 @@ abstract class OutsideView {
                     <link rel=\"stylesheet\" href=\"insidestyles.css\">
                 </head>
                 <body>
-                    <div id=\"main\">
+                    <div id=\"main\"$classAttribute>
                         <header id=\"header\">
                             <a class=\"site-logo\" href=\"controller.php\">
                                 <img src=\"icon.jpg\" alt=\"Blogger logo\">
@@ -98,7 +103,7 @@ abstract class OutsideView {
                             <p class=\"site-tagline\">Ideas worth sharing.</p>
                         </header>
                 ";
-            }    
+            }
 
         
             public function menu() {
@@ -163,15 +168,9 @@ abstract class OutsideView {
             public function __construct(){
                 $this->top();
                 $this->menu();
-                $this->bloggerList();
-                
-    
-                $this->content();
-                
-                
-                $this->bottom();
-
-                
+                $this->bloggerList();   
+                $this->content();               
+                $this->bottom();               
             }
         
             public function content() {
@@ -785,19 +784,8 @@ class View6 extends InsideView {
 }
 
 
-
 // class View7 extends InsideView
 // {
-//     // public function __construct($info)
-//     // {
-//     //     $this->top();
-//     //     $this->menu();
-//     //     $this->adminMenu();     // Left panel
-//     //     $this->content($info);  // Right panel: Manage blog posts
-//     //     $this->recentPosts();   // Right panel: Recent blog posts
-//     //     $this->bottom();
-//     // }   
-    
 //     public function __construct($info)
 //     {
 //         $this->top();
@@ -807,40 +795,12 @@ class View6 extends InsideView {
 //         $this->bottom();
 //     }
 
-
-//     // Empty menu space with existing divider styling
-//     public function menu()
-//     {
-//         parent::menu();
-//     }
-
-//     // 1. Left panel: administration navigation
-//     // public function adminMenu()
-//     // {
-//     //     echo '
-//     //         <nav id="admin-menu" aria-label="Administration navigation">
-//     //             <div class="menu-account">
-//     //                 <a href="controller.php?cmd=deleteUsers">
-//     //                     Delete users
-//     //                 </a>
-
-//     //                 <a href="controller.php?cmd=suspendUsers">
-//     //                     Suspend users
-//     //                 </a>
-//     //             </div>
-
-//     //             <a href="controller.php?cmd=logout">
-//     //                 Log out
-//     //             </a>
-//     //         </nav>
-//     //     ';
-//     // }
-    
+//     // Horizontal administration navigation
 //     public function adminMenu()
 //     {
 //         echo '
 //             <nav id="admin-menu" class="admin-navigation"
-//                 aria-label="Administration navigation">
+//                  aria-label="Administration navigation">
 
 //                 <a href="controller.php?cmd=blogs">Blogs</a>
 
@@ -853,19 +813,18 @@ class View6 extends InsideView {
 //         ';
 //     }
 
-
-//     // 2. left panel, bottom: Manage blog posts
+//     // Left panel: Manage blog posts
 //     public function content($info)
 //     {
 //         echo '
 //             <main id="content" class="admin-delete-page">
 //                 <header class="page-heading">
+                    
 //                 </header>
 
 //                 <section class="admin-delete-panel">
 //                     <form method="post" action="controller.php">
 //                         <input type="hidden" name="cmd" value="delete2">
-//                         <input type="hidden" name="blogtitle" value="">
 
 //                         <div class="admin-delete-options">
 //         ';
@@ -874,14 +833,13 @@ class View6 extends InsideView {
 //         $DBM->retrieveallblogsanddisplay1($info);
 
 //         if (isset($info['reset']) && $info['reset'] != 0) {
-//             $DBM = new DBManager();
 //             $DBM->retrievebody($info);
 //         }
 
 //         echo '
 //                         </div>
 
-//                       <div class="admin-form-actions"> 
+//                         <div class="admin-form-actions">
 //                             <p class="delete-blog-notice">
 //                                 Posts marked Delete will be submitted
 //                                 for removal.
@@ -897,19 +855,14 @@ class View6 extends InsideView {
 //         ';
 //     }
 
-// // 3. the right panel, top: Recent blog posts
-    
+    // Right panel: Recent blog posts
 //     public function recentPosts()
 //     {
 //         echo '
 //             <section id="bloggerlist">
 //                 <div class="page-heading">
-//                     <h2>Recent blog posts</h2>
+                    
 //                 </div>
-
-//               <!--  <p class="blog-list-intro">
-//                     Browse posts published by Blogger users.
-//                 </p> -->
 //         ';
 
 //         $DBM = new DBManager();
@@ -930,15 +883,14 @@ class View6 extends InsideView {
 //     }
 // }
 
-
 class View7 extends InsideView
 {
     public function __construct($info)
     {
-        $this->top();
-        $this->adminMenu();     // Horizontal admin navigation
-        $this->content($info);  // Left panel: Manage blog posts
-        $this->recentPosts();   // Right panel: Recent blog posts
+        $this->top('admin-view7');
+        $this->adminMenu();
+        $this->content($info);
+        $this->recentPosts();
         $this->bottom();
     }
 
@@ -949,10 +901,11 @@ class View7 extends InsideView
             <nav id="admin-menu" class="admin-navigation"
                  aria-label="Administration navigation">
 
-                <a href="controller.php?cmd=blogs">Blogs</a>
+                <span class="admin-menu-title">Admin</span>
 
                 <div class="menu-account">
                     <a href="controller.php?cmd=users">Users</a>
+                    <a href="controller.php?cmd=blogs">Blogs</a>
                     <a href="controller.php?cmd=logout">Log out</a>
                 </div>
 
