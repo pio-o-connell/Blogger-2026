@@ -101,13 +101,45 @@
             case "delete1":             
                 handleDeleteBlogs();             
                 break;
+
+            
+            case "deleteComments":
+                $postId = isset($_POST['bloggerid'])
+                    ? (int) $_POST['bloggerid']
+                    : 0;
+
+                $commentIds = $_POST['deleteComments'] ?? [];
+
+                if ($postId <= 0 || !is_array($commentIds)) {
+                    http_response_code(400);
+                    exit('Invalid comment deletion request.');
+                }
+
+                $DBM = new DBManager();
+                $DBM->deleteCommentsForPost($postId, $commentIds);
+
+                // Return to the same post in the admin dashboard.
+                header(
+                    'Location: controller.php?cmd=openblog2&bloggerid='
+                    . $postId
+                );
+                exit;
+
             case "delete2":
                 handleDeleteBlogs1();
                 $DBM = new DBManager();
                 $data = $DBM->getBlogindex($_COOKIE['username']);
-                $data['reset']=0;
+                $data['reset'] = 0;
                 new View7($data);
                 break;
+
+            // case "delete2":
+            //     handleDeleteBlogs1();
+            //     $DBM = new DBManager();
+            //     $data = $DBM->getBlogindex($_COOKIE['username']);
+            //     $data['reset']=0;
+            //     new View7($data);
+            //     break;
             case "deleteUser":
                 handleDeleteUsers();
                 $DBM = new DBManager();

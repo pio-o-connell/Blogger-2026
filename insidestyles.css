@@ -214,6 +214,40 @@ body {
 
 
 /* =========================================================
+   Comment author and delete option — View7
+   ========================================================= */
+
+#bloggerlist .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+#bloggerlist .comment-header .post-meta {
+    margin: 0;
+}
+
+#bloggerlist .delete-comment-choice {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #777b73;
+}
+
+#bloggerlist .delete-comment-choice input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #386747;
+}
+
+
+/* =========================================================
    Login and registration pages
    ========================================================= */
 

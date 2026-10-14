@@ -939,6 +939,356 @@ class View7 extends InsideView
 
     //     echo '</section>';
     // }
+    // // Right panel: Selected blog post and its comments
+    // public function postComments($info)
+    // {
+    //     $postId = isset($info['bloggerid'])
+    //         ? (int) $info['bloggerid']
+    //         : 0;
+
+    //     echo '
+    //         <section id="bloggerlist">
+    //             <div class="page-heading">
+    //                 <h2>Selected blog post</h2>
+    //             </div>
+    //     ';
+
+    //     if ($postId <= 0) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 No blog posts are available yet.
+    //             </p>
+    //         ';
+    //         echo '</section>';
+    //         return;
+    //     }
+
+    //     $DBM = new DBManager();
+    //     $post = $DBM->getPostById($postId);
+
+    //     if (!$post) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 The selected blog post could not be found.
+    //             </p>
+    //         ';
+    //         echo '</section>';
+    //         return;
+    //     }
+
+    //     $title = htmlspecialchars(
+    //         $post['title'] ?? '',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     $body = htmlspecialchars(
+    //         $post['body'] ?? '',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     echo '
+    //         <article class="blog-post">
+    //             <h3>' . $title . '</h3>
+    //             <div class="post-excerpt">'
+    //                 . nl2br($body) .
+    //             '</div>
+    //         </article>
+
+    //         <div class="page-heading">
+    //             <h2>Comments</h2>
+    //         </div>
+    //     ';
+
+    //     $comments = $DBM->getCommentsForPost($postId);
+
+    //     if (empty($comments)) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 No comments have been added to this post yet.
+    //             </p>
+    //         ';
+    //     } else {
+    //         foreach ($comments as $comment) {
+    //             $commentId = (int) $comment['id'];
+
+    //             $commentBody = htmlspecialchars(
+    //                 $comment['body'] ?? '',
+    //                 ENT_QUOTES,
+    //                 'UTF-8'
+    //             );
+
+    //             echo '
+    //                 <article class="blog-post">
+    //                     <p class="post-meta">
+    //                         Comment #' . $commentId . '
+    //                     </p>
+
+    //                     <div class="post-excerpt">'
+    //                         . nl2br($commentBody) .
+    //                     '</div>
+    //                 </article>
+    //             ';
+    //         }
+    //     }
+
+    //     echo '</section>';
+    // }
+    
+    // Right panel: Selected blog post and its comments
+    // public function postComments($info)
+    // {
+    //     $postId = isset($info['bloggerid'])
+    //         ? (int) $info['bloggerid']
+    //         : 0;
+
+    //     echo '
+    //         <section id="bloggerlist">
+    //             <div class="page-heading">
+    //                 <h2>Selected blog post</h2>
+    //             </div>
+    //     ';
+
+    //     if ($postId <= 0) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 No blog posts are available yet.
+    //             </p>
+    //         ';
+    //         echo '</section>';
+    //         return;
+    //     }
+
+    //     $DBM = new DBManager();
+    //     $post = $DBM->getPostById($postId);
+
+    //     if (!$post) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 The selected blog post could not be found.
+    //             </p>
+    //         ';
+    //         echo '</section>';
+    //         return;
+    //     }
+
+    //     $title = htmlspecialchars(
+    //         $post['title'] ?? '',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     $originator = htmlspecialchars(
+    //         $post['username'] ?? 'Unknown',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     $body = htmlspecialchars(
+    //         $post['body'] ?? '',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     echo '
+    //         <article class="blog-post">
+    //             <h3>' . $title . '</h3>
+
+    //             <p class="post-meta">
+    //                 By ' . $originator . '
+    //             </p>
+
+    //             <div class="post-excerpt">'
+    //                 . nl2br($body) .
+    //             '</div>
+    //         </article>
+
+    //         <div class="page-heading">
+    //             <h2>Comments</h2>
+    //         </div>
+    //     ';
+
+    //     $comments = $DBM->getCommentsForPost($postId);
+
+    //     if (empty($comments)) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 No comments have been added to this post yet.
+    //             </p>
+    //         ';
+    //     } else {
+    //         foreach ($comments as $comment) {
+    //             $commentId = (int) $comment['id'];
+
+    //             $commentBody = htmlspecialchars(
+    //                 $comment['body'] ?? '',
+    //                 ENT_QUOTES,
+    //                 'UTF-8'
+    //             );
+
+    //             echo '
+    //                 <article class="blog-post">
+    //                     <p class="post-meta">
+    //                         Comment #' . $commentId . '
+    //                     </p>
+
+    //                     <div class="post-excerpt">'
+    //                         . nl2br($commentBody) .
+    //                     '</div>
+    //                 </article>
+    //             ';
+    //         }
+    //     }
+
+    //     echo '</section>';
+    // }
+    
+    // Right panel: Selected blog post and its comments
+    // public function postComments($info)
+    // {
+    //     $postId = isset($info['bloggerid'])
+    //         ? (int) $info['bloggerid']
+    //         : 0;
+
+    //     echo '
+    //         <section id="bloggerlist">
+    //             <div class="page-heading">
+    //                 <h2>Selected blog post</h2>
+    //             </div>
+    //     ';
+
+    //     if ($postId <= 0) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 No blog posts are available yet.
+    //             </p>
+    //         ';
+    //         echo '</section>';
+    //         return;
+    //     }
+
+    //     $DBM = new DBManager();
+    //     $post = $DBM->getPostById($postId);
+
+    //     if (!$post) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 The selected blog post could not be found.
+    //             </p>
+    //         ';
+    //         echo '</section>';
+    //         return;
+    //     }
+
+    //     $title = htmlspecialchars(
+    //         $post['title'] ?? '',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     $originator = htmlspecialchars(
+    //         $post['username'] ?? 'Unknown',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     $body = htmlspecialchars(
+    //         $post['body'] ?? '',
+    //         ENT_QUOTES,
+    //         'UTF-8'
+    //     );
+
+    //     echo '
+    //         <article class="blog-post">
+    //             <h3>' . $title . '</h3>
+
+    //             <p class="post-meta">
+    //                 By ' . $originator . '
+    //             </p>
+
+    //             <div class="post-excerpt">'
+    //                 . nl2br($body) .
+    //             '</div>
+    //         </article>
+
+    //         <div class="page-heading">
+    //             <h2>Comments</h2>
+    //         </div>
+    //     ';
+
+    //     $comments = $DBM->getCommentsForPost($postId);
+
+    //     if (empty($comments)) {
+    //         echo '
+    //             <p class="blog-list-intro">
+    //                 No comments have been added to this post yet.
+    //             </p>
+    //         ';
+    //     } else {
+    //         // Separate form for deleting comments.
+    //         echo '
+    //             <form method="post" action="controller.php"
+    //                 class="delete-comments-form">
+
+    //                 <input type="hidden"
+    //                     name="cmd"
+    //                     value="deleteComments">
+
+    //                 <input type="hidden"
+    //                     name="bloggerid"
+    //                     value="' . $postId . '">
+    //         ';
+
+    //         foreach ($comments as $comment) {
+    //             $commentId = (int) $comment['id'];
+
+    //             $author = htmlspecialchars(
+    //                 $comment['author'] ?? 'Unknown',
+    //                 ENT_QUOTES,
+    //                 'UTF-8'
+    //             );
+
+    //             $commentBody = htmlspecialchars(
+    //                 $comment['body'] ?? '',
+    //                 ENT_QUOTES,
+    //                 'UTF-8'
+    //             );
+
+    //             echo '
+    //                 <article class="blog-post comment-item">
+
+    //                     <label class="delete-comment-choice">
+    //                         <input type="checkbox"
+    //                             name="deleteComments[]"
+    //                             value="' . $commentId . '">
+    //                         Delete this comment
+    //                     </label>
+
+    //                     <p class="post-meta">
+    //                         By ' . $author . '
+    //                     </p>
+
+    //                     <div class="post-excerpt">'
+    //                         . nl2br($commentBody) .
+    //                     '</div>
+
+    //                 </article>
+    //             ';
+    //         }
+
+    //         echo '
+    //                 <button type="submit">
+    //                     Delete selected comments
+    //                 </button>
+
+    //             </form>
+    //         ';
+    //     }
+
+    //     echo '</section>';
+    // }
+
     // Right panel: Selected blog post and its comments
     public function postComments($info)
     {
@@ -982,6 +1332,12 @@ class View7 extends InsideView
             'UTF-8'
         );
 
+        $originator = htmlspecialchars(
+            $post['username'] ?? 'Unknown',
+            ENT_QUOTES,
+            'UTF-8'
+        );
+
         $body = htmlspecialchars(
             $post['body'] ?? '',
             ENT_QUOTES,
@@ -991,6 +1347,11 @@ class View7 extends InsideView
         echo '
             <article class="blog-post">
                 <h3>' . $title . '</h3>
+
+                <p class="post-meta">
+                    By ' . $originator . '
+                </p>
+
                 <div class="post-excerpt">'
                     . nl2br($body) .
                 '</div>
@@ -1010,8 +1371,28 @@ class View7 extends InsideView
                 </p>
             ';
         } else {
+            // Separate form for deleting comments.
+            echo '
+                <form method="post" action="controller.php"
+                    class="delete-comments-form">
+
+                    <input type="hidden"
+                        name="cmd"
+                        value="deleteComments">
+
+                    <input type="hidden"
+                        name="bloggerid"
+                        value="' . $postId . '">
+            ';
+
             foreach ($comments as $comment) {
                 $commentId = (int) $comment['id'];
+
+                $author = htmlspecialchars(
+                    $comment['author'] ?? 'Unknown',
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
 
                 $commentBody = htmlspecialchars(
                     $comment['body'] ?? '',
@@ -1020,17 +1401,36 @@ class View7 extends InsideView
                 );
 
                 echo '
-                    <article class="blog-post">
-                        <p class="post-meta">
-                            Comment #' . $commentId . '
-                        </p>
+                    <article class="blog-post comment-item">
+
+                        <div class="comment-header">
+                            <p class="post-meta">
+                                By ' . $author . '
+                            </p>
+
+                            <label class="delete-comment-choice">
+                                <input type="checkbox"
+                                    name="deleteComments[]"
+                                    value="' . $commentId . '">
+                                Delete this comment
+                            </label>
+                        </div>
 
                         <div class="post-excerpt">'
                             . nl2br($commentBody) .
                         '</div>
+
                     </article>
                 ';
             }
+
+            echo '
+                    <button type="submit">
+                        Delete selected comments
+                    </button>
+
+                </form>
+            ';
         }
 
         echo '</section>';
@@ -1345,130 +1745,247 @@ class DBManager{
             return $postId === false ? 0 : (int) $postId;
         }
                 
-        public function retrieveAdminBlogPosts($info = [])
-        {
-            $query = $this->db->prepare(
-                'SELECT id, title, body
-                FROM post
-                ORDER BY id DESC'
-            );
+        // public function retrieveAdminBlogPosts($info = [])
+        // {
+        //     // $query = $this->db->prepare(
+        //     //     'SELECT id, title, body
+        //     //     FROM post
+        //     //     ORDER BY id DESC'
+        //     // );
+            
+        //     $query = $this->db->query(
+        //         'SELECT post.id, post.title, post.body, user.username
+        //         FROM post
+        //         INNER JOIN user ON post.bloggerid = user.id
+        //         ORDER BY post.id DESC'
+        //     );
 
-            $query->execute();
-            $posts = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            echo '
-                <div class="delete-blog-list">
-                    <div class="delete-blog-heading">
-                        <span>Blog post</span>
-                        <span>Delete</span>
-                    </div>
-            ';
+        //     $query->execute();
+        //     $posts = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            if (empty($posts)) {
-                echo '
-                    <div class="delete-blog-row">
-                        <p>No blog posts found.</p>
-                    </div>
-                ';
-            } else {
-                foreach ($posts as $post) {
-                    $postId = (int) $post['id'];
+        //     echo '
+        //         <div class="delete-blog-list">
+        //             <div class="delete-blog-heading">
+        //                 <span>Blog post</span>
+        //                 <span>Delete</span>
+        //             </div>
+        //     ';
 
-                    $title = htmlspecialchars(
-                        $post['title'] ?? '',
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
+        //     if (empty($posts)) {
+        //         echo '
+        //             <div class="delete-blog-row">
+        //                 <p>No blog posts found.</p>
+        //             </div>
+        //         ';
+        //     } else {
+        //         foreach ($posts as $post) {
+        //             $postId = (int) $post['id'];
 
-                    $body = trim(strip_tags($post['body'] ?? ''));
-                    $preview = preg_split('/\R/', $body)[0] ?? '';
+        //             $title = htmlspecialchars(
+        //                 $post['title'] ?? '',
+        //                 ENT_QUOTES,
+        //                 'UTF-8'
+        //             );
 
-                    if (strlen($preview) > 120) {
-                        $preview = substr($preview, 0, 120) . '...';
-                    }
+        //             $body = trim(strip_tags($post['body'] ?? ''));
+        //             $preview = preg_split('/\R/', $body)[0] ?? '';
 
-                    $preview = htmlspecialchars(
-                        $preview,
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
+        //             if (strlen($preview) > 120) {
+        //                 $preview = substr($preview, 0, 120) . '...';
+        //             }
 
-                    echo '
-                        <div class="delete-blog-row">
-                            <div class="delete-blog-details">
-                                <a class="delete-blog-title"
-                                href="controller.php?cmd=openblog2&amp;bloggerid='
-                                . $postId . '">'
-                                . $title .
-                                '</a>
+        //             $preview = htmlspecialchars(
+        //                 $preview,
+        //                 ENT_QUOTES,
+        //                 'UTF-8'
+        //             );
 
-                                <div class="delete-blog-preview">'
-                                    . $preview .
-                                '</div>
-                            </div>
+        //             echo '
+        //                 <div class="delete-blog-row">
+        //                     <div class="delete-blog-details">
+        //                         <a class="delete-blog-title"
+        //                         href="controller.php?cmd=openblog2&amp;bloggerid='
+        //                         . $postId . '">'
+        //                         . $title .
+        //                         '</a>
 
-                            <label class="delete-blog-choice">
-                                <input type="checkbox"
-                                    name="deletePosts[]"
-                                    value="' . $postId . '">
-                                <span class="visually-hidden">Delete</span>
-                            </label>
-                        </div>
-                    ';
-                }
-            }
+        //                         <div class="delete-blog-preview">'
+        //                             . $preview .
+        //                         '</div>
+        //                     </div>
 
-            echo '</div>';
-        }
+        //                     <label class="delete-blog-choice">
+        //                         <input type="checkbox"
+        //                             name="deletePosts[]"
+        //                             value="' . $postId . '">
+        //                         <span class="visually-hidden">Delete</span>
+        //                     </label>
+        //                 </div>
+        //             ';
+        //         }
+        //     }
+
+        //     echo '</div>';
+        // }
 
 
 
             
-            public function addComment()
-            {
-                $postId = (int) ($_POST['id'] ?? 0);
-                $comment = trim($_POST['comments'] ?? '');
+        //     public function addComment()
+        //     {
+        //         $postId = (int) ($_POST['id'] ?? 0);
+        //         $comment = trim($_POST['comments'] ?? '');
 
-                if ($postId <= 0 || $comment === '') {
-                    return;
+        //         if ($postId <= 0 || $comment === '') {
+        //             return;
+        //         }
+
+        //         $query = "
+        //             INSERT INTO comments (postid, body, author)
+        //             VALUES (:postid, :body, :author)
+        //         ";
+
+        //         $statement = $this->db->prepare($query);
+        //         $statement->execute([
+        //             'postid' => $postId,
+        //             'body' => $comment,
+        //             'author' => 'Guest'
+        //         ]);
+        //     }
+
+        //     public function addComment1()
+        //     {
+        //         $postId = (int) ($_POST['id'] ?? 0);
+        //         $comment = trim($_POST['comments'] ?? '');
+        //         $author = $_COOKIE['username'] ?? 'Guest';
+
+        //         if ($postId <= 0 || $comment === '') {
+        //             return;
+        //         }
+
+        //         $query = "
+        //             INSERT INTO comments (postid, body, author)
+        //             VALUES (:postid, :body, :author)
+        //         ";
+
+        //         $statement = $this->db->prepare($query);
+        //         $statement->execute([
+        //             'postid' => $postId,
+        //             'body' => $comment,
+        //             'author' => $author
+        //         ]);
+        //     }
+            
+            public function retrieveAdminBlogPosts($info = [])
+            {
+                $query = $this->db->query(
+                    'SELECT post.id, post.title, post.body, user.username
+                    FROM post
+                    INNER JOIN user ON post.bloggerid = user.id
+                    ORDER BY post.id DESC'
+                );
+
+                $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                echo '
+                    <div class="delete-blog-list">
+                        <div class="delete-blog-heading">
+                            <span>Blog post</span>
+                            <span>Delete</span>
+                        </div>
+                ';
+
+                if (empty($posts)) {
+                    echo '
+                        <div class="delete-blog-row">
+                            <p>No blog posts found.</p>
+                        </div>
+                    ';
+                } else {
+                    foreach ($posts as $post) {
+                        $postId = (int) $post['id'];
+
+                        $title = htmlspecialchars(
+                            $post['title'] ?? '',
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+
+                        $originator = htmlspecialchars(
+                            $post['username'] ?? 'Unknown',
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+
+                        $body = trim(strip_tags($post['body'] ?? ''));
+                        $preview = preg_split('/\R/', $body)[0] ?? '';
+
+                        if (strlen($preview) > 120) {
+                            $preview = substr($preview, 0, 120) . '...';
+                        }
+
+                        $preview = htmlspecialchars(
+                            $preview,
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+
+                        echo '
+                            <div class="delete-blog-row">
+                                <div class="delete-blog-details">
+
+                                    <a class="delete-blog-title"
+                                    href="controller.php?cmd=openblog2&amp;bloggerid='
+                                    . $postId . '">'
+                                    . $title .
+                                    '</a>
+
+                                    <div class="delete-blog-originator">
+                                        By ' . $originator . '
+                                    </div>
+
+                                    <div class="delete-blog-preview">'
+                                        . $preview .
+                                    '</div>
+
+                                </div>
+
+                                <label class="delete-blog-choice">
+                                    <input type="checkbox"
+                                        name="deletePosts[]"
+                                        value="' . $postId . '">
+                                    <span class="visually-hidden">Delete</span>
+                                </label>
+                            </div>
+                        ';
+                    }
                 }
 
-                $query = "
-                    INSERT INTO comments (postid, body, author)
-                    VALUES (:postid, :body, :author)
-                ";
-
-                $statement = $this->db->prepare($query);
-                $statement->execute([
-                    'postid' => $postId,
-                    'body' => $comment,
-                    'author' => 'Guest'
-                ]);
+                echo '</div>';
             }
 
-            public function addComment1()
-            {
-                $postId = (int) ($_POST['id'] ?? 0);
-                $comment = trim($_POST['comments'] ?? '');
-                $author = $_COOKIE['username'] ?? 'Guest';
 
-                if ($postId <= 0 || $comment === '') {
-                    return;
-                }
+            // public function getCommentsForPost($postId)
+            // {
+            //     $postId = (int) $postId;
 
-                $query = "
-                    INSERT INTO comments (postid, body, author)
-                    VALUES (:postid, :body, :author)
-                ";
+            //     if ($postId <= 0) {
+            //         return [];
+            //     }
 
-                $statement = $this->db->prepare($query);
-                $statement->execute([
-                    'postid' => $postId,
-                    'body' => $comment,
-                    'author' => $author
-                ]);
-            }
+            //     $query = $this->db->prepare(
+            //         'SELECT id, body
+            //         FROM comments
+            //         WHERE postid = :post_id
+            //         ORDER BY id ASC'
+            //     );
 
+            //     $query->execute(['post_id' => $postId]);
+
+            //     return $query->fetchAll(PDO::FETCH_ASSOC);
+            // }
+            
             public function getCommentsForPost($postId)
             {
                 $postId = (int) $postId;
@@ -1478,7 +1995,7 @@ class DBManager{
                 }
 
                 $query = $this->db->prepare(
-                    'SELECT id, body
+                    'SELECT id, body, author
                     FROM comments
                     WHERE postid = :post_id
                     ORDER BY id ASC'
@@ -2020,7 +2537,42 @@ class DBManager{
             }
               
             
- 
+            public function deleteCommentsForPost($postId, $commentIds)
+            {
+                $postId = (int) $postId;
+
+                if ($postId <= 0 || !is_array($commentIds)) {
+                    return 0;
+                }
+
+                $commentIds = array_values(array_unique(array_filter(
+                    array_map('intval', $commentIds),
+                    function ($id) {
+                        return $id > 0;
+                    }
+                )));
+
+                if (empty($commentIds)) {
+                    return 0;
+                }
+
+                $placeholders = implode(
+                    ',',
+                    array_fill(0, count($commentIds), '?')
+                );
+
+                $sql = "DELETE FROM comments
+                        WHERE postid = ?
+                        AND id IN ($placeholders)";
+
+                $statement = $this->db->prepare($sql);
+                $statement->execute(
+                    array_merge([$postId], $commentIds)
+                );
+
+                return $statement->rowCount();
+            }
+
 
 
             
