@@ -62,7 +62,7 @@ Examples include:
 login
 register
 loginRequest
-addBlogger
+registerBlogger
 addPost
 openblog
 openblog1
@@ -93,6 +93,44 @@ The view classes include:
 The file also contains the `DBManager` class, which performs database operations.
 
 > **Note:** Despite the name `library.php`, the supplied project code contains both PHP application logic and HTML output. It is not a CSS library.
+
+### DBManager naming refactor
+
+The DBManager methods have been renamed to describe their responsibilities more
+clearly. The implementation and database behaviour were intentionally
+preserved. Each renamed declaration in the PHP source has a comment containing
+its former function name to make the transition easy to follow.
+
+| Former name | Current name |
+| --- | --- |
+| `processLogin()` | `authenticateUser()` |
+| `getBlogindex()` | `getUserBlogDetails()` |
+| `addBlogger()` | `registerBlogger()` |
+| `getMostRecentPostId()` | `getLatestPostId()` |
+| `retrieveAdminBlogPosts()` | `displayAdminBlogPosts()` |
+| `retrieveallblogsanddisplay()` | `displayAllBlogPosts()` |
+| `retrieveallblogsanddisplay1()` | `displayPostsForDeletion()` |
+| `outerretrieveallblogsanddisplay()` | `displayBloggerLinks()` |
+| `retrieveuserblogsanddisplay()` | `displayUserPostsForDeletion()` |
+| `retrievebody()` | `displayPostBodyInTextarea()` |
+| `getDetailsanddisplay()` | `buildPostBloggerDetails()` |
+| `deleteBloogs()` | `deleteSelectedUserPosts()` |
+| `deleteBloogs1()` | `deleteSelectedPosts()` |
+| `retrieveallusersdisplay()` | `displayUsersForDeletion()` |
+| `retrieveallusersdisplay1()` | `displayUsersForSuspension()` |
+| `retrieveuserdetails()` | `displayUserDetails()` |
+| `displayUsers()` | `displayUserCheckboxes()` |
+| `deleteUsers()` | `deleteSelectedUsers()` |
+| `SuspendUsers()` | `updateUserSuspensionStatus()` |
+| `displayPreviousBlogs()` | `displayPreviousPosts()` |
+| `displayPreviousBlogs1()` | `displayPreviousPostsWithAlternativeComments()` |
+| `renderPreviousBlogs()` | `renderPreviousPostsWithComments()` |
+| `deleteCommentsForPost()` | `deleteSelectedCommentsForPost()` |
+| `processBlog()` | `createBlogPost()` |
+| `processFirstBlog()` | `createInitialBlogPost()` |
+
+The constructor and the already-clear `getPostById()` and
+`getCommentsForPost()` methods retain their existing names.
 
 ### CSS
 
@@ -204,7 +242,7 @@ View4
 addBlogger
    |
    v
-DBManager::addBlogger()
+DBManager::registerBlogger()
    |
    v
 user table
@@ -225,7 +263,7 @@ loginRequest
 handleLogin()
    |
    v
-DBManager::processLogin()
+DBManager::authenticateUser()
 ```
 
 ### Creating a Post
@@ -243,7 +281,7 @@ addPost
 handleAddpost()
    |
    v
-DBManager::processBlog()
+DBManager::createBlogPost()
    |
    v
 post table

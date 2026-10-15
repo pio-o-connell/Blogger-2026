@@ -49,8 +49,8 @@
 //                     <h3> blogger list </h3>";
                  
 //                    $DBM = new DBManager();
-//                    $DBM->retrieveallblogsanddisplay(); 
-//                //    $DBM->displayPreviousBlogs();
+//                    $DBM->displayAllBlogPosts();
+//                //    $DBM->displayPreviousPosts();
             
 //             echo "</div>"
 //             ;
@@ -110,7 +110,7 @@ abstract class OutsideView {
         ";
 
         $DBM = new DBManager();
-        $DBM->retrieveallblogsanddisplay();
+        $DBM->displayAllBlogPosts();
 
         echo "
             </section>
@@ -527,7 +527,7 @@ class View31 extends OutsideView{
             
                     $DBM = new DBManager();
                 
-                     $data = $DBM->displayPreviousBlogs($info);
+                     $data = $DBM->displayPreviousPosts($info);
 
 
 
@@ -589,7 +589,7 @@ echo"
                     
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
-                  $DBM->displayPreviousBlogs($info);
+                  $DBM->displayPreviousPosts($info);
             echo "</div>
             ";
 
@@ -632,7 +632,7 @@ class View4 extends OutsideView{
 	<div id=\"content\">
                   <h1> Register </h1>
                     <form action=\"controller.php\" method=\"post\">
-                <input type=\"hidden\" name=\"cmd\" value=\"addBlogger\">
+                <input type=\"hidden\" name=\"cmd\" value=\"registerBlogger\">
                 <table>
                     <tr>
                         <td>username:</td>
@@ -705,7 +705,7 @@ class View5 extends InsideView {
  
           
           $DBM = new DBManager();
-          $DBM->displayPreviousBlogs($info);   
+          $DBM->displayPreviousPosts($info);
            echo "</div>";
             
             
@@ -815,7 +815,7 @@ class View51 extends InsideView {
                     
          
            $DBM = new DBManager();
-           $DBM->displayPreviousBlogs($info);
+           $DBM->displayPreviousPosts($info);
   //         $DBM->processComments();   
            echo "</div>";
             
@@ -871,7 +871,7 @@ class View51 extends InsideView {
                     
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
-                  $DBM->retrieveallblogsanddisplay();
+                  $DBM->displayAllBlogPosts();
             echo "</div>
             ";
 
@@ -918,7 +918,7 @@ class View6 extends InsideView {
                     <input type=\"hidden\" name=\"blogtitle\" value=>";
            
            $DBM = new DBManager();
-           $DBM->retrieveuserblogsanddisplay($info);
+           $DBM->displayUserPostsForDeletion($info);
            
            if ($info['reset'] != 0)
            {/*echo "</tr>
@@ -927,7 +927,7 @@ class View6 extends InsideView {
                         </textarea>" ; */
            //    echo "here".$info['bloggerid'];
                $DBM = new DBManager();
-               $DBM->retrievebody($info);
+               $DBM->displayPostBodyInTextarea($info);
                     
            }            
            echo"         <input type=\"submit\" value=\"Delete1\">
@@ -990,7 +990,7 @@ class View6 extends InsideView {
                     
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
-                  $DBM->retrieveallblogsanddisplay();
+                  $DBM->displayAllBlogPosts();
             echo "</div>
             ";
 
@@ -1033,7 +1033,7 @@ class AdminDashboardView extends InsideView {
                    
                     <input type=\"hidden\" name=\"blogtitle\" value=>";
               $DBM = new DBManager();
-              $DBM->retrieveallblogsanddisplay1($info);
+              $DBM->displayPostsForDeletion($info);
               
               if ($info['reset'] != 0)
            {/*echo "</tr>
@@ -1042,7 +1042,7 @@ class AdminDashboardView extends InsideView {
                         </textarea>" ; */
            //    echo "here".$info['bloggerid'];
                $DBM = new DBManager();
-               $DBM->retrievebody($info);
+               $DBM->displayPostBodyInTextarea($info);
                     
            }             
                echo"     <input type=\"submit\" value=\"send data\">
@@ -1084,7 +1084,7 @@ class AdminDashboardView extends InsideView {
        public function menu(){
             echo "
                  <div id=\"menu\">             
-                       <a href=\"controller.php?cmd=deleteUsers\">Delete <br> Users</a><br>
+                       <a href=\"controller.php?cmd=deleteSelectedUsers\">Delete <br> Users</a><br>
                        <a href=\"controller.php?cmd=suspendUsers\">Suspend<br> Users</a><br>
                        <a href=\"controller.php?cmd=logout\">logout</a><br>
                        
@@ -1103,7 +1103,7 @@ class AdminDashboardView extends InsideView {
                     
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
-                  $DBM->retrieveallblogsanddisplay();
+                  $DBM->displayAllBlogPosts();
             echo "</div>
                 
             ";
@@ -1150,9 +1150,9 @@ class View8 extends InsideView {
     //                  $DBM = new DBManager();
     //                 $DBM->displayBloggers($info) ;
                 $DBM = new DBManager();
-           //     $DBM->displayUsers($info); 
+           //     $DBM->displayUserCheckboxes($info);
              
-                $DBM->retrieveallusersdisplay1($info);
+                $DBM->displayUsersForSuspension($info);
             
               if ($info['reset2'] != 0)
                {/*echo "</tr>
@@ -1161,7 +1161,7 @@ class View8 extends InsideView {
                         </textarea>" ; */
            //    echo "here".$info['bloggerid'];
                $DBM = new DBManager();
-               $DBM->retrieveuserdetails($info);
+               $DBM->displayUserDetails($info);
                     
                }           
 
@@ -1206,7 +1206,7 @@ class View8 extends InsideView {
             echo "
                  <div id=\"menu\">
                 <a href=\"controller.php?cmd=add\">Suspend</a> <br>               
-                       <a href=\"controller.php?cmd=deleteUsers\">Delete<br>User</a><br>
+                       <a href=\"controller.php?cmd=deleteSelectedUsers\">Delete<br>User</a><br>
                        <a href=\"controller.php?cmd=suspendUsers\">Suspend<br>User</a><br>
                        <a href=\"controller.php?cmd=logout\">logout</a><br>
                        
@@ -1226,7 +1226,7 @@ class View8 extends InsideView {
                     
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
-                  $DBM->retrieveallblogsanddisplay();
+                  $DBM->displayAllBlogPosts();
             echo "</div>
             ";
 
@@ -1272,7 +1272,7 @@ class View9 extends InsideView {
                     
                     
               $DBM = new DBManager();
-              $DBM->retrieveallusersdisplay($info);
+              $DBM->displayUsersForDeletion($info);
             
               if ($info['reset1'] != 0)
                {/*echo "</tr>
@@ -1281,7 +1281,7 @@ class View9 extends InsideView {
                         </textarea>" ; */
            //    echo "here".$info['bloggerid'];
                $DBM = new DBManager();
-               $DBM->retrieveuserdetails($info);
+               $DBM->displayUserDetails($info);
                     
                }           
 
@@ -1324,7 +1324,7 @@ class View9 extends InsideView {
             echo "
                  <div id=\"menu\">
                 <a href=\"controller.php?cmd=add\">Add</a> <br>               
-                       <a href=\"controller.php?cmd=deleteUsers\">Delete<br>Users</a><br>
+                       <a href=\"controller.php?cmd=deleteSelectedUsers\">Delete<br>Users</a><br>
                        <a href=\"controller.php?cmd=suspendUsers\">Suspend<br>Users</a><br>
                        <a href=\"controller.php?cmd=logout\">logout</a><br>
                        
@@ -1344,7 +1344,7 @@ class View9 extends InsideView {
                     
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
-                  $DBM->retrieveallblogsanddisplay();
+                  $DBM->displayAllBlogPosts();
             echo "</div>
             ";
 
@@ -1391,7 +1391,8 @@ class DBManager{
            
         }
         
-        public function processLogin($username, $password){
+        // Legacy function name: processLogin
+        public function authenticateUser($username, $password){
             
             // get the login details and query database
             
@@ -1415,7 +1416,8 @@ class DBManager{
             return "invalid";
         }  
         
-        public function getBlogindex($username)
+        // Legacy function name: getBlogindex
+        public function getUserBlogDetails($username)
         {
             
          $query1 = "select * from user";
@@ -1447,7 +1449,8 @@ class DBManager{
               
                 return $data;   
         }
-        public function addBlogger(){
+        // Legacy function name: addBlogger
+        public function registerBlogger(){
                 
                 $username = $_POST['username'];
                 $password = $_POST['password'];
@@ -1522,7 +1525,8 @@ class DBManager{
            }*/
            
            
-             public function retrieveallblogsanddisplay(){
+             // Legacy function name: retrieveallblogsanddisplay
+             public function displayAllBlogPosts(){
                
                
                     $blogger = array();
@@ -1551,7 +1555,8 @@ class DBManager{
                     }
            }
           
-           public function retrieveuserblogsanddisplay($info){
+           // Legacy function name: retrieveuserblogsanddisplay
+           public function displayUserPostsForDeletion($info){
                
                     
                     $blogger = array();
@@ -1589,7 +1594,8 @@ class DBManager{
            
            
            
-                public function retrieveallblogsanddisplay1($info){
+                // Legacy function name: retrieveallblogsanddisplay1
+                public function displayPostsForDeletion($info){
                
                     
                     $blogger = array();
@@ -1629,7 +1635,8 @@ class DBManager{
            }
            
            
-           public function retrieveallusersdisplay($info){
+           // Legacy function name: retrieveallusersdisplay
+           public function displayUsersForDeletion($info){
                
                     
                     $user = array();
@@ -1666,7 +1673,8 @@ class DBManager{
            
            
            
-                     public function retrieveallusersdisplay1($info){
+                     // Legacy function name: retrieveallusersdisplay1
+                     public function displayUsersForSuspension($info){
                
                     
                     $user = array();
@@ -1712,7 +1720,8 @@ class DBManager{
            
            
            
-          public function retrievebody($data){
+          // Legacy function name: retrievebody
+          public function displayPostBodyInTextarea($data){
              $query = "select * from post";
              $resultSet = $this->db->query($query);
              
@@ -1733,7 +1742,8 @@ class DBManager{
           
           
           
-          public function retrieveuserdetails($data){
+          // Legacy function name: retrieveuserdetails
+          public function displayUserDetails($data){
              echo "in retrieve id .. ".$data['id'];
               $query = "select * from user";
              $resultSet = $this->db->query($query);
@@ -1758,7 +1768,8 @@ class DBManager{
              } 
           
            
-           public function getDetailsanddisplay(){
+           // Legacy function name: getDetailsanddisplay
+           public function buildPostBloggerDetails(){
                     $blogger = array();
                     $dummy = array();
                     // get the blogs from the database
@@ -1800,7 +1811,8 @@ class DBManager{
            
            
            
-            public function processBlog(){
+            // Legacy function name: processBlog
+            public function createBlogPost(){
                 $data = array();
                 
                 $blogtitle = $_POST['blogtitle'];
@@ -1818,7 +1830,8 @@ class DBManager{
                  return $data;
             }
             
-            public function processFirstBlog(){
+            // Legacy function name: processFirstBlog
+            public function createInitialBlogPost(){
                 $data = array();
                         
                 $blogtitle = $_POST['blogtitle'];
@@ -1844,7 +1857,8 @@ class DBManager{
             
             
 
-            public function displayUsers($info){
+            // Legacy function name: displayUsers
+            public function displayUserCheckboxes($info){
                 
                 $query = "select DISTINCT * from user";
                 $resultSet = $this->db->query($query);
@@ -1859,7 +1873,8 @@ class DBManager{
             
             
 
-            public function displayPreviousBlogs($info){
+            // Legacy function name: displayPreviousBlogs
+            public function displayPreviousPosts($info){
                    echo "<br><br><b>Previous Blogs <br> <br>";
             //        echo "i'm in display previous blogs";
             //        echo "info ".$info['id'];
@@ -1900,7 +1915,8 @@ class DBManager{
                 }   
             }
             
-            function deleteBloogs(){
+            // Legacy function name: deleteBloogs
+            function deleteSelectedUserPosts(){
             
            // echo $_POST['b7'];
            //e echo $_POST['id'];
@@ -1930,7 +1946,8 @@ class DBManager{
             }
               
             
-            function deleteBloogs1(){
+            // Legacy function name: deleteBloogs1
+            function deleteSelectedPosts(){
             
        //     echo $_POST['b7'];
       //      echo $_POST['id'];
@@ -1959,7 +1976,8 @@ class DBManager{
                   }
             }
             
-            function deleteUsers(){
+            // Legacy function name: deleteUsers
+            function deleteSelectedUsers(){
             
        //     echo $_POST['b7'];
       //      echo $_POST['id'];
@@ -1989,7 +2007,8 @@ class DBManager{
             }
             
             
-            function SuspendUsers (){
+            // Legacy function name: SuspendUsers
+            function updateUserSuspensionStatus (){
                 $query = "select * from user";
             $resultSet = $this->db->query($query);
             $dummy = $_POST['b7'];

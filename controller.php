@@ -2,24 +2,24 @@
    include("library.php");
 
    main();
-   
-   
+
+
 
    function main(){
-   
-      
+
+
         $cmd = "";
-   
+
         if (isset($_POST['cmd'])){
             $cmd = $_POST['cmd'];
         }
         else if (isset($_GET['cmd'])){
             $cmd = $_GET['cmd'];
-        } 
-   
+        }
+
         switch($cmd){
-            case "":   
-                new View1(); 
+            case "":
+                new View1();
                 break;
             case "register":
                 new View4();
@@ -28,14 +28,14 @@
                 new View2();
                 break;
             case "loginRequest":
-                handleLogin();               
+                handleLogin();
                 break;
             case "blogs":
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 new AdminViewMessages($data);
                 break;
-            case "addComment":       
+            case "addComment":
                 $dummy = $_POST['postid'];
                  $DBM = new DBManager();
                  $result1 = $DBM->addComment();
@@ -47,30 +47,30 @@
                 $dummy = $_POST['postid'];
                 $result1 = $DBM->addComment1();
                  $result1['id'] =$dummy;
-                 new View31($result1);           
+                 new View31($result1);
                 break;
             case "add":
                 $DBM = new DBManager();
-                $result1 = $DBM->getBlogindex($_POST['username']);               
-                new View51($result1);           
+                $result1 = $DBM->getUserBlogDetails($_POST['username']);
+                new View51($result1);
                 break;
-            case "addBlogger":
-                $data = handleAdduser();           
+            case "registerBlogger":
+                $data = handleAdduser();
                 setCookie("username",$data['username'],time()+(86400*7));
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
-                new View31($data);   
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
+                new View31($data);
                 break;
             // case "addPost":
-            //     echo $_POST['textarea'];               
+            //     echo $_POST['textarea'];
             //     $DBM = new DBManager();
-            //     $data = $DBM->getBlogindex($_COOKIE['username']);
+            //     $data = $DBM->getUserBlogDetails($_COOKIE['username']);
             //      handleAddpost($data);
-            //    new View51($data);           
+            //    new View51($data);
             //     break;
             case "addPost":
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
 
                 $data['blogtitle'] = trim($_POST['blogtitle'] ?? '');
                 $data['textarea'] = trim($_POST['textarea'] ?? '');
@@ -83,17 +83,17 @@
                 handleAddpost($data);
 
                 // Reload the data after attempting to add the post.
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 new AdminViewMessages($data);
                 break;
-            case "addPost1":              
+            case "addPost1":
                 $data = handleFirstAddpost();
                 new View51($data);
-                break;              
+                break;
             case "openblog":
-                $bloggerid = $_GET['bloggerid'];              
+                $bloggerid = $_GET['bloggerid'];
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $data['reset']=1;
                 $data['bloggerid']= $bloggerid;
                 new View6($data);
@@ -106,7 +106,7 @@
                 $DBM = new DBManager();
                 $post = $DBM->getPostById($postId);
                 new ViewSinglePost($post);
-                break;  
+                break;
             case "openblog9":
                 $bloggerid = $_GET['bloggerid'];
                 $info['id']=$bloggerid;
@@ -116,16 +116,16 @@
                 $userid=  $_GET['userid'];
                 $info['id']=$userid;
                 $info['reset2'] = 1;
-                new View8($info);               
+                new View8($info);
                 break;
             case "delete":
                 new View51();
                 break;
-            case "delete1":             
-                handleDeleteBlogs();             
+            case "delete1":
+                handleDeleteBlogs();
                 break;
 
-            
+
             case "deleteComments":
                 $postId = isset($_POST['bloggerid'])
                     ? (int) $_POST['bloggerid']
@@ -139,7 +139,7 @@
                 }
 
                 $DBM = new DBManager();
-                $DBM->deleteCommentsForPost($postId, $commentIds);
+                $DBM->deleteSelectedCommentsForPost($postId, $commentIds);
 
                 // Return to the same post in the admin dashboard.
                 header(
@@ -147,17 +147,17 @@
                     . $postId
                 );
                 exit;
-            
+
 
             case "blogs":
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 new AdminViewMessages($data);
                 break;
             case "delete2":
                 handleDeleteBlogs1();
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $data['reset'] = 0;
                 new AdminDashboardView($data);
                 break;
@@ -165,7 +165,7 @@
             case "deleteUser":
                 handleDeleteUsers();
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $data['reset1']=0;
                 new View9($data);
                 break;
@@ -174,7 +174,7 @@
                 break;
             case "deleteBlogs":
                 $DBM = new DBManager();
-                $data = $DBM->getBlogindex($_COOKIE['username']);
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $data['reset']=0;
                 new View6($data);
                 break;
@@ -187,32 +187,32 @@
             case "openblog4":
                 $info['id']=$_GET['userid'];
                 $info['reset1'] = 1;
-                new View9($info);               
+                new View9($info);
                 break;
             case "users":
                 new AdminUsersView([]);
                 break;
-            case "deleteUsers":
+            case "deleteSelectedUsers":
                 $DBM = new DBManager();
-                $result1 = $DBM->getBlogindex($_COOKIE['username']);
+                $result1 = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $result1['reset1'] = 0;
                 new View9($result1);
                 break;
             case "suspendBloogers":
-                $result1 = $DBM->getBlogindex($_COOKIE['username']);
+                $result1 = $DBM->getUserBlogDetails($_COOKIE['username']);
                 new View8($result1);
                 break;
             case "suspendUsers":
                 $DBM = new DBManager();
-                $result1 = $DBM->getBlogindex($_COOKIE['username']);
+                $result1 = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $result1['reset2']=0;
                 new View8($result1);
-               
+
                 break;
             case "Suspend":
                 handleSuspendUsers();
                 $DBM = new DBManager();
-                $result1 = $DBM->getBlogindex($_COOKIE['username']);
+                $result1 = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $result1['reset2']=0;
                 new View8($result1);
                 break;
@@ -225,90 +225,90 @@
                 break;
             case "add":
                 break;
-            
-                
-                
-                
+
+
+
+
         }
-   
-   }  
-   
+
+   }
+
    function handleLogin(){
-                 
+
         $DBM = new DBManager();
-                
-        $result = $DBM->processLogin($_POST['username'],$_POST['password']);
-        
-    
+
+        $result = $DBM->authenticateUser($_POST['username'],$_POST['password']);
+
+
         if ($result == "rmiller"){
                     setCookie("username",$_POST['username'],time()+3600 );
-                    $result1 = $DBM->getBlogindex($_POST['username']);
+                    $result1 = $DBM->getUserBlogDetails($_POST['username']);
                     $result1['reset']=0;
                     new AdminDashboardView($result1);
         }
             else if ($result == "blogger")   {
             // no output before setCookie
             setCookie("username",$_POST['username'],time()+3600 );
-                    $result1 = $DBM->getBlogindex($_POST['username']);               
-                    new View51($result1);           
+                    $result1 = $DBM->getUserBlogDetails($_POST['username']);
+                    new View51($result1);
             }
             else
-            {           
-                    new View2();           
+            {
+                    new View2();
             }
-       
-    }  
-             
-    function handleAdduser(){    
+
+    }
+
+    function handleAdduser(){
         $DBM = new DBManager();
-        $data = $DBM->addBlogger(); 
+        $data = $DBM->registerBlogger();
 
         return $data;
     }
-   
+
     function handleViewBlogDetails(){
         $DBM = new DBManager();
-        $data = $DBM->retrieveblogsandnotdisplay(); 
-        return $data;
-    }
-       
-    function handleAddpost($data){
-        
-        $DBM = new DBManager();
-        $data = $DBM->processBlog($data);       
+        $data = $DBM->retrieveblogsandnotdisplay();
         return $data;
     }
 
-     function handleFirstAddpost(){      
-        $DBM = new DBManager();       
-       return $DBM->processFirstBlog();      
+    function handleAddpost($data){
+
+        $DBM = new DBManager();
+        $data = $DBM->createBlogPost($data);
+        return $data;
     }
-    
+
+     function handleFirstAddpost(){
+        $DBM = new DBManager();
+       return $DBM->createInitialBlogPost();
+    }
+
      function handleDeleteBlogs()
      {
          $DBM = new DBManager();
-         $info = $DBM->deleteBloogs();
+         $info = $DBM->deleteSelectedUserPosts();
          return $info;
      }
-     
+
     function handleDeleteBlogs1()
      {
          $DBM = new DBManager();
-         $info = $DBM->deleteBloogs1();
+         $info = $DBM->deleteSelectedPosts();
          return $info;
      }
-     
+
      function handleDeleteUsers()
      {
         $DBM = new DBManager();
-        $info = $DBM->deleteUsers();
-        return $info;  
+        $info = $DBM->deleteSelectedUsers();
+        return $info;
      }
-    
+
      function handleSuspendUsers()
-     {      
+     {
          $DBM = new DBManager();
-         $info = $DBM->SuspendUsers();
-         return $info;            
+         $info = $DBM->updateUserSuspensionStatus();
+         return $info;
      }
-?>   
+?>
