@@ -61,13 +61,7 @@
                 $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 new View31($data);
                 break;
-            // case "addPost":
-            //     echo $_POST['textarea'];
-            //     $DBM = new DBManager();
-            //     $data = $DBM->getUserBlogDetails($_COOKIE['username']);
-            //      handleAddpost($data);
-            //    new View51($data);
-            //     break;
+
             case "addPost":
                 $DBM = new DBManager();
                 $data = $DBM->getUserBlogDetails($_COOKIE['username']);
@@ -225,9 +219,6 @@
                 break;
             case "add":
                 break;
-
-
-
 
         }
 
