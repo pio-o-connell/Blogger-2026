@@ -30,6 +30,11 @@
             case "loginRequest":
                 handleLogin();               
                 break;
+            case "blogs":
+                $DBM = new DBManager();
+                $data = $DBM->getBlogindex($_COOKIE['username']);
+                new AdminViewMessages($data);
+                break;
             case "addComment":       
                 $dummy = $_POST['postid'];
                  $DBM = new DBManager();
@@ -56,12 +61,30 @@
                 $data = $DBM->getBlogindex($_COOKIE['username']);
                 new View31($data);   
                 break;
+            // case "addPost":
+            //     echo $_POST['textarea'];               
+            //     $DBM = new DBManager();
+            //     $data = $DBM->getBlogindex($_COOKIE['username']);
+            //      handleAddpost($data);
+            //    new View51($data);           
+            //     break;
             case "addPost":
-                echo $_POST['textarea'];               
                 $DBM = new DBManager();
                 $data = $DBM->getBlogindex($_COOKIE['username']);
-                 handleAddpost($data);
-               new View51($data);           
+
+                $data['blogtitle'] = trim($_POST['blogtitle'] ?? '');
+                $data['textarea'] = trim($_POST['textarea'] ?? '');
+
+                if ($data['blogtitle'] === '' || $data['textarea'] === '') {
+                    new AdminViewMessages($data);
+                    break;
+                }
+
+                handleAddpost($data);
+
+                // Reload the data after attempting to add the post.
+                $data = $DBM->getBlogindex($_COOKIE['username']);
+                new AdminViewMessages($data);
                 break;
             case "addPost1":              
                 $data = handleFirstAddpost();
@@ -124,7 +147,13 @@
                     . $postId
                 );
                 exit;
+            
 
+            case "blogs":
+                $DBM = new DBManager();
+                $data = $DBM->getBlogindex($_COOKIE['username']);
+                new AdminViewMessages($data);
+                break;
             case "delete2":
                 handleDeleteBlogs1();
                 $DBM = new DBManager();
@@ -159,6 +188,9 @@
                 $info['id']=$_GET['userid'];
                 $info['reset1'] = 1;
                 new View9($info);               
+                break;
+            case "users":
+                new AdminUsersView([]);
                 break;
             case "deleteUsers":
                 $DBM = new DBManager();
@@ -199,70 +231,57 @@
                 
         }
    
-   }
-   
-   
-  
-   
-   
+   }  
    
    function handleLogin(){
-           
-       
-       $DBM = new DBManager();
-            
-       $result = $DBM->processLogin($_POST['username'],$_POST['password']);
-       
- 
-       if ($result == "rmiller"){
-                setCookie("username",$_POST['username'],time()+3600 );
-                $result1 = $DBM->getBlogindex($_POST['username']);
-                $result1['reset']=0;
-                new AdminDashboardView($result1);
-       }
-        else if ($result == "blogger")   {
-           // no output before setCookie
-           setCookie("username",$_POST['username'],time()+3600 );
-                $result1 = $DBM->getBlogindex($_POST['username']);
+                 
+        $DBM = new DBManager();
                 
-                new View51($result1);
-           
-        }else{
-           
-                new View2();
-           
-       }
+        $result = $DBM->processLogin($_POST['username'],$_POST['password']);
+        
+    
+        if ($result == "rmiller"){
+                    setCookie("username",$_POST['username'],time()+3600 );
+                    $result1 = $DBM->getBlogindex($_POST['username']);
+                    $result1['reset']=0;
+                    new AdminDashboardView($result1);
+        }
+            else if ($result == "blogger")   {
+            // no output before setCookie
+            setCookie("username",$_POST['username'],time()+3600 );
+                    $result1 = $DBM->getBlogindex($_POST['username']);               
+                    new View51($result1);           
+            }
+            else
+            {           
+                    new View2();           
+            }
        
-       }  
-       
-       
-     function handleAdduser(){    
-       $DBM = new DBManager();
-       $data = $DBM->addBlogger(); 
-   
-       return $data;
-   }
+    }  
+             
+    function handleAdduser(){    
+        $DBM = new DBManager();
+        $data = $DBM->addBlogger(); 
+
+        return $data;
+    }
    
     function handleViewBlogDetails(){
         $DBM = new DBManager();
         $data = $DBM->retrieveblogsandnotdisplay(); 
         return $data;
     }
-   
-   
-   
+       
     function handleAddpost($data){
         
         $DBM = new DBManager();
-        $data = $DBM->processBlog($data);
-        
+        $data = $DBM->processBlog($data);       
         return $data;
     }
-     function handleFirstAddpost(){
-       
+
+     function handleFirstAddpost(){      
         $DBM = new DBManager();       
-       return $DBM->processFirstBlog();
-       
+       return $DBM->processFirstBlog();      
     }
     
      function handleDeleteBlogs()
@@ -281,17 +300,15 @@
      
      function handleDeleteUsers()
      {
-       $DBM = new DBManager();
-         $info = $DBM->deleteUsers();
-         return $info;  
+        $DBM = new DBManager();
+        $info = $DBM->deleteUsers();
+        return $info;  
      }
     
      function handleSuspendUsers()
-     {
-        
+     {      
          $DBM = new DBManager();
          $info = $DBM->SuspendUsers();
-         return $info;   
-         
+         return $info;            
      }
 ?>   

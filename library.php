@@ -159,8 +159,7 @@ abstract class OutsideView {
                 ";
             }       
 }    
-    
-
+ 
 // splash screen view
     class View1 extends OutsideView{
             
@@ -229,7 +228,7 @@ abstract class OutsideView {
         }
 
 
-
+//login view - login unsuccessful view
     class View2 extends OutsideView
     {
         public function __construct()
@@ -304,33 +303,22 @@ abstract class OutsideView {
 
 
 
-
-
 class View3 extends OutsideView {
     public function __construct($info){
             $this->top();
-        //    $this->menu();
-        //    $this->bloggerList();
-            
- 
-            
+        //    $this->menu();        
             $this->bloggerList();
-            $this->content($info);
-            
+            $this->content($info);           
             $this->bottom();
-
-            
+           
         }
         
     public function content($info){
-
-                    $DBM = new DBManager();           
-                    $data = $DBM->displayPreviousBlogs($info);
-                    
+        $DBM = new DBManager();           
+        $data = $DBM->displayPreviousBlogs($info);                   
     }
        
-    public function bloggerList(){
-        
+    public function bloggerList(){      
         echo "
                 <div id=\"bloggerlist\">
                 <h3> blogger list </h3>";
@@ -564,7 +552,8 @@ class View4 extends OutsideView
         ';
     }
 }
-   
+
+// login view - login unsuccessful view
 class View5 extends InsideView {
     public function __construct($info){
             $this->top();
@@ -631,6 +620,8 @@ class View5 extends InsideView {
             ";
         }    
 }
+
+// login view - login successful view
 class View51 extends InsideView {
     public function __construct($info){
             $this->top();
@@ -784,7 +775,26 @@ class View6 extends InsideView {
 }
 
 
-class AdminDashboardView extends InsideView
+class AdminBaseView extends InsideView
+{
+    
+    protected function adminMenu()
+    {
+        echo '
+        <nav id="admin-menu" class="admin-navigation" aria-label="Administrator navigation">
+            <span class="admin-menu-title">Administration</span>
+
+            <div class="menu-account">
+                <a href="controller.php?cmd=users">Users</a>
+                <a href="controller.php?cmd=blogs">Blogs</a>
+                <a href="controller.php?cmd=logout">Log out</a>
+            </div>
+        </nav>';
+    }
+
+}
+
+class AdminDashboardView extends AdminBaseView
 {
     
     public function __construct($info)
@@ -804,23 +814,23 @@ class AdminDashboardView extends InsideView
         $this->bottom();
     }
     // Horizontal administration navigation
-    public function adminMenu()
-    {
-        echo '
-            <nav id="admin-menu" class="admin-navigation"
-                 aria-label="Administration navigation">
+    // public function adminMenu()
+    // {
+    //     echo '
+    //         <nav id="admin-menu" class="admin-navigation"
+    //              aria-label="Administration navigation">
 
-                <span class="admin-menu-title">Admin</span>
+    //             <span class="admin-menu-title">Admin</span>
 
-                <div class="menu-account">
-                    <a href="controller.php?cmd=users">Users</a>
-                    <a href="controller.php?cmd=blogs">Blogs</a>
-                    <a href="controller.php?cmd=logout">Log out</a>
-                </div>
+    //             <div class="menu-account">
+    //                 <a href="controller.php?cmd=users">Users</a>
+    //                 <a href="controller.php?cmd=blogs">Blogs</a>
+    //                 <a href="controller.php?cmd=logout">Log out</a>
+    //             </div>
 
-            </nav>
-        ';
-    }
+    //         </nav>
+    //     ';
+    // }
 
     // Left panel: Manage blog posts
     public function content($info)
@@ -1034,6 +1044,112 @@ class AdminDashboardView extends InsideView
         ';
     }
 }
+
+class AdminViewMessages extends AdminBaseView
+{
+    public function __construct($info)
+    {
+        $this->top('admin-dashboard');
+        $this->adminMenu();
+        $this->content($info);
+        $this->bottom();
+    }
+
+    public function content($info)
+    {
+        echo '
+        <h2>Manage Blogs</h2>
+
+        <form method="post" action="controller.php">
+            <input type="hidden" name="cmd" value="addPost">
+
+            <label for="blogtitle">Post title</label>
+            <input
+                type="text"
+                id="blogtitle"
+                name="blogtitle"
+                required
+            >
+
+            <label for="textarea">Post content</label>
+            <textarea
+                id="textarea"
+                name="textarea"
+                required
+            ></textarea>
+
+            <input type="submit" value="Publish post">
+        </form>
+
+        <h3>Previous posts</h3>
+        ';
+
+        // Reuse the existing method used by View51.
+        //DBManager::displayPreviousBlogs($info);
+        $DBM = new DBManager();
+        $DBM->displayPreviousBlogs($info);
+    }
+}
+
+
+class AdminUsersView extends AdminBaseView
+{
+    public function __construct($info)
+    {
+        $this->top('admin-dashboard');
+        $this->adminMenu();
+        $this->content($info);
+        $this->bottom();
+    }
+
+    public function content($info)
+    {
+        $DBM = new DBManager();
+
+        echo '
+        <div id="content">
+            <h1>Manage Users</h1>
+
+            <section class="admin-user-section">
+                <h2>Suspend or Restore Users</h2>
+
+                <form method="post" action="controller.php">
+                    <input type="hidden" name="cmd" value="Suspend">
+        ';
+
+        $DBM->retrieveallusersdisplay1($info);
+
+        if (!empty($info['reset2'])) {
+            $DBM->retrieveuserdetails($info);
+        }
+
+        echo '
+                    <button type="submit">Update user status</button>
+                </form>
+            </section>
+
+            <section class="admin-user-section">
+                <h2>Delete Users</h2>
+
+                <form method="post" action="controller.php">
+                    <input type="hidden" name="cmd" value="deleteUser">
+        ';
+
+        $DBM->retrieveallusersdisplay($info);
+
+        if (!empty($info['reset1'])) {
+            $DBM->retrieveuserdetails($info);
+        }
+
+        echo '
+                    <button type="submit">Delete selected users</button>
+                </form>
+            </section>
+        </div>
+        ';
+    }
+}
+
 
 
 
@@ -1648,7 +1764,54 @@ class DBManager{
             echo '</div>';
         }
 
+        // public function retrieveallusersdisplay($info){
+               
+                    
+        //             $user = array();
+        //             $dummy = array();
+        //             // get the blogs from the database
+        //             $query = "select * from user";
+        //             $resultSet = $this->db->query($query);
+                    
+        //             echo "Delete users <br>";
+        //             echo " Y\tN <br>";
+        //             for($i=0;$i<$resultSet->rowCount();$i++){      
+
+        //                 $user = $resultSet->fetch();             
+        //              //   $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
+        //                 $dummy = "User #{$user['id']} — {$user['username']} — {$user['email']}";
+        //                 $dummy1= "b".$i;
+        //                 echo $dummy1;
+        //                 echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
+        //                 echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
+        //                 echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $dummy</a><br>";
+                
+        //             }
+        // }
         
+        public function retrieveallusersdisplay($info){
+            $user = array();
+
+            $query = "SELECT * FROM user";
+            $resultSet = $this->db->query($query);
+
+            echo "Delete users <br>";
+            echo "Y\tN <br>";
+
+            for ($i = 0; $i < $resultSet->rowCount(); $i++) {
+
+                $user = $resultSet->fetch();
+
+                $userDisplay = "User #{$user['id']} — {$user['username']} — {$user['email']}";
+                $radioName = "b" . $i;
+
+                echo $radioName;
+                echo "<input type=\"radio\" name=\"$radioName\" value=\"Y\">";
+                echo "<input type=\"radio\" name=\"$radioName\" value=\"N\" checked>";
+                echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $userDisplay</a><br>";
+            }
+        }
+
         public function retrieveallusersdisplay1($info){
             
             
