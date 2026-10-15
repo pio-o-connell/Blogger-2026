@@ -3,6 +3,7 @@
 
 abstract class OutsideView {
 
+    // Render the page header and opening document structure.
     public function top() {
     echo "
     <!DOCTYPE html>
@@ -27,6 +28,7 @@ abstract class OutsideView {
         ";
     }
 
+    // Render the navigation area for this view.
     public function menu() {
         echo "
             <nav id=\"menu\" aria-label=\"Main navigation\">
@@ -41,6 +43,7 @@ abstract class OutsideView {
         ";
     }
 
+    // Render the blog list area for this view.
     public function bloggerList() {
         echo "
             <section id=\"bloggerlist\">
@@ -55,6 +58,7 @@ abstract class OutsideView {
         ";
     }
 
+    // Render the page footer and close the document structure.
     public function bottom() {
         echo "
                 <footer id=\"footer\">
@@ -71,15 +75,17 @@ abstract class OutsideView {
 
 
  class InsideView{
-       
+
+     // Initialize the view and render its complete page.
      public function __construct($info){
             $this->top();
             $this->menu();
             $this->content($info);
-            $this->bloggerList();       
-            $this->bottom();           
+            $this->bloggerList();
+            $this->bottom();
         }
-    
+
+            // Render the page header and opening document structure.
             public function top($mainClass = '') {
                 $classAttribute = $mainClass !== ''
                     ? ' class="' . htmlspecialchars($mainClass, ENT_QUOTES, 'UTF-8') . '"'
@@ -105,73 +111,79 @@ abstract class OutsideView {
                 ";
             }
 
-        
+
+            // Render the navigation area for this view.
             public function menu() {
                 echo "
                     <div id=\"menu\"></div>
                 ";
-            }         
-        
+            }
 
+
+            // Render the main content for this view.
             public function content($info){
 
-                echo " 
+                echo "
 
                     <div id=\"content\">
                                 <h1> Add a post!!</h1>
                                 <FORM METHOD=\"post\" ACTION=\"controller.php\">
 
-                                
+
                                         <input type=\"hidden\" name=\"cmd\" value=\"addPost\">
                                     // <textarea>
                                     <textarea name=\"textarea\" ROWS=6 COLS=50>
                                         Add post here!
                                         </textarea>
 
-                                            
-                        
+
+
                                 <input type=\"submit\" value=\"addPost\">
                             </FORM>
-                            
-                                
+
+
                             </div>
-                            ";       
+                            ";
                         }
 
-        
+
+            // Render the blog list area for this view.
             public function bloggerList()
             {
 
-                
+
                     echo "
-                        <div id=\"bloggerlist\">               
+                        <div id=\"bloggerlist\">
                             <h3> blogger list </h3>";
-        
-                    echo "</div>";               
+
+                    echo "</div>";
             }
-        
+
+            // Render the page footer and close the document structure.
             public function bottom(){
                 echo "
                 </div>
 
                 </body>
-                </html>        
+                </html>
                 ";
-            }       
-}    
- 
+            }
+}
+
 // splash screen view
     class View1 extends OutsideView{
-            
-        
+
+
+            // Initialize the view and render its complete page.
             public function __construct(){
                 $this->top();
                 $this->menu();
-                $this->bloggerList();   
-                $this->content();               
-                $this->bottom();               
+                $this->bloggerList();
+                $this->content();
+                $this->bottom();
             }
-        
+
+            // Render the main content for this view.
             public function content() {
 
                 echo "
@@ -206,6 +218,7 @@ abstract class OutsideView {
 
             }
 
+            // Render the blog list area for this view.
             public function bloggerList() {
 
                 echo "
@@ -224,13 +237,14 @@ abstract class OutsideView {
                 ";
             }
 
-            
+
         }
 
 
 //login view - login unsuccessful view
     class View2 extends OutsideView
     {
+        // Initialize the view and render its complete page.
         public function __construct()
         {
             $this->top();
@@ -239,6 +253,7 @@ abstract class OutsideView {
             $this->bottom();
         }
 
+        // Render the main content for this view.
         public function content()
         {
             echo '
@@ -304,106 +319,115 @@ abstract class OutsideView {
 
 
 class View3 extends OutsideView {
+    // Initialize the view and render its complete page.
     public function __construct($info){
             $this->top();
-        //    $this->menu();        
+        //    $this->menu();
             $this->bloggerList();
-            $this->content($info);           
+            $this->content($info);
             $this->bottom();
-           
+
         }
-        
+
+    // Render the main content for this view.
     public function content($info){
-        $DBM = new DBManager();           
-        $data = $DBM->displayPreviousBlogs($info);                   
+        $DBM = new DBManager();
+        $data = $DBM->displayPreviousBlogs($info);
     }
-       
-    public function bloggerList(){      
+
+    // Render the blog list area for this view.
+    public function bloggerList(){
         echo "
                 <div id=\"bloggerlist\">
                 <h3> blogger list </h3>";
-                
+
         //        echo"  in blofferlist";
                 $DBM = new DBManager();
                 $DBM->outerretrieveallblogsanddisplay();
         echo "</div>
         ";
     }
-    
+
+    // Render the page footer and close the document structure.
     function bottom(){
         echo "
         </div>
 
         </body>
-        </html>        
+        </html>
         ";
-    }    
-}  
+    }
+}
 
 class View31 extends OutsideView {
+    // Initialize the view and render its complete page.
     public function __construct($info){
             $this->top();
             $this->menu();
            $this->bloggerList();
             $this->content($info);
-            $this->bottom();           
+            $this->bottom();
         }
-        
+
+       // Render the main content for this view.
        public function content($info){
 
-           echo " 
+           echo "
 
             <div id=\"content\">
                         <h1> Welcome Guest  </h1>
                         <FORM METHOD=\"post\" ACTION=\"controller.php\">
                             <input type=\"hidden\" name=\"cmd\" value=\"addPost1\">
                             <input type=\"hidden\" name=\"id\" value=\"{$info['id']}\">
-                            <input type=\"hidden\" name=\"blogtitle\" > "; 
-                            
+                            <input type=\"hidden\" name=\"blogtitle\" > ";
+
                         echo " <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
                                                                         </textarea>
                             <input type=\"submit\" value=\"send data\">";
                             $DBM = new DBManager();
-                        
+
                             $data = $DBM->displayPreviousBlogs1($info);
-                            
-                            
-                    echo "</FORM>  
-                            
-                    
-                        
+
+
+                    echo "</FORM>
+
+
+
                 </div>
                     ";
-           
+
         }
 
-        
+
+       // Render the blog list area for this view.
        public function bloggerList(){
-           
+
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
-                    
+
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
             ";
         }
-        
+
+        // Render the page footer and close the document structure.
         public function bottom(){
             echo "
             </div>
 
             </body>
-            </html>        
+            </html>
             ";
-        }    
-}   
+        }
+}
 
 
 class ViewSinglePost extends OutsideView
 {
+    // Initialize the view and render its complete page.
     public function __construct($post)
     {
         $this->top();
@@ -474,6 +498,7 @@ class ViewSinglePost extends OutsideView
 // Registration view
 class View4 extends OutsideView
 {
+    // Initialize the view and render its complete page.
     public function __construct()
     {
         $this->top();
@@ -482,6 +507,7 @@ class View4 extends OutsideView
         $this->bottom();
     }
 
+    // Render the main content for this view.
     public function content()
     {
         echo '
@@ -555,17 +581,19 @@ class View4 extends OutsideView
 
 // login view - login unsuccessful view
 class View5 extends InsideView {
+    // Initialize the view and render its complete page.
     public function __construct($info){
             $this->top();
-            $this->menu(); 
+            $this->menu();
             $this->content($info);
             $this->bloggerList();
-            
+
             $this->bottom();
 
-            
+
         }
-        
+
+       // Render the main content for this view.
        public function content($info){
 
             echo "  $info[blogtitle] $info[id]
@@ -576,29 +604,30 @@ class View5 extends InsideView {
                     <input type=\"hidden\" name=\"cmd\" value=\"addPost\">
                     <input type=\"hidden\" name=\"id\" value=$info[id]>
                     <input type=\"hidden\" name=\"blogtitle\" value=$info[blogtitle]>
-                    
+
                        <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
                         </textarea>
                     <input type=\"submit\" value=\"send data\">
-                    
+
             </FORM>
            ";
- 
-          
+
+
           $DBM = new DBManager();
-          $DBM->displayPreviousBlogs($info);   
+          $DBM->displayPreviousBlogs($info);
            echo "</div>";
-            
-            
-  
+
+
+
         }
 
-    
-    
-  
-        
+
+
+
+
+       // Render the blog list area for this view.
        public function bloggerList(){
-           
+
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
@@ -607,39 +636,42 @@ class View5 extends InsideView {
             echo "</div>
             ";
 
-           
-           
+
+
        }
-        
+
+        // Render the page footer and close the document structure.
         function bottom(){
             echo "
             </div>
 
             </body>
-            </html>        
+            </html>
             ";
-        }    
+        }
 }
 
 // login view - login successful view
 class View51 extends InsideView {
+    // Initialize the view and render its complete page.
     public function __construct($info){
             $this->top();
             $this->menu();
         //    $this->bloggerList();
-            
- 
+
+
             $this->content($info);
             $this->bloggerList();
-            
+
             $this->bottom();
 
-            
+
         }
-        
+
+       // Render the main content for this view.
        public function content($info){
 
-         
+
         echo "
 	<div id=\"content\">
                   <h1>   </h1>
@@ -650,71 +682,75 @@ class View51 extends InsideView {
                         <td>Blog title:</td>
                         <td><input type=\"text\" name=\"blogtitle\"></td>
                     </tr>
-                    
+
                        <textarea name=\"textarea\" ROWS=6 COLS=50> Add post here!
                         </textarea>
                     <input type=\"submit\" value=\"send data\">
-                    
+
             </FORM>
            ";
-                    
-         
+
+
            $DBM = new DBManager();
            $DBM->displayPreviousBlogs($info);
-  //         $DBM->processComments();   
+  //         $DBM->processComments();
            echo "</div>";
-            
-            
-  
+
+
+
         }
 
-    
+
+       // Render the blog list area for this view.
        public function bloggerList(){
-           
+
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
-                    
+
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
             ";
 
-           
-           
+
+
        }
-        
+
+        // Render the page footer and close the document structure.
         function bottom(){
             echo "
             </div>
 
             </body>
-            </html>        
+            </html>
             ";
-        }    
+        }
 }
 
 
 // delete blogs
 class View6 extends InsideView {
+    // Initialize the view and render its complete page.
     public function __construct($info){
             $this->top();
             $this->menu();
         //    $this->bloggerList();
-            
- 
+
+
             $this->content($info);
             $this->bloggerList();
-            
+
             $this->bottom();
 
-            
+
         }
-        
+
+       // Render the main content for this view.
        public function content($info){
 
-            echo " 
+            echo "
 
 	<div id=\"content\">
                   <h1> Delete Blogs -- click link to view contents </h1>
@@ -722,62 +758,65 @@ class View6 extends InsideView {
                     <input type=\"hidden\" name=\"cmd\" value=\"delete1\">
                     <input type=\"hidden\" name=\"id\" value=\"{$info['id']}\">
                     <input type=\"hidden\" name=\"blogtitle\" value=>";
-           
+
            $DBM = new DBManager();
            $DBM->retrieveuserblogsanddisplay($info);
-           
+
            if ($info['reset'] != 0)
            {
                $DBM = new DBManager();
                $DBM->retrievebody($info);
-                    
-           }            
+
+           }
            echo"         <input type=\"submit\" value=\"Delete1\">
-                    
+
                     </FORM>
            ";
-         
-     //      $DBM->processComments();   
+
+     //      $DBM->processComments();
            echo "</div>";
-            
-            
-  
+
+
+
         }
 
-    
-    
-    
-        
+
+
+
+
+       // Render the blog list area for this view.
        public function bloggerList(){
-           
+
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
-                    
+
           //        echo"  in blofferlist";
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
             ";
 
-           
-           
+
+
        }
-        
+
+        // Render the page footer and close the document structure.
         function bottom(){
             echo "
             </div>
 
             </body>
-            </html>        
+            </html>
             ";
-        }    
+        }
 }
 
 
 class AdminBaseView extends InsideView
 {
-    
+
+    // Render navigation links for administration pages.
     protected function adminMenu()
     {
         echo '
@@ -796,7 +835,8 @@ class AdminBaseView extends InsideView
 
 class AdminDashboardView extends AdminBaseView
 {
-    
+
+    // Initialize the view and render its complete page.
     public function __construct($info)
     {
         $DBM = new DBManager();
@@ -838,7 +878,7 @@ class AdminDashboardView extends AdminBaseView
         echo '
             <main id="content" class="admin-delete-page">
                 <header class="page-heading">
-                    
+
                 </header>
 
                 <section class="admin-delete-panel">
@@ -1023,7 +1063,7 @@ class AdminDashboardView extends AdminBaseView
         echo '
             <section id="bloggerlist">
                 <div class="page-heading">
-                    
+
                 </div>
         ';
 
@@ -1035,6 +1075,7 @@ class AdminDashboardView extends AdminBaseView
         ';
     }
 
+    // Render the page footer and close the document structure.
     public function bottom()
     {
         echo '
@@ -1047,6 +1088,7 @@ class AdminDashboardView extends AdminBaseView
 
 class AdminViewMessages extends AdminBaseView
 {
+    // Initialize the view and render its complete page.
     public function __construct($info)
     {
         $this->top('admin-dashboard');
@@ -1055,6 +1097,7 @@ class AdminViewMessages extends AdminBaseView
         $this->bottom();
     }
 
+    // Render the main content for this view.
     public function content($info)
     {
         echo '
@@ -1094,6 +1137,7 @@ class AdminViewMessages extends AdminBaseView
 
 class AdminUsersView extends AdminBaseView
 {
+    // Initialize the view and render its complete page.
     public function __construct($info)
     {
         $this->top('admin-dashboard');
@@ -1102,6 +1146,7 @@ class AdminUsersView extends AdminBaseView
         $this->bottom();
     }
 
+    // Render the main content for this view.
     public function content($info)
     {
         $DBM = new DBManager();
@@ -1154,23 +1199,25 @@ class AdminUsersView extends AdminBaseView
 
 
 class View8 extends InsideView {
+    // Initialize the view and render its complete page.
     public function __construct($info){
             $this->top();
             $this->menu();
         //    $this->bloggerList();
-            
- 
+
+
             $this->content($info);
             $this->bloggerList();
-            
+
             $this->bottom();
 
-            
+
         }
-        
+
+       // Render the main content for this view.
        public function content($info){
 
-            echo " 
+            echo "
 
             <div id=\"content\">
                         <h1> Administrator -- Suspend Users </h1>
@@ -1178,28 +1225,29 @@ class View8 extends InsideView {
                             <input type=\"hidden\" name=\"cmd\" value=\"Suspend\">
                             <input type=\"hidden\" name=\"id\" value=>
                             <input type=\"hidden\" name=\"blogtitle\" value=>";
-                            
-        
-                    $DBM = new DBManager();                   
-                    $DBM->retrieveallusersdisplay1($info);                   
+
+
+                    $DBM = new DBManager();
+                    $DBM->retrieveallusersdisplay1($info);
                     if ($info['reset2'] != 0)
                     {
                     $DBM = new DBManager();
                     $DBM->retrieveuserdetails($info);
-                            
-                    }           
 
-                            
+                    }
+
+
                     echo"     <input type=\"submit\" value=\"send data\">
-                            
+
                     </FORM>
                 ";
-           
-            echo "</div>"; 
+
+            echo "</div>";
         }
-       
+
+       // Render the blog list area for this view.
        public function bloggerList(){
-           
+
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
@@ -1207,34 +1255,37 @@ class View8 extends InsideView {
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
-            ";                     
+            ";
        }
-        
+
+        // Render the page footer and close the document structure.
         public function bottom(){
             echo "
             </div>
 
             </body>
-            </html>        
+            </html>
             ";
-        }    
+        }
 }
 
 class View9 extends InsideView {
+    // Initialize the view and render its complete page.
     public function __construct($info){
             $this->top();
             $this->menu();
             $this->content($info);
             $this->bloggerList();
-            
+
             $this->bottom();
 
-            
+
         }
-        
+
+       // Render the main content for this view.
        public function content($info){
 
-            echo " 
+            echo "
 
 	<div id=\"content\">
                   <h1> Administrator  Delete Users</h1>
@@ -1242,135 +1293,145 @@ class View9 extends InsideView {
                     <input type=\"hidden\" name=\"cmd\" value=\"deleteUser\">
                     <input type=\"hidden\" name=\"id\" value=>
                     <input type=\"hidden\" name=\"blogtitle\" value=>";
-                    
-                    
+
+
               $DBM = new DBManager();
               $DBM->retrieveallusersdisplay($info);
-            
+
               if ($info['reset1'] != 0)
                {
                $DBM = new DBManager();
                $DBM->retrieveuserdetails($info);
-                    
-               }           
+
+               }
 
       echo "   <input type=\"submit\" value=\"delete users\">   </FORM>
            ";
 
-           echo "</div>";           
-  
+           echo "</div>";
+
         }
 
-           
+
+       // Render the blog list area for this view.
        public function bloggerList(){
-           
+
             echo "
                  <div id=\"bloggerlist\">
                     <h3> blogger list </h3>";
-                    
+
                   $DBM = new DBManager();
                   $DBM->retrieveallblogsanddisplay();
             echo "</div>
             ";
 
-           
-           
+
+
        }
-        
+
+        // Render the page footer and close the document structure.
         function bottom(){
             echo "
             </div>
 
             </body>
-            </html>        
+            </html>
             ";
-        }    
+        }
 }
 
 
 class DBManager{
-        
-        private $db;
-        
-        
-        public function __construct(){
-            
 
-           
+        private $db;
+
+
+
+        // Connect to the Blogger database.
+        public function __construct(){
+
+
+
             $address = 'mysql:host=127.0.0.1;port=3307;dbname=blogger';
             $username = 'root';
             $password = 'Spring57Local!';
-         
+
            try {
             $this->db = new PDO($address, $username, $password);
-    
+
            }catch (PDOException $e) {
                 $error_message = $e->getMessage();
                 echo $error_message;
                 exit();
-           }           
+           }
         }
-        
+
+
+        // Validate login credentials and identify the account type.
         public function processLogin($username, $password){
-            
+
             // get the login details and query database
-            
-            
+
+
             $query = "select * from user";
-            
+
             $resultSet = $this->db->query($query);
-    
+
             while($row = $resultSet->fetch()){
-        
+
                 if ( ($row['username']==$username)&& ($row['password']==$password)){
                     if ($username == "rmiller"){
                         return "rmiller";
                     }
                     else{
-                        return "blogger";      
+                        return "blogger";
                     }
                 }
             }
- 
+
             return "invalid";
-        }  
-        
+        }
+
+
+        // Build the blog context for a username.
         public function getBlogindex($username)
         {
-            
+
          $query1 = "select * from user";
-            
-                
+
+
                 $resultSet = $this->db->query($query1);
-               
+
                 $id=0;
-                
+
                 for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-             
+
+
                     $blogger = $resultSet->fetch();
-                    
-                   
+
+
                     if ($username == $blogger['username']){
-                       
+
                         $id = $blogger['id'];
                         $blogtitle = $blogger['blogtitle'];
                 //        $textarea = $blogger['textarea'];
-                      
+
                         $data['id']= $id;
                         $data['textarea']= " ";
                         $data['blogtitle'] = $blogtitle;
                         $date['username'] = $username;
                     }
-                    
+
                 }
                 $data['reset']= 1;
-              
-                return $data;   
+
+                return $data;
         }
 
+
+        // Create a new blogger account and return its context.
         public function addBlogger(){
-                
+
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $email = $_POST['email'];
@@ -1380,42 +1441,89 @@ class DBManager{
                 $blogger = array();
                 $data = array();
                 $data['blogtitle']=$blogtitle;
-    
+
                 $query = "INSERT INTO user (username, password,blogtitle,email,suspend)
                             VALUE ('$username','$password','$blogtitle','$email','$suspend')";
-                $this->db->exec($query);               
-                
+                $this->db->exec($query);
+
                 $query1 = "select * from user";
-            
-                
+
+
                 $resultSet = $this->db->query($query1);
-               
+
                 $id=0;
                 for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-                
+
+
                     $blogger = $resultSet->fetch();
-                    
-                   
+
+
                     if ($username == $blogger['username']){
-                       
+
                         $id = $blogger['id'];
-                        
+
                         $data['id']= $id;
                     }
-                    
+
                 }
-              
-               
-                
+
+
+
                 $data['blogtitle']= $blogtitle;
                 $data['username']=$username;
                 $data['id']=$id;
           //      return $id;
                 return $data;
-              
+
                 }
 
+
+        // Create a blog post for an existing blogger.
+        public function processBlog($info){
+            $data = array();
+
+            $blogtitle = $info['blogtitle'];
+            $textarea = $info['textarea'];
+            $id=$info['id'];
+            $data['blogtitle']= $info['blogtitle'];
+            $data['textarea']=$info['textarea'];
+            $data['id']=$info['id'];
+
+
+
+
+            echo "proces blog feck $id $blogtitle $textarea"
+                    ;
+
+            $query ="INSERT into post(bloggerid,title,body)
+                        VALUES ( '$id','$blogtitle','$textarea')";
+            $this->db->exec($query);
+                return $data;
+        }
+
+
+        // Create the first blog post for a blogger.
+        public function processFirstBlog(){
+            $data = array();
+
+            $blogtitle = $_POST['blogtitle'];
+            $textarea = $_POST['textarea'];
+            $id=$_POST['id'];
+            $data['id'] =$id;
+            $data['textarea']=$textarea;
+            $data['blogtitle'] =$_POST['blogtitle'];
+
+
+
+
+            $query ="INSERT into post(bloggerid,title,body)
+                        VALUES ( '$id','$blogtitle','$textarea')";
+            $this->db->exec($query);
+            return $data;
+        }
+
+
+        // Find the newest blog post identifier.
         public function getMostRecentPostId()
         {
             $query = $this->db->query(
@@ -1426,98 +1534,33 @@ class DBManager{
 
             return $postId === false ? 0 : (int) $postId;
         }
-                
-        public function retrieveAdminBlogPosts($info = [])
+
+
+        // Retrieve one blog post by its identifier.
+        public function getPostById($postId)
         {
-            $query = $this->db->query(
-                'SELECT post.id, post.title, post.body, user.username
+            $query = "
+                SELECT
+                    post.id,
+                    post.title,
+                    post.body,
+                    user.username,
+                    user.blogtitle
                 FROM post
                 INNER JOIN user ON post.bloggerid = user.id
-                ORDER BY post.id DESC'
-            );
+                WHERE post.id = :post_id
+                LIMIT 1
+            ";
 
-            $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+            $statement = $this->db->prepare($query);
+            $statement->execute(['post_id' => (int) $postId]);
 
-            echo '
-                <div class="delete-blog-list">
-                    <div class="delete-blog-heading">
-                        <span>Blog post</span>
-                        <span>Delete</span>
-                    </div>
-            ';
-
-            if (empty($posts)) {
-                echo '
-                    <div class="delete-blog-row">
-                        <p>No blog posts found.</p>
-                    </div>
-                ';
-            } else {
-                foreach ($posts as $post) {
-                    $postId = (int) $post['id'];
-
-                    $title = htmlspecialchars(
-                        $post['title'] ?? '',
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-
-                    $originator = htmlspecialchars(
-                        $post['username'] ?? 'Unknown',
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-
-                    $body = trim(strip_tags($post['body'] ?? ''));
-                    $preview = preg_split('/\R/', $body)[0] ?? '';
-
-                    if (strlen($preview) > 120) {
-                        $preview = substr($preview, 0, 120) . '...';
-                    }
-
-                    $preview = htmlspecialchars(
-                        $preview,
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-
-                    echo '
-                        <div class="delete-blog-row">
-                            <div class="delete-blog-details">
-
-                                <a class="delete-blog-title"
-                                href="controller.php?cmd=openblog2&amp;bloggerid='
-                                . $postId . '">'
-                                . $title .
-                                '</a>
-
-                                <div class="delete-blog-originator">
-                                    By ' . $originator . '
-                                </div>
-
-                                <div class="delete-blog-preview">'
-                                    . $preview .
-                                '</div>
-
-                            </div>
-
-                            <label class="delete-blog-choice">
-                                <input type="checkbox"
-                                    name="deletePosts[]"
-                                    value="' . $postId . '">
-                                <span class="visually-hidden">Delete</span>
-                            </label>
-                        </div>
-                    ';
-                }
-            }
-
-            echo '</div>';
+            return $statement->fetch(PDO::FETCH_ASSOC);
         }
 
 
-           
-            
+
+        // Retrieve comments belonging to a blog post.
         public function getCommentsForPost($postId)
         {
             $postId = (int) $postId;
@@ -1538,6 +1581,8 @@ class DBManager{
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
 
+
+        // Render the public list of blog posts.
         public function retrieveallblogsanddisplay() {
 
             $query = "
@@ -1602,71 +1647,53 @@ class DBManager{
                 ";
             }
         }
-        
-        public function getPostById($postId)
-        {
-            $query = "
-                SELECT
-                    post.id,
-                    post.title,
-                    post.body,
-                    user.username,
-                    user.blogtitle
-                FROM post
-                INNER JOIN user ON post.bloggerid = user.id
-                WHERE post.id = :post_id
-                LIMIT 1
-            ";
 
-            $statement = $this->db->prepare($query);
-            $statement->execute(['post_id' => (int) $postId]);
 
-            return $statement->fetch(PDO::FETCH_ASSOC);
-        }
-
-        
+        // Render blog posts for the public outer view.
         public function outerretrieveallblogsanddisplay(){
-            
-            
+
+
                 $blogger = array();
                 $dummy = array();
                 // get the blogs from the database
                 $query = "select * from post";
                     $resultSet = $this->db->query($query);
-            
-                
+
+
                 for($i=0;$i<$resultSet->rowCount();$i++){
-                
-        
+
+
                 $blogger = $resultSet->fetch();
-            
+
                 $dummy = "blooger"."{$blogger['bloggerid']} <br>";
-        
+
 
                 echo "<a href=\"controller.php?cmd=openblog9&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
-                
-                
-                        
+
+
+
 
                 }
         }
-        
+
+
+        // Render posts belonging to a selected user.
         public function retrieveuserblogsanddisplay($info){
-            
-                
+
+
                 $blogger = array();
                 $dummy = array();
                 // get the blogs from the database
                 $query = "select * from post";
                 $resultSet = $this->db->query($query);
-                
+
                 echo "Delete blogs <br>";
                 echo " Y\tN <br>";
                 for($i=0;$i<$resultSet->rowCount();$i++){
-                
-        
+
+
                 $blogger = $resultSet->fetch();
-            
+
                 if ($info['id'] == $blogger['bloggerid']){
                 $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
                 $dummy1= "b".$i;
@@ -1675,13 +1702,15 @@ class DBManager{
                 echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked>";
                 echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\">";
                 echo "<a href=\"controller.php?cmd=openblog&amp;bloggerid={$blogger['id']}\"> $dummy</a><br>";
-                
-                
+
+
                 }
                 }
         }
-                
-    
+
+
+
+        // Render a blogger post list for the guest posting view.
         public function retrieveallblogsanddisplay1($info)
         {
             $query = "SELECT * FROM post";
@@ -1765,19 +1794,19 @@ class DBManager{
         }
 
         // public function retrieveallusersdisplay($info){
-               
-                    
+
+
         //             $user = array();
         //             $dummy = array();
         //             // get the blogs from the database
         //             $query = "select * from user";
         //             $resultSet = $this->db->query($query);
-                    
+
         //             echo "Delete users <br>";
         //             echo " Y\tN <br>";
-        //             for($i=0;$i<$resultSet->rowCount();$i++){      
+        //             for($i=0;$i<$resultSet->rowCount();$i++){
 
-        //                 $user = $resultSet->fetch();             
+        //                 $user = $resultSet->fetch();
         //              //   $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
         //                 $dummy = "User #{$user['id']} — {$user['username']} — {$user['email']}";
         //                 $dummy1= "b".$i;
@@ -1785,205 +1814,26 @@ class DBManager{
         //                 echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
         //                 echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
         //                 echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $dummy</a><br>";
-                
+
         //             }
         // }
-        
-        public function retrieveallusersdisplay($info){
-            $user = array();
-
-            $query = "SELECT * FROM user";
-            $resultSet = $this->db->query($query);
-
-            echo "Delete users <br>";
-            echo "Y\tN <br>";
-
-            for ($i = 0; $i < $resultSet->rowCount(); $i++) {
-
-                $user = $resultSet->fetch();
-
-                $userDisplay = "User #{$user['id']} — {$user['username']} — {$user['email']}";
-                $radioName = "b" . $i;
-
-                echo $radioName;
-                echo "<input type=\"radio\" name=\"$radioName\" value=\"Y\">";
-                echo "<input type=\"radio\" name=\"$radioName\" value=\"N\" checked>";
-                echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $userDisplay</a><br>";
-            }
-        }
-
-        public function retrieveallusersdisplay1($info){
-            
-            
-            $user = array();
-            $dummy = array();
-            // get the blogs from the database
-            $query = "select * from user";
-            $resultSet = $this->db->query($query);
-            
-            echo "Suspend users <br>";
-            echo " Y\tN <br>";
-            for($i=0;$i<$resultSet->rowCount();$i++){
-            
-    
-                $user = $resultSet->fetch();
-        
-
-                $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
-                $dummy1= "b".$i;
 
 
-                if ($user['suspend']){
-                echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
-                echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" >";
-                }
-                else {
-                echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
-                echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";  
-                }
-                echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
-                
-                
-
-                    }
-        }
-        
-        
-        
-        
-        
-        
-        public function retrievebody($data){
-            $query = "select * from post";
-            $resultSet = $this->db->query($query);
-            
-            
-            
-            
-            for($i=0;$i<$resultSet->rowCount();$i++){
-            $blogger = $resultSet->fetch();  
-            if($blogger['id'] == $data['bloggerid'])
-            {echo " <textarea name=\"textarea\" ROWS=6 COLS=50>".
-            $blogger['body']." </textarea>" ; 
-            
-            }       
-            
-        }
-        }
-        
-        
-        
-        
-        public function retrieveuserdetails($data){
-            echo "in retrieve id .. ".$data['id'];
-            $query = "select * from user";
-            $resultSet = $this->db->query($query);
-            
-            
-            
-            
-            for($i=0;$i<$resultSet->rowCount();$i++){
-            $user = $resultSet->fetch();  
-            if($user['id'] == $data['id']){
-            echo " <textarea name=\"textarea\" ROWS=6 COLS=50>";
-            echo "UserId : {$user['id']}
-                Username : {$user['username']}
-            UserPassword : {$user['password']}
-                    Email : {$user['email']}";
-            echo " </textarea>" ; 
-            
-            }       
-            
-
-        }
-            } 
-        
-        
-        public function getDetailsanddisplay(){
-                $blogger = array();
-                $dummy = array();
-                // get the blogs from the database
-                $query = "select * from post";
-                $resultSet = $this->db->query($query);
-            
-                
-                for($i=0;$i<$resultSet->rowCount();$i++){
-                
-        
-                $blogger = $resultSet->fetch();
-            
-                $dummy = "blooger"."{$blogger['bloggerid']} <br>";
-        
-
-                
-                }
-        }
-                 
-        public function processBlog($info){
-            $data = array();
-            
-            $blogtitle = $info['blogtitle'];
-            $textarea = $info['textarea'];
-            $id=$info['id'];
-            $data['blogtitle']= $info['blogtitle'];
-            $data['textarea']=$info['textarea'];
-            $data['id']=$info['id'];
-            
-            
-            
-                
-            echo "proces blog feck $id $blogtitle $textarea"
-                    ;
-            
-            $query ="INSERT into post(bloggerid,title,body)
-                        VALUES ( '$id','$blogtitle','$textarea')";
-            $this->db->exec($query); 
-                return $data;
-        }
-        
-        public function processFirstBlog(){
-            $data = array();
-                    
-            $blogtitle = $_POST['blogtitle'];
-            $textarea = $_POST['textarea'];
-            $id=$_POST['id'];
-            $data['id'] =$id;
-            $data['textarea']=$textarea;
-            $data['blogtitle'] =$_POST['blogtitle'];
-                
-
-            
-            
-            $query ="INSERT into post(bloggerid,title,body)
-                        VALUES ( '$id','$blogtitle','$textarea')";
-            $this->db->exec($query); 
-            return $data;
-        }
-
-        public function displayUsers($info){
-            
-            $query = "select DISTINCT * from user";
-            $resultSet = $this->db->query($query);
-            for($i=0;$i<$resultSet->rowCount();$i++){
-                $user = $resultSet->fetch();
-
-            echo "<input type=checkbox name={$user['username']} value={$user['username']}> {$user['username']}<br>";
-            }
-            return $resultSet;
-        }
-        
-
-        
+        // Render previous posts for a selected blogger.
         public function displayPreviousBlogs($info)
         {
             $this->renderPreviousBlogs($info, 'addComment');
         }
 
+
+        // Render previous posts for the guest posting view.
         public function displayPreviousBlogs1($info)
         {
             $this->renderPreviousBlogs($info, 'addComment1');
         }
 
+
+        // Render a reusable previous-post list.
         private function renderPreviousBlogs($info, $command)
         {
             $userId = (int) $info['id'];
@@ -2080,13 +1930,264 @@ class DBManager{
             echo '</section>';
         }
 
+
+        // Render blog posts in the administration list.
+        public function retrieveAdminBlogPosts($info = [])
+        {
+            $query = $this->db->query(
+                'SELECT post.id, post.title, post.body, user.username
+                FROM post
+                INNER JOIN user ON post.bloggerid = user.id
+                ORDER BY post.id DESC'
+            );
+
+            $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            echo '
+                <div class="delete-blog-list">
+                    <div class="delete-blog-heading">
+                        <span>Blog post</span>
+                        <span>Delete</span>
+                    </div>
+            ';
+
+            if (empty($posts)) {
+                echo '
+                    <div class="delete-blog-row">
+                        <p>No blog posts found.</p>
+                    </div>
+                ';
+            } else {
+                foreach ($posts as $post) {
+                    $postId = (int) $post['id'];
+
+                    $title = htmlspecialchars(
+                        $post['title'] ?? '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    $originator = htmlspecialchars(
+                        $post['username'] ?? 'Unknown',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    $body = trim(strip_tags($post['body'] ?? ''));
+                    $preview = preg_split('/\R/', $body)[0] ?? '';
+
+                    if (strlen($preview) > 120) {
+                        $preview = substr($preview, 0, 120) . '...';
+                    }
+
+                    $preview = htmlspecialchars(
+                        $preview,
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    echo '
+                        <div class="delete-blog-row">
+                            <div class="delete-blog-details">
+
+                                <a class="delete-blog-title"
+                                href="controller.php?cmd=openblog2&amp;bloggerid='
+                                . $postId . '">'
+                                . $title .
+                                '</a>
+
+                                <div class="delete-blog-originator">
+                                    By ' . $originator . '
+                                </div>
+
+                                <div class="delete-blog-preview">'
+                                    . $preview .
+                                '</div>
+
+                            </div>
+
+                            <label class="delete-blog-choice">
+                                <input type="checkbox"
+                                    name="deletePosts[]"
+                                    value="' . $postId . '">
+                                <span class="visually-hidden">Delete</span>
+                            </label>
+                        </div>
+                    ';
+                }
+            }
+
+            echo '</div>';
+        }
+
+
+
+
+
+        // Load and render the body of a selected post.
+        public function retrievebody($data){
+            $query = "select * from post";
+            $resultSet = $this->db->query($query);
+
+
+
+
+            for($i=0;$i<$resultSet->rowCount();$i++){
+            $blogger = $resultSet->fetch();
+            if($blogger['id'] == $data['bloggerid'])
+            {echo " <textarea name=\"textarea\" ROWS=6 COLS=50>".
+            $blogger['body']." </textarea>" ;
+
+            }
+
+        }
+        }
+
+
+
+
+
+        // Read post details for display.
+        public function getDetailsanddisplay(){
+                $blogger = array();
+                $dummy = array();
+                // get the blogs from the database
+                $query = "select * from post";
+                $resultSet = $this->db->query($query);
+
+
+                for($i=0;$i<$resultSet->rowCount();$i++){
+
+
+                $blogger = $resultSet->fetch();
+
+                $dummy = "blooger"."{$blogger['bloggerid']} <br>";
+
+
+
+                }
+        }
+
+
+        // Render users for administration.
+        public function retrieveallusersdisplay($info){
+            $user = array();
+
+            $query = "SELECT * FROM user";
+            $resultSet = $this->db->query($query);
+
+            echo "Delete users <br>";
+            echo "Y\tN <br>";
+
+            for ($i = 0; $i < $resultSet->rowCount(); $i++) {
+
+                $user = $resultSet->fetch();
+
+                $userDisplay = "User #{$user['id']} — {$user['username']} — {$user['email']}";
+                $radioName = "b" . $i;
+
+                echo $radioName;
+                echo "<input type=\"radio\" name=\"$radioName\" value=\"Y\">";
+                echo "<input type=\"radio\" name=\"$radioName\" value=\"N\" checked>";
+                echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $userDisplay</a><br>";
+            }
+        }
+
+
+        // Render users for suspension management.
+        public function retrieveallusersdisplay1($info){
+
+
+            $user = array();
+            $dummy = array();
+            // get the blogs from the database
+            $query = "select * from user";
+            $resultSet = $this->db->query($query);
+
+            echo "Suspend users <br>";
+            echo " Y\tN <br>";
+            for($i=0;$i<$resultSet->rowCount();$i++){
+
+
+                $user = $resultSet->fetch();
+
+
+                $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
+                $dummy1= "b".$i;
+
+
+                if ($user['suspend']){
+                echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
+                echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" >";
+                }
+                else {
+                echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
+                echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
+                }
+                echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
+
+
+
+                    }
+        }
+
+
+
+
+
+
+
+        // Load and render details for a selected user.
+        public function retrieveuserdetails($data){
+            echo "in retrieve id .. ".$data['id'];
+            $query = "select * from user";
+            $resultSet = $this->db->query($query);
+
+
+
+
+            for($i=0;$i<$resultSet->rowCount();$i++){
+            $user = $resultSet->fetch();
+            if($user['id'] == $data['id']){
+            echo " <textarea name=\"textarea\" ROWS=6 COLS=50>";
+            echo "UserId : {$user['id']}
+                Username : {$user['username']}
+            UserPassword : {$user['password']}
+                    Email : {$user['email']}";
+            echo " </textarea>" ;
+
+            }
+
+
+        }
+            }
+
+
+
+        // Render the administration user list.
+        public function displayUsers($info){
+
+            $query = "select DISTINCT * from user";
+            $resultSet = $this->db->query($query);
+            for($i=0;$i<$resultSet->rowCount();$i++){
+                $user = $resultSet->fetch();
+
+            echo "<input type=checkbox name={$user['username']} value={$user['username']}> {$user['username']}<br>";
+            }
+            return $resultSet;
+        }
+
+
+
+
+        // Delete the selected blog posts.
         function deleteBloogs(){
 
-        
+
         $query = "select * from post";
         $resultSet = $this->db->query($query);
 
-                
+
         for($i=0;$i<$resultSet->rowCount();$i++){
                 $post = $resultSet->fetch();
                 if ($post['bloggerid'] == $_POST['id'] )
@@ -2098,12 +2199,14 @@ class DBManager{
                     }
                     else {
 
-                    }                                    
-                        
+                    }
+
                 }
         }
-            
-        
+
+
+
+        // Delete selected comments from a blog post.
         public function deleteCommentsForPost($postId, $commentIds)
         {
             $postId = (int) $postId;
@@ -2142,7 +2245,9 @@ class DBManager{
 
 
 
-        
+
+
+        // Delete blog posts selected in the administration form.
         public function deleteBloogs1()
         {
             // Nothing selected: leave all posts untouched.
@@ -2186,15 +2291,17 @@ class DBManager{
         }
 
 
-        function deleteUsers(){
-        
 
-        
+        // Delete the selected users.
+        function deleteUsers(){
+
+
+
         $query = "select * from user";
         $resultSet = $this->db->query($query);
         $dummy = $_POST['b7'];
 
-                
+
         for($i=0;$i<$resultSet->rowCount();$i++){
                 $user = $resultSet->fetch();
 
@@ -2206,19 +2313,21 @@ class DBManager{
                     }
                     else {
 
-                    }         
-                            
-                        
+                    }
+
+
                 }
         }
-        
-        
+
+
+
+        // Update user suspension selections.
         function SuspendUsers (){
             $query = "select * from user";
         $resultSet = $this->db->query($query);
         $dummy = $_POST['b7'];
 
-                
+
         for($i=0;$i<$resultSet->rowCount();$i++){
                 $user = $resultSet->fetch();
 
@@ -2226,25 +2335,25 @@ class DBManager{
 
                     $dummy1 = $user['id'];
                     $query1 = "update user set suspend=1  where id = $dummy1";
-                    
+
                     }
                     else {
 
                     $dummy1 = $user['id'];
                     $query1 = "update user set suspend=0  where id = $dummy1";
-                    }         
-                    $resultSet1 = $this->db->query($query1);         
-                        
+                    }
+                    $resultSet1 = $this->db->query($query1);
+
                 }
         }
-            
-            
-            
-            
-            
-            
-            
-}     
-      
-      
+
+
+
+
+
+
+
+}
+
+
  ?>
