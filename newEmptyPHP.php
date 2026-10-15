@@ -1007,7 +1007,7 @@ class View6 extends InsideView {
             ";
         }    
 }
-class View7 extends InsideView {
+class AdminDashboardView extends InsideView {
     public function __construct($info){
             $this->top();
             $this->menu();

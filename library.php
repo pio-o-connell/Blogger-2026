@@ -784,18 +784,9 @@ class View6 extends InsideView {
 }
 
 
-class View7 extends InsideView
+class AdminDashboardView extends InsideView
 {
-    // public function __construct($info)
-    // {
-    //     $this->top('admin-view7');
-    //     $this->adminMenu();
-    //     $this->content($info);
-    //    // $this->postComments();
-    //     $this->postComments($info);
-    //    // $this->recentPosts();
-    //     $this->bottom();
-    // }
+    
     public function __construct($info)
     {
         $DBM = new DBManager();
@@ -805,7 +796,7 @@ class View7 extends InsideView
             $info['bloggerid'] = $DBM->getMostRecentPostId();
         }
 
-        $this->top('admin-view7');
+        $this->top('admin-dashboard');
         $this->adminMenu();
         $this->content($info);
         $this->postComments($info);
@@ -848,12 +839,7 @@ class View7 extends InsideView
         ';
 
         $DBM = new DBManager();
-     //   $DBM->retrieveallblogsanddisplay1($info);
         $DBM->retrieveAdminBlogPosts($info);
-        // if (isset($info['reset']) && $info['reset'] != 0) {
-        //     $DBM->retrievebody($info);
-        // }
-
         echo '
                         </div>
 
@@ -873,421 +859,6 @@ class View7 extends InsideView
         ';
     }
 
-    // Right panel: Comments for the selected blog post
-    // public function postComments()
-    // {
-    //     echo '
-    //         <section id="bloggerlist">
-    //             <div class="page-heading">
-
-    //             </div>
-    //     ';
-
-    //     // Retrieve and display comments for the selected post here.
-
-    //     echo '
-    //         </section>
-    //     ';
-    // }
-    // Right panel: Comments for the selected blog post
-    
-    // public function postComments($info)
-    // {
-    //     $postId = isset($info['bloggerid'])
-    //         ? (int) $info['bloggerid']
-    //         : 0;
-
-    //     echo '
-    //         <section id="bloggerlist">
-    //             <div class="page-heading">
-    //                 <h2>Post comments</h2>
-    //             </div>
-    //     ';
-
-    //     if ($postId <= 0) {
-    //         echo '<p class="blog-list-intro">
-    //                 Select a blog post from the left to view its comments.
-    //             </p>';
-    //     } else {
-    //         $DBM = new DBManager();
-    //         $comments = $DBM->getCommentsForPost($postId);
-
-    //         echo '<p class="blog-list-intro">
-    //                 Comments for post #' . $postId . '
-    //             </p>';
-
-    //         if (empty($comments)) {
-    //             echo '<p>No comments have been added to this post yet.</p>';
-    //         } else {
-    //             foreach ($comments as $comment) {
-    //                 $commentId = (int) $comment['id'];
-    //                 $body = htmlspecialchars(
-    //                     $comment['body'] ?? '',
-    //                     ENT_QUOTES,
-    //                     'UTF-8'
-    //                 );
-
-    //                 echo '
-    //                     <article class="blog-post">
-    //                         <p class="post-meta">Comment #' . $commentId . '</p>
-    //                         <p class="post-excerpt">' . nl2br($body) . '</p>
-    //                     </article>
-    //                 ';
-    //             }
-    //         }
-    //     }
-
-    //     echo '</section>';
-    // }
-    // // Right panel: Selected blog post and its comments
-    // public function postComments($info)
-    // {
-    //     $postId = isset($info['bloggerid'])
-    //         ? (int) $info['bloggerid']
-    //         : 0;
-
-    //     echo '
-    //         <section id="bloggerlist">
-    //             <div class="page-heading">
-    //                 <h2>Selected blog post</h2>
-    //             </div>
-    //     ';
-
-    //     if ($postId <= 0) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 No blog posts are available yet.
-    //             </p>
-    //         ';
-    //         echo '</section>';
-    //         return;
-    //     }
-
-    //     $DBM = new DBManager();
-    //     $post = $DBM->getPostById($postId);
-
-    //     if (!$post) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 The selected blog post could not be found.
-    //             </p>
-    //         ';
-    //         echo '</section>';
-    //         return;
-    //     }
-
-    //     $title = htmlspecialchars(
-    //         $post['title'] ?? '',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     $body = htmlspecialchars(
-    //         $post['body'] ?? '',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     echo '
-    //         <article class="blog-post">
-    //             <h3>' . $title . '</h3>
-    //             <div class="post-excerpt">'
-    //                 . nl2br($body) .
-    //             '</div>
-    //         </article>
-
-    //         <div class="page-heading">
-    //             <h2>Comments</h2>
-    //         </div>
-    //     ';
-
-    //     $comments = $DBM->getCommentsForPost($postId);
-
-    //     if (empty($comments)) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 No comments have been added to this post yet.
-    //             </p>
-    //         ';
-    //     } else {
-    //         foreach ($comments as $comment) {
-    //             $commentId = (int) $comment['id'];
-
-    //             $commentBody = htmlspecialchars(
-    //                 $comment['body'] ?? '',
-    //                 ENT_QUOTES,
-    //                 'UTF-8'
-    //             );
-
-    //             echo '
-    //                 <article class="blog-post">
-    //                     <p class="post-meta">
-    //                         Comment #' . $commentId . '
-    //                     </p>
-
-    //                     <div class="post-excerpt">'
-    //                         . nl2br($commentBody) .
-    //                     '</div>
-    //                 </article>
-    //             ';
-    //         }
-    //     }
-
-    //     echo '</section>';
-    // }
-    
-    // Right panel: Selected blog post and its comments
-    // public function postComments($info)
-    // {
-    //     $postId = isset($info['bloggerid'])
-    //         ? (int) $info['bloggerid']
-    //         : 0;
-
-    //     echo '
-    //         <section id="bloggerlist">
-    //             <div class="page-heading">
-    //                 <h2>Selected blog post</h2>
-    //             </div>
-    //     ';
-
-    //     if ($postId <= 0) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 No blog posts are available yet.
-    //             </p>
-    //         ';
-    //         echo '</section>';
-    //         return;
-    //     }
-
-    //     $DBM = new DBManager();
-    //     $post = $DBM->getPostById($postId);
-
-    //     if (!$post) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 The selected blog post could not be found.
-    //             </p>
-    //         ';
-    //         echo '</section>';
-    //         return;
-    //     }
-
-    //     $title = htmlspecialchars(
-    //         $post['title'] ?? '',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     $originator = htmlspecialchars(
-    //         $post['username'] ?? 'Unknown',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     $body = htmlspecialchars(
-    //         $post['body'] ?? '',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     echo '
-    //         <article class="blog-post">
-    //             <h3>' . $title . '</h3>
-
-    //             <p class="post-meta">
-    //                 By ' . $originator . '
-    //             </p>
-
-    //             <div class="post-excerpt">'
-    //                 . nl2br($body) .
-    //             '</div>
-    //         </article>
-
-    //         <div class="page-heading">
-    //             <h2>Comments</h2>
-    //         </div>
-    //     ';
-
-    //     $comments = $DBM->getCommentsForPost($postId);
-
-    //     if (empty($comments)) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 No comments have been added to this post yet.
-    //             </p>
-    //         ';
-    //     } else {
-    //         foreach ($comments as $comment) {
-    //             $commentId = (int) $comment['id'];
-
-    //             $commentBody = htmlspecialchars(
-    //                 $comment['body'] ?? '',
-    //                 ENT_QUOTES,
-    //                 'UTF-8'
-    //             );
-
-    //             echo '
-    //                 <article class="blog-post">
-    //                     <p class="post-meta">
-    //                         Comment #' . $commentId . '
-    //                     </p>
-
-    //                     <div class="post-excerpt">'
-    //                         . nl2br($commentBody) .
-    //                     '</div>
-    //                 </article>
-    //             ';
-    //         }
-    //     }
-
-    //     echo '</section>';
-    // }
-    
-    // Right panel: Selected blog post and its comments
-    // public function postComments($info)
-    // {
-    //     $postId = isset($info['bloggerid'])
-    //         ? (int) $info['bloggerid']
-    //         : 0;
-
-    //     echo '
-    //         <section id="bloggerlist">
-    //             <div class="page-heading">
-    //                 <h2>Selected blog post</h2>
-    //             </div>
-    //     ';
-
-    //     if ($postId <= 0) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 No blog posts are available yet.
-    //             </p>
-    //         ';
-    //         echo '</section>';
-    //         return;
-    //     }
-
-    //     $DBM = new DBManager();
-    //     $post = $DBM->getPostById($postId);
-
-    //     if (!$post) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 The selected blog post could not be found.
-    //             </p>
-    //         ';
-    //         echo '</section>';
-    //         return;
-    //     }
-
-    //     $title = htmlspecialchars(
-    //         $post['title'] ?? '',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     $originator = htmlspecialchars(
-    //         $post['username'] ?? 'Unknown',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     $body = htmlspecialchars(
-    //         $post['body'] ?? '',
-    //         ENT_QUOTES,
-    //         'UTF-8'
-    //     );
-
-    //     echo '
-    //         <article class="blog-post">
-    //             <h3>' . $title . '</h3>
-
-    //             <p class="post-meta">
-    //                 By ' . $originator . '
-    //             </p>
-
-    //             <div class="post-excerpt">'
-    //                 . nl2br($body) .
-    //             '</div>
-    //         </article>
-
-    //         <div class="page-heading">
-    //             <h2>Comments</h2>
-    //         </div>
-    //     ';
-
-    //     $comments = $DBM->getCommentsForPost($postId);
-
-    //     if (empty($comments)) {
-    //         echo '
-    //             <p class="blog-list-intro">
-    //                 No comments have been added to this post yet.
-    //             </p>
-    //         ';
-    //     } else {
-    //         // Separate form for deleting comments.
-    //         echo '
-    //             <form method="post" action="controller.php"
-    //                 class="delete-comments-form">
-
-    //                 <input type="hidden"
-    //                     name="cmd"
-    //                     value="deleteComments">
-
-    //                 <input type="hidden"
-    //                     name="bloggerid"
-    //                     value="' . $postId . '">
-    //         ';
-
-    //         foreach ($comments as $comment) {
-    //             $commentId = (int) $comment['id'];
-
-    //             $author = htmlspecialchars(
-    //                 $comment['author'] ?? 'Unknown',
-    //                 ENT_QUOTES,
-    //                 'UTF-8'
-    //             );
-
-    //             $commentBody = htmlspecialchars(
-    //                 $comment['body'] ?? '',
-    //                 ENT_QUOTES,
-    //                 'UTF-8'
-    //             );
-
-    //             echo '
-    //                 <article class="blog-post comment-item">
-
-    //                     <label class="delete-comment-choice">
-    //                         <input type="checkbox"
-    //                             name="deleteComments[]"
-    //                             value="' . $commentId . '">
-    //                         Delete this comment
-    //                     </label>
-
-    //                     <p class="post-meta">
-    //                         By ' . $author . '
-    //                     </p>
-
-    //                     <div class="post-excerpt">'
-    //                         . nl2br($commentBody) .
-    //                     '</div>
-
-    //                 </article>
-    //             ';
-    //         }
-
-    //         echo '
-    //                 <button type="submit">
-    //                     Delete selected comments
-    //                 </button>
-
-    //             </form>
-    //         ';
-    //     }
-
-    //     echo '</section>';
-    // }
 
     // Right panel: Selected blog post and its comments
     public function postComments($info)
@@ -1570,16 +1141,11 @@ class View9 extends InsideView {
       echo "   <input type=\"submit\" value=\"delete users\">   </FORM>
            ";
 
-           echo "</div>";
-            
-            
+           echo "</div>";           
   
         }
 
-    
-    
-
-        
+           
        public function bloggerList(){
            
             echo "
@@ -1745,477 +1311,78 @@ class DBManager{
             return $postId === false ? 0 : (int) $postId;
         }
                 
-        // public function retrieveAdminBlogPosts($info = [])
-        // {
-        //     // $query = $this->db->prepare(
-        //     //     'SELECT id, title, body
-        //     //     FROM post
-        //     //     ORDER BY id DESC'
-        //     // );
-            
-        //     $query = $this->db->query(
-        //         'SELECT post.id, post.title, post.body, user.username
-        //         FROM post
-        //         INNER JOIN user ON post.bloggerid = user.id
-        //         ORDER BY post.id DESC'
-        //     );
+        public function retrieveAdminBlogPosts($info = [])
+        {
+            $query = $this->db->query(
+                'SELECT post.id, post.title, post.body, user.username
+                FROM post
+                INNER JOIN user ON post.bloggerid = user.id
+                ORDER BY post.id DESC'
+            );
 
+            $posts = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        //     $query->execute();
-        //     $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+            echo '
+                <div class="delete-blog-list">
+                    <div class="delete-blog-heading">
+                        <span>Blog post</span>
+                        <span>Delete</span>
+                    </div>
+            ';
 
-        //     echo '
-        //         <div class="delete-blog-list">
-        //             <div class="delete-blog-heading">
-        //                 <span>Blog post</span>
-        //                 <span>Delete</span>
-        //             </div>
-        //     ';
-
-        //     if (empty($posts)) {
-        //         echo '
-        //             <div class="delete-blog-row">
-        //                 <p>No blog posts found.</p>
-        //             </div>
-        //         ';
-        //     } else {
-        //         foreach ($posts as $post) {
-        //             $postId = (int) $post['id'];
-
-        //             $title = htmlspecialchars(
-        //                 $post['title'] ?? '',
-        //                 ENT_QUOTES,
-        //                 'UTF-8'
-        //             );
-
-        //             $body = trim(strip_tags($post['body'] ?? ''));
-        //             $preview = preg_split('/\R/', $body)[0] ?? '';
-
-        //             if (strlen($preview) > 120) {
-        //                 $preview = substr($preview, 0, 120) . '...';
-        //             }
-
-        //             $preview = htmlspecialchars(
-        //                 $preview,
-        //                 ENT_QUOTES,
-        //                 'UTF-8'
-        //             );
-
-        //             echo '
-        //                 <div class="delete-blog-row">
-        //                     <div class="delete-blog-details">
-        //                         <a class="delete-blog-title"
-        //                         href="controller.php?cmd=openblog2&amp;bloggerid='
-        //                         . $postId . '">'
-        //                         . $title .
-        //                         '</a>
-
-        //                         <div class="delete-blog-preview">'
-        //                             . $preview .
-        //                         '</div>
-        //                     </div>
-
-        //                     <label class="delete-blog-choice">
-        //                         <input type="checkbox"
-        //                             name="deletePosts[]"
-        //                             value="' . $postId . '">
-        //                         <span class="visually-hidden">Delete</span>
-        //                     </label>
-        //                 </div>
-        //             ';
-        //         }
-        //     }
-
-        //     echo '</div>';
-        // }
-
-
-
-            
-        //     public function addComment()
-        //     {
-        //         $postId = (int) ($_POST['id'] ?? 0);
-        //         $comment = trim($_POST['comments'] ?? '');
-
-        //         if ($postId <= 0 || $comment === '') {
-        //             return;
-        //         }
-
-        //         $query = "
-        //             INSERT INTO comments (postid, body, author)
-        //             VALUES (:postid, :body, :author)
-        //         ";
-
-        //         $statement = $this->db->prepare($query);
-        //         $statement->execute([
-        //             'postid' => $postId,
-        //             'body' => $comment,
-        //             'author' => 'Guest'
-        //         ]);
-        //     }
-
-        //     public function addComment1()
-        //     {
-        //         $postId = (int) ($_POST['id'] ?? 0);
-        //         $comment = trim($_POST['comments'] ?? '');
-        //         $author = $_COOKIE['username'] ?? 'Guest';
-
-        //         if ($postId <= 0 || $comment === '') {
-        //             return;
-        //         }
-
-        //         $query = "
-        //             INSERT INTO comments (postid, body, author)
-        //             VALUES (:postid, :body, :author)
-        //         ";
-
-        //         $statement = $this->db->prepare($query);
-        //         $statement->execute([
-        //             'postid' => $postId,
-        //             'body' => $comment,
-        //             'author' => $author
-        //         ]);
-        //     }
-            
-            public function retrieveAdminBlogPosts($info = [])
-            {
-                $query = $this->db->query(
-                    'SELECT post.id, post.title, post.body, user.username
-                    FROM post
-                    INNER JOIN user ON post.bloggerid = user.id
-                    ORDER BY post.id DESC'
-                );
-
-                $posts = $query->fetchAll(PDO::FETCH_ASSOC);
-
+            if (empty($posts)) {
                 echo '
-                    <div class="delete-blog-list">
-                        <div class="delete-blog-heading">
-                            <span>Blog post</span>
-                            <span>Delete</span>
-                        </div>
+                    <div class="delete-blog-row">
+                        <p>No blog posts found.</p>
+                    </div>
                 ';
-
-                if (empty($posts)) {
-                    echo '
-                        <div class="delete-blog-row">
-                            <p>No blog posts found.</p>
-                        </div>
-                    ';
-                } else {
-                    foreach ($posts as $post) {
-                        $postId = (int) $post['id'];
-
-                        $title = htmlspecialchars(
-                            $post['title'] ?? '',
-                            ENT_QUOTES,
-                            'UTF-8'
-                        );
-
-                        $originator = htmlspecialchars(
-                            $post['username'] ?? 'Unknown',
-                            ENT_QUOTES,
-                            'UTF-8'
-                        );
-
-                        $body = trim(strip_tags($post['body'] ?? ''));
-                        $preview = preg_split('/\R/', $body)[0] ?? '';
-
-                        if (strlen($preview) > 120) {
-                            $preview = substr($preview, 0, 120) . '...';
-                        }
-
-                        $preview = htmlspecialchars(
-                            $preview,
-                            ENT_QUOTES,
-                            'UTF-8'
-                        );
-
-                        echo '
-                            <div class="delete-blog-row">
-                                <div class="delete-blog-details">
-
-                                    <a class="delete-blog-title"
-                                    href="controller.php?cmd=openblog2&amp;bloggerid='
-                                    . $postId . '">'
-                                    . $title .
-                                    '</a>
-
-                                    <div class="delete-blog-originator">
-                                        By ' . $originator . '
-                                    </div>
-
-                                    <div class="delete-blog-preview">'
-                                        . $preview .
-                                    '</div>
-
-                                </div>
-
-                                <label class="delete-blog-choice">
-                                    <input type="checkbox"
-                                        name="deletePosts[]"
-                                        value="' . $postId . '">
-                                    <span class="visually-hidden">Delete</span>
-                                </label>
-                            </div>
-                        ';
-                    }
-                }
-
-                echo '</div>';
-            }
-
-
-            // public function getCommentsForPost($postId)
-            // {
-            //     $postId = (int) $postId;
-
-            //     if ($postId <= 0) {
-            //         return [];
-            //     }
-
-            //     $query = $this->db->prepare(
-            //         'SELECT id, body
-            //         FROM comments
-            //         WHERE postid = :post_id
-            //         ORDER BY id ASC'
-            //     );
-
-            //     $query->execute(['post_id' => $postId]);
-
-            //     return $query->fetchAll(PDO::FETCH_ASSOC);
-            // }
-            
-            public function getCommentsForPost($postId)
-            {
-                $postId = (int) $postId;
-
-                if ($postId <= 0) {
-                    return [];
-                }
-
-                $query = $this->db->prepare(
-                    'SELECT id, body, author
-                    FROM comments
-                    WHERE postid = :post_id
-                    ORDER BY id ASC'
-                );
-
-                $query->execute(['post_id' => $postId]);
-
-                return $query->fetchAll(PDO::FETCH_ASSOC);
-            }
-
-            public function retrieveallblogsanddisplay() {
-
-                $query = "
-                    SELECT
-                        post.id,
-                        post.bloggerid,
-                        post.title,
-                        post.body,
-                        user.username,
-                        user.blogtitle
-                    FROM post
-                    INNER JOIN user
-                        ON post.bloggerid = user.id
-                    ORDER BY post.id DESC
-                ";
-
-                $resultSet = $this->db->query($query);
-
-                while ($blogger = $resultSet->fetch(PDO::FETCH_ASSOC)) {
-
-                    $postId = (int) $blogger['id'];
-                    $username = htmlspecialchars(
-                        $blogger['username'],
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-                    $blogTitle = htmlspecialchars(
-                        $blogger['blogtitle'],
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-                    $title = htmlspecialchars(
-                        $blogger['title'],
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-                    $body = htmlspecialchars(
-                        $blogger['body'],
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-
-                    echo "
-                        <article class=\"blog-post\">
-                            <p class=\"post-meta\">
-                                {$blogTitle} · by {$username}
-                            </p>
-
-                            <h3>
-                                <a href=\"controller.php?cmd=openblog1&amp;bloggerid={$postId}\">
-                                    {$title}
-                                </a>
-                            </h3>
-
-                            <p class=\"post-excerpt\">{$body}</p>
-
-                            <a class=\"read-more\"
-                            href=\"controller.php?cmd=openblog1&amp;bloggerid={$postId}\">
-                                Read post &rarr;
-                            </a>
-                        </article>
-                    ";
-                }
-            }
-          
-            public function getPostById($postId)
-            {
-                $query = "
-                    SELECT
-                        post.id,
-                        post.title,
-                        post.body,
-                        user.username,
-                        user.blogtitle
-                    FROM post
-                    INNER JOIN user ON post.bloggerid = user.id
-                    WHERE post.id = :post_id
-                    LIMIT 1
-                ";
-
-                $statement = $this->db->prepare($query);
-                $statement->execute(['post_id' => (int) $postId]);
-
-                return $statement->fetch(PDO::FETCH_ASSOC);
-            }
- 
-           
-           public function outerretrieveallblogsanddisplay(){
-               
-               
-                    $blogger = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                     $resultSet = $this->db->query($query);
-               
-                    
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
-                    $blogger = $resultSet->fetch();
-             
-                    $dummy = "blooger"."{$blogger['bloggerid']} <br>";
-           
-
-                    echo "<a href=\"controller.php?cmd=openblog9&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
-                    
-                    
-                         
-
-                    }
-           }
-          
-           public function retrieveuserblogsanddisplay($info){
-               
-                    
-                    $blogger = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                    $resultSet = $this->db->query($query);
-                    
-                    echo "Delete blogs <br>";
-                    echo " Y\tN <br>";
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
-                    $blogger = $resultSet->fetch();
-             
-                    if ($info['id'] == $blogger['bloggerid']){
-                    $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
-                    $dummy1= "b".$i;
-
- //
-                  echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked>";
-                  echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\">";
-                   echo "<a href=\"controller.php?cmd=openblog&amp;bloggerid={$blogger['id']}\"> $dummy</a><br>";
-                   
-                   
-                    }
-                    }
-           }
-                   
-     
-            public function retrieveallblogsanddisplay1($info)
-            {
-                $query = "SELECT * FROM post";
-                $resultSet = $this->db->query($query);
-
-                echo '
-                    <div class="delete-blog-list">
-                        <div class="delete-blog-heading">
-                            <span>Blog post</span>
-                            <span>Delete</span>
-                        </div>
-                ';
-
-                while ($blogger = $resultSet->fetch()) {
-
-                    // Use the actual database ID, not the list position.
-                    $postId = (int) $blogger['id'];
-
-                    // Prepare the first line of the blog body.
-                    $body = $blogger['body'] ?? '';
-
-                    // Convert HTML line breaks and paragraph endings to new lines.
-                    $body = preg_replace('/<br\s*\/?>/i', "\n", $body);
-                    $body = preg_replace(
-                        '/<\/(p|div|li|h[1-6])\s*>/i',
-                        "\n",
-                        $body
-                    );
-
-                    // Remove HTML markup and split into lines.
-                    $body = html_entity_decode(
-                        strip_tags($body),
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-
-                    $lines = preg_split('/\R+/', trim($body));
-                    $firstLine = trim($lines[0] ?? '');
-
-                    if (strlen($firstLine) > 160) {
-                        $firstLine = substr($firstLine, 0, 157) . '...';
-                    }
+            } else {
+                foreach ($posts as $post) {
+                    $postId = (int) $post['id'];
 
                     $title = htmlspecialchars(
-                        $blogger['title'] ?? '',
+                        $post['title'] ?? '',
                         ENT_QUOTES,
                         'UTF-8'
                     );
+
+                    $originator = htmlspecialchars(
+                        $post['username'] ?? 'Unknown',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+
+                    $body = trim(strip_tags($post['body'] ?? ''));
+                    $preview = preg_split('/\R/', $body)[0] ?? '';
+
+                    if (strlen($preview) > 120) {
+                        $preview = substr($preview, 0, 120) . '...';
+                    }
 
                     $preview = htmlspecialchars(
-                        $firstLine,
+                        $preview,
                         ENT_QUOTES,
                         'UTF-8'
                     );
 
                     echo '
                         <div class="delete-blog-row">
-
                             <div class="delete-blog-details">
-                                <div class="delete-blog-title">
-                                    ' . $title . '
+
+                                <a class="delete-blog-title"
+                                href="controller.php?cmd=openblog2&amp;bloggerid='
+                                . $postId . '">'
+                                . $title .
+                                '</a>
+
+                                <div class="delete-blog-originator">
+                                    By ' . $originator . '
                                 </div>
 
                                 <div class="delete-blog-preview">'
-                                    . ($preview !== '' ? $preview : 'No preview available.')
-                                . '</div>
+                                    . $preview .
+                                '</div>
+
                             </div>
 
                             <label class="delete-blog-choice">
@@ -2224,452 +1391,689 @@ class DBManager{
                                     value="' . $postId . '">
                                 <span class="visually-hidden">Delete</span>
                             </label>
-
                         </div>
                     ';
                 }
-
-                echo '</div>';
             }
 
+            echo '</div>';
+        }
+
+
            
-            public function retrieveallusersdisplay1($info){
-                
-                
-                $user = array();
+            
+        public function getCommentsForPost($postId)
+        {
+            $postId = (int) $postId;
+
+            if ($postId <= 0) {
+                return [];
+            }
+
+            $query = $this->db->prepare(
+                'SELECT id, body, author
+                FROM comments
+                WHERE postid = :post_id
+                ORDER BY id ASC'
+            );
+
+            $query->execute(['post_id' => $postId]);
+
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function retrieveallblogsanddisplay() {
+
+            $query = "
+                SELECT
+                    post.id,
+                    post.bloggerid,
+                    post.title,
+                    post.body,
+                    user.username,
+                    user.blogtitle
+                FROM post
+                INNER JOIN user
+                    ON post.bloggerid = user.id
+                ORDER BY post.id DESC
+            ";
+
+            $resultSet = $this->db->query($query);
+
+            while ($blogger = $resultSet->fetch(PDO::FETCH_ASSOC)) {
+
+                $postId = (int) $blogger['id'];
+                $username = htmlspecialchars(
+                    $blogger['username'],
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+                $blogTitle = htmlspecialchars(
+                    $blogger['blogtitle'],
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+                $title = htmlspecialchars(
+                    $blogger['title'],
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+                $body = htmlspecialchars(
+                    $blogger['body'],
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+
+                echo "
+                    <article class=\"blog-post\">
+                        <p class=\"post-meta\">
+                            {$blogTitle} · by {$username}
+                        </p>
+
+                        <h3>
+                            <a href=\"controller.php?cmd=openblog1&amp;bloggerid={$postId}\">
+                                {$title}
+                            </a>
+                        </h3>
+
+                        <p class=\"post-excerpt\">{$body}</p>
+
+                        <a class=\"read-more\"
+                        href=\"controller.php?cmd=openblog1&amp;bloggerid={$postId}\">
+                            Read post &rarr;
+                        </a>
+                    </article>
+                ";
+            }
+        }
+        
+        public function getPostById($postId)
+        {
+            $query = "
+                SELECT
+                    post.id,
+                    post.title,
+                    post.body,
+                    user.username,
+                    user.blogtitle
+                FROM post
+                INNER JOIN user ON post.bloggerid = user.id
+                WHERE post.id = :post_id
+                LIMIT 1
+            ";
+
+            $statement = $this->db->prepare($query);
+            $statement->execute(['post_id' => (int) $postId]);
+
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+
+        
+        public function outerretrieveallblogsanddisplay(){
+            
+            
+                $blogger = array();
                 $dummy = array();
                 // get the blogs from the database
-                $query = "select * from user";
+                $query = "select * from post";
+                    $resultSet = $this->db->query($query);
+            
+                
+                for($i=0;$i<$resultSet->rowCount();$i++){
+                
+        
+                $blogger = $resultSet->fetch();
+            
+                $dummy = "blooger"."{$blogger['bloggerid']} <br>";
+        
+
+                echo "<a href=\"controller.php?cmd=openblog9&amp;bloggerid={$blogger['bloggerid']}\"> $dummy</a>";
+                
+                
+                        
+
+                }
+        }
+        
+        public function retrieveuserblogsanddisplay($info){
+            
+                
+                $blogger = array();
+                $dummy = array();
+                // get the blogs from the database
+                $query = "select * from post";
                 $resultSet = $this->db->query($query);
                 
-                echo "Suspend users <br>";
+                echo "Delete blogs <br>";
                 echo " Y\tN <br>";
                 for($i=0;$i<$resultSet->rowCount();$i++){
                 
         
-                    $user = $resultSet->fetch();
+                $blogger = $resultSet->fetch();
             
+                if ($info['id'] == $blogger['bloggerid']){
+                $dummy = "blog #"."{$blogger['id']}  "."{$blogger['title']}  <br>";
+                $dummy1= "b".$i;
 
-                    $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
-                    $dummy1= "b".$i;
-
-
-                    if ($user['suspend']){
-                    echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
-                    echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" >";
-                    }
-                    else {
-                    echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
-                    echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";  
-                    }
-                    echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
-                    
-                    
-
-                        }
-            }
-           
-           
-           
-           
-           
-           
-          public function retrievebody($data){
-             $query = "select * from post";
-             $resultSet = $this->db->query($query);
-             
-             
-             
-             
-             for($i=0;$i<$resultSet->rowCount();$i++){
-              $blogger = $resultSet->fetch();  
-              if($blogger['id'] == $data['bloggerid'])
-              {echo " <textarea name=\"textarea\" ROWS=6 COLS=50>".
-              $blogger['body']." </textarea>" ; 
-              
-             }       
-              
-          }
-          }
-          
-          
-          
-          
-          public function retrieveuserdetails($data){
-             echo "in retrieve id .. ".$data['id'];
-              $query = "select * from user";
-             $resultSet = $this->db->query($query);
-             
-             
-             
-             
-             for($i=0;$i<$resultSet->rowCount();$i++){
-              $user = $resultSet->fetch();  
-             if($user['id'] == $data['id']){
-              echo " <textarea name=\"textarea\" ROWS=6 COLS=50>";
-              echo "UserId : {$user['id']}
-                  Username : {$user['username']}
-              UserPassword : {$user['password']}
-                     Email : {$user['email']}";
-              echo " </textarea>" ; 
-              
-             }       
-              
-
-          }
-             } 
-          
-           
-           public function getDetailsanddisplay(){
-                    $blogger = array();
-                    $dummy = array();
-                    // get the blogs from the database
-                    $query = "select * from post";
-                    $resultSet = $this->db->query($query);
-               
-                    
-                    for($i=0;$i<$resultSet->rowCount();$i++){
-                    
-            
-                    $blogger = $resultSet->fetch();
-             
-                    $dummy = "blooger"."{$blogger['bloggerid']} <br>";
-            
-
-                   
-                    }
-           }
-           
-
-           
-           
-           
-            public function processBlog($info){
-                $data = array();
-                
-                $blogtitle = $info['blogtitle'];
-                $textarea = $info['textarea'];
-                $id=$info['id'];
-                $data['blogtitle']= $info['blogtitle'];
-                $data['textarea']=$info['textarea'];
-                $data['id']=$info['id'];
+//
+                echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked>";
+                echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\">";
+                echo "<a href=\"controller.php?cmd=openblog&amp;bloggerid={$blogger['id']}\"> $dummy</a><br>";
                 
                 
-               
-                    
-                echo "proces blog feck $id $blogtitle $textarea"
-                        ;
-              
-                $query ="INSERT into post(bloggerid,title,body)
-                           VALUES ( '$id','$blogtitle','$textarea')";
-                $this->db->exec($query); 
-                 return $data;
-            }
-            
-            public function processFirstBlog(){
-                $data = array();
-                        
-                $blogtitle = $_POST['blogtitle'];
-               $textarea = $_POST['textarea'];
-               $id=$_POST['id'];
-               $data['id'] =$id;
-               $data['textarea']=$textarea;
-               $data['blogtitle'] =$_POST['blogtitle'];
-                   
-
-                
-              
-                $query ="INSERT into post(bloggerid,title,body)
-                           VALUES ( '$id','$blogtitle','$textarea')";
-                $this->db->exec($query); 
-                return $data;
-            }
-            
-            
-            
-            
-            
-            
-            
-
-            public function displayUsers($info){
-                
-                $query = "select DISTINCT * from user";
-                $resultSet = $this->db->query($query);
-                for($i=0;$i<$resultSet->rowCount();$i++){
-                    $user = $resultSet->fetch();
-
-                echo "<input type=checkbox name={$user['username']} value={$user['username']}> {$user['username']}<br>";
                 }
-                return $resultSet;
-            }
-            
- 
-            
-            public function displayPreviousBlogs($info)
-            {
-                $this->renderPreviousBlogs($info, 'addComment');
-            }
-
-            public function displayPreviousBlogs1($info)
-            {
-                $this->renderPreviousBlogs($info, 'addComment1');
-            }
-
-            private function renderPreviousBlogs($info, $command)
-            {
-                $userId = (int) $info['id'];
-
-                $query = "
-                    SELECT id, bloggerid, title, body
-                    FROM post
-                    WHERE bloggerid = :user_id
-                    ORDER BY id DESC
-                ";
-
-                $statement = $this->db->prepare($query);
-                $statement->execute(['user_id' => $userId]);
-
-                $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-                if (!$posts) {
-                    echo '<p class="empty-state">No previous posts yet.</p>';
-                    return;
                 }
-
-                $commentQuery = $this->db->prepare("
-                    SELECT id, body
-                    FROM comments
-                    WHERE postid = :post_id
-                    ORDER BY id ASC
-                ");
-
-                echo '<section class="previous-posts">';
-                echo '<h2>Previous posts</h2>';
-
-                foreach ($posts as $post) {
-                    $postId = (int) $post['id'];
-                    $title = htmlspecialchars(
-                        $post['title'] ?? '',
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-                    $body = htmlspecialchars(
-                        $post['body'] ?? '',
-                        ENT_QUOTES,
-                        'UTF-8'
-                    );
-
-                    echo '<article class="blog-post">';
-                    echo '<h3>' . $title . '</h3>';
-                    echo '<p class="post-excerpt">' .
-                        nl2br($body) .
-                        '</p>';
-
-                    echo '<form method="post" action="controller.php">';
-                    echo '<input type="hidden" name="cmd" value="' .
-                        htmlspecialchars($command, ENT_QUOTES, 'UTF-8') .
-                        '">';
-
-                    echo '<input type="hidden" name="id" value="' .
-                        $postId . '">';
-                    echo '<input type="hidden" name="postid" value="' .
-                        $postId . '">';
-                    echo '<label for="comment-' . $postId . '">Add a comment</label>';
-                    echo '<textarea id="comment-' . $postId .
-                        '" name="comments" rows="3" placeholder="Write a comment..." required></textarea>';
-                    echo '<button type="submit">Save comment</button>';
-                    echo '</form>';
-
-                    $commentQuery->execute(['post_id' => $postId]);
-                    $comments = $commentQuery->fetchAll(PDO::FETCH_ASSOC);
-
-                    if ($comments) {
-                        echo '<div class="post-comments">';
-                        echo '<h4>Comments</h4>';
-
-                        foreach ($comments as $comment) {
-                            $commentId = (int) $comment['id'];
-                            $commentBody = htmlspecialchars(
-                                $comment['body'] ?? '',
-                                ENT_QUOTES,
-                                'UTF-8'
-                            );
-
-                            echo '<p class="comment">';
-                            echo '<span class="comment-label">Comment #' .
-                                $commentId . '</span> ';
-
-                            echo '</p>';
-                        }
-
-                        echo '</div>';
-                    }
-
-                    echo '</article>';
-                }
-
-                echo '</section>';
-            }
-
-            function deleteBloogs(){
-
-            
-            $query = "select * from post";
+        }
+                
+    
+        public function retrieveallblogsanddisplay1($info)
+        {
+            $query = "SELECT * FROM post";
             $resultSet = $this->db->query($query);
- 
-                    
-           for($i=0;$i<$resultSet->rowCount();$i++){
-                 $post = $resultSet->fetch();
-                 if ($post['bloggerid'] == $_POST['id'] )
-                     if ($_POST['b'.$i] == "Y") {
 
-                      $dummy1 = $post['id'];
-                      $query1 = "delete post from post where id = $dummy1";
-                      $resultSet1 = $this->db->query($query1);
-                     }
-                     else {
-   
-                      }         
-                               
-                           
-                  }
-            }
-              
-            
-            public function deleteCommentsForPost($postId, $commentIds)
-            {
-                $postId = (int) $postId;
+            echo '
+                <div class="delete-blog-list">
+                    <div class="delete-blog-heading">
+                        <span>Blog post</span>
+                        <span>Delete</span>
+                    </div>
+            ';
 
-                if ($postId <= 0 || !is_array($commentIds)) {
-                    return 0;
-                }
+            while ($blogger = $resultSet->fetch()) {
 
-                $commentIds = array_values(array_unique(array_filter(
-                    array_map('intval', $commentIds),
-                    function ($id) {
-                        return $id > 0;
-                    }
-                )));
+                // Use the actual database ID, not the list position.
+                $postId = (int) $blogger['id'];
 
-                if (empty($commentIds)) {
-                    return 0;
-                }
+                // Prepare the first line of the blog body.
+                $body = $blogger['body'] ?? '';
 
-                $placeholders = implode(
-                    ',',
-                    array_fill(0, count($commentIds), '?')
+                // Convert HTML line breaks and paragraph endings to new lines.
+                $body = preg_replace('/<br\s*\/?>/i', "\n", $body);
+                $body = preg_replace(
+                    '/<\/(p|div|li|h[1-6])\s*>/i',
+                    "\n",
+                    $body
                 );
 
-                $sql = "DELETE FROM comments
-                        WHERE postid = ?
-                        AND id IN ($placeholders)";
-
-                $statement = $this->db->prepare($sql);
-                $statement->execute(
-                    array_merge([$postId], $commentIds)
+                // Remove HTML markup and split into lines.
+                $body = html_entity_decode(
+                    strip_tags($body),
+                    ENT_QUOTES,
+                    'UTF-8'
                 );
 
-                return $statement->rowCount();
-            }
+                $lines = preg_split('/\R+/', trim($body));
+                $firstLine = trim($lines[0] ?? '');
 
-
-
-            
-            public function deleteBloogs1()
-            {
-                // Nothing selected: leave all posts untouched.
-                if (
-                    !isset($_POST['deletePosts']) ||
-                    !is_array($_POST['deletePosts'])
-                ) {
-                    return;
+                if (strlen($firstLine) > 160) {
+                    $firstLine = substr($firstLine, 0, 157) . '...';
                 }
 
-                // Validate and collect positive integer IDs.
-                $postIds = [];
-
-                foreach ($_POST['deletePosts'] as $submittedId) {
-                    $id = filter_var(
-                        $submittedId,
-                        FILTER_VALIDATE_INT,
-                        ['options' => ['min_range' => 1]]
-                    );
-
-                    if ($id !== false) {
-                        $postIds[] = $id;
-                    }
-                }
-
-                // Remove duplicate IDs.
-                $postIds = array_unique($postIds);
-
-                if (empty($postIds)) {
-                    return;
-                }
-
-                // Use a prepared statement for safe deletion.
-                $statement = $this->db->prepare(
-                    "DELETE FROM post WHERE id = ?"
+                $title = htmlspecialchars(
+                    $blogger['title'] ?? '',
+                    ENT_QUOTES,
+                    'UTF-8'
                 );
 
-                foreach ($postIds as $id) {
-                    $statement->execute([$id]);
-                }
+                $preview = htmlspecialchars(
+                    $firstLine,
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+
+                echo '
+                    <div class="delete-blog-row">
+
+                        <div class="delete-blog-details">
+                            <div class="delete-blog-title">
+                                ' . $title . '
+                            </div>
+
+                            <div class="delete-blog-preview">'
+                                . ($preview !== '' ? $preview : 'No preview available.')
+                            . '</div>
+                        </div>
+
+                        <label class="delete-blog-choice">
+                            <input type="checkbox"
+                                name="deletePosts[]"
+                                value="' . $postId . '">
+                            <span class="visually-hidden">Delete</span>
+                        </label>
+
+                    </div>
+                ';
             }
 
+            echo '</div>';
+        }
 
-            function deleteUsers(){
+        
+        public function retrieveallusersdisplay1($info){
             
-
             
+            $user = array();
+            $dummy = array();
+            // get the blogs from the database
             $query = "select * from user";
             $resultSet = $this->db->query($query);
-            $dummy = $_POST['b7'];
-
-                    
-           for($i=0;$i<$resultSet->rowCount();$i++){
-                 $user = $resultSet->fetch();
-
-                     if ($_POST['b'.$i] == "Y") {
-
-                          $dummy1 = $user['id'];
-                       $query1 = "delete user from user where id = $dummy1";
-                        $resultSet1 = $this->db->query($query1);
-                     }
-                     else {
-
-                      }         
-                               
-                           
-                  }
-            }
             
+            echo "Suspend users <br>";
+            echo " Y\tN <br>";
+            for($i=0;$i<$resultSet->rowCount();$i++){
             
-            function SuspendUsers (){
-                $query = "select * from user";
+    
+                $user = $resultSet->fetch();
+        
+
+                $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
+                $dummy1= "b".$i;
+
+
+                if ($user['suspend']){
+                echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
+                echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" >";
+                }
+                else {
+                echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
+                echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";  
+                }
+                echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
+                
+                
+
+                    }
+        }
+        
+        
+        
+        
+        
+        
+        public function retrievebody($data){
+            $query = "select * from post";
             $resultSet = $this->db->query($query);
-            $dummy = $_POST['b7'];
+            
+            
+            
+            
+            for($i=0;$i<$resultSet->rowCount();$i++){
+            $blogger = $resultSet->fetch();  
+            if($blogger['id'] == $data['bloggerid'])
+            {echo " <textarea name=\"textarea\" ROWS=6 COLS=50>".
+            $blogger['body']." </textarea>" ; 
+            
+            }       
+            
+        }
+        }
+        
+        
+        
+        
+        public function retrieveuserdetails($data){
+            echo "in retrieve id .. ".$data['id'];
+            $query = "select * from user";
+            $resultSet = $this->db->query($query);
+            
+            
+            
+            
+            for($i=0;$i<$resultSet->rowCount();$i++){
+            $user = $resultSet->fetch();  
+            if($user['id'] == $data['id']){
+            echo " <textarea name=\"textarea\" ROWS=6 COLS=50>";
+            echo "UserId : {$user['id']}
+                Username : {$user['username']}
+            UserPassword : {$user['password']}
+                    Email : {$user['email']}";
+            echo " </textarea>" ; 
+            
+            }       
+            
 
+        }
+            } 
+        
+        
+        public function getDetailsanddisplay(){
+                $blogger = array();
+                $dummy = array();
+                // get the blogs from the database
+                $query = "select * from post";
+                $resultSet = $this->db->query($query);
+            
+                
+                for($i=0;$i<$resultSet->rowCount();$i++){
+                
+        
+                $blogger = $resultSet->fetch();
+            
+                $dummy = "blooger"."{$blogger['bloggerid']} <br>";
+        
+
+                
+                }
+        }
+                 
+        public function processBlog($info){
+            $data = array();
+            
+            $blogtitle = $info['blogtitle'];
+            $textarea = $info['textarea'];
+            $id=$info['id'];
+            $data['blogtitle']= $info['blogtitle'];
+            $data['textarea']=$info['textarea'];
+            $data['id']=$info['id'];
+            
+            
+            
+                
+            echo "proces blog feck $id $blogtitle $textarea"
+                    ;
+            
+            $query ="INSERT into post(bloggerid,title,body)
+                        VALUES ( '$id','$blogtitle','$textarea')";
+            $this->db->exec($query); 
+                return $data;
+        }
+        
+        public function processFirstBlog(){
+            $data = array();
                     
-           for($i=0;$i<$resultSet->rowCount();$i++){
-                 $user = $resultSet->fetch();
+            $blogtitle = $_POST['blogtitle'];
+            $textarea = $_POST['textarea'];
+            $id=$_POST['id'];
+            $data['id'] =$id;
+            $data['textarea']=$textarea;
+            $data['blogtitle'] =$_POST['blogtitle'];
+                
 
-                     if ($_POST['b'.$i] == "Y") {
+            
+            
+            $query ="INSERT into post(bloggerid,title,body)
+                        VALUES ( '$id','$blogtitle','$textarea')";
+            $this->db->exec($query); 
+            return $data;
+        }
 
-                      $dummy1 = $user['id'];
-                      $query1 = "update user set suspend=1  where id = $dummy1";
-                     
-                     }
-                     else {
+        public function displayUsers($info){
+            
+            $query = "select DISTINCT * from user";
+            $resultSet = $this->db->query($query);
+            for($i=0;$i<$resultSet->rowCount();$i++){
+                $user = $resultSet->fetch();
+
+            echo "<input type=checkbox name={$user['username']} value={$user['username']}> {$user['username']}<br>";
+            }
+            return $resultSet;
+        }
+        
+
+        
+        public function displayPreviousBlogs($info)
+        {
+            $this->renderPreviousBlogs($info, 'addComment');
+        }
+
+        public function displayPreviousBlogs1($info)
+        {
+            $this->renderPreviousBlogs($info, 'addComment1');
+        }
+
+        private function renderPreviousBlogs($info, $command)
+        {
+            $userId = (int) $info['id'];
+
+            $query = "
+                SELECT id, bloggerid, title, body
+                FROM post
+                WHERE bloggerid = :user_id
+                ORDER BY id DESC
+            ";
+
+            $statement = $this->db->prepare($query);
+            $statement->execute(['user_id' => $userId]);
+
+            $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!$posts) {
+                echo '<p class="empty-state">No previous posts yet.</p>';
+                return;
+            }
+
+            $commentQuery = $this->db->prepare("
+                SELECT id, body
+                FROM comments
+                WHERE postid = :post_id
+                ORDER BY id ASC
+            ");
+
+            echo '<section class="previous-posts">';
+            echo '<h2>Previous posts</h2>';
+
+            foreach ($posts as $post) {
+                $postId = (int) $post['id'];
+                $title = htmlspecialchars(
+                    $post['title'] ?? '',
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+                $body = htmlspecialchars(
+                    $post['body'] ?? '',
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+
+                echo '<article class="blog-post">';
+                echo '<h3>' . $title . '</h3>';
+                echo '<p class="post-excerpt">' .
+                    nl2br($body) .
+                    '</p>';
+
+                echo '<form method="post" action="controller.php">';
+                echo '<input type="hidden" name="cmd" value="' .
+                    htmlspecialchars($command, ENT_QUOTES, 'UTF-8') .
+                    '">';
+
+                echo '<input type="hidden" name="id" value="' .
+                    $postId . '">';
+                echo '<input type="hidden" name="postid" value="' .
+                    $postId . '">';
+                echo '<label for="comment-' . $postId . '">Add a comment</label>';
+                echo '<textarea id="comment-' . $postId .
+                    '" name="comments" rows="3" placeholder="Write a comment..." required></textarea>';
+                echo '<button type="submit">Save comment</button>';
+                echo '</form>';
+
+                $commentQuery->execute(['post_id' => $postId]);
+                $comments = $commentQuery->fetchAll(PDO::FETCH_ASSOC);
+
+                if ($comments) {
+                    echo '<div class="post-comments">';
+                    echo '<h4>Comments</h4>';
+
+                    foreach ($comments as $comment) {
+                        $commentId = (int) $comment['id'];
+                        $commentBody = htmlspecialchars(
+                            $comment['body'] ?? '',
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+
+                        echo '<p class="comment">';
+                        echo '<span class="comment-label">Comment #' .
+                            $commentId . '</span> ';
+
+                        echo '</p>';
+                    }
+
+                    echo '</div>';
+                }
+
+                echo '</article>';
+            }
+
+            echo '</section>';
+        }
+
+        function deleteBloogs(){
+
+        
+        $query = "select * from post";
+        $resultSet = $this->db->query($query);
+
+                
+        for($i=0;$i<$resultSet->rowCount();$i++){
+                $post = $resultSet->fetch();
+                if ($post['bloggerid'] == $_POST['id'] )
+                    if ($_POST['b'.$i] == "Y") {
+
+                    $dummy1 = $post['id'];
+                    $query1 = "delete post from post where id = $dummy1";
+                    $resultSet1 = $this->db->query($query1);
+                    }
+                    else {
+
+                    }                                    
+                        
+                }
+        }
+            
+        
+        public function deleteCommentsForPost($postId, $commentIds)
+        {
+            $postId = (int) $postId;
+
+            if ($postId <= 0 || !is_array($commentIds)) {
+                return 0;
+            }
+
+            $commentIds = array_values(array_unique(array_filter(
+                array_map('intval', $commentIds),
+                function ($id) {
+                    return $id > 0;
+                }
+            )));
+
+            if (empty($commentIds)) {
+                return 0;
+            }
+
+            $placeholders = implode(
+                ',',
+                array_fill(0, count($commentIds), '?')
+            );
+
+            $sql = "DELETE FROM comments
+                    WHERE postid = ?
+                    AND id IN ($placeholders)";
+
+            $statement = $this->db->prepare($sql);
+            $statement->execute(
+                array_merge([$postId], $commentIds)
+            );
+
+            return $statement->rowCount();
+        }
+
+
+
+        
+        public function deleteBloogs1()
+        {
+            // Nothing selected: leave all posts untouched.
+            if (
+                !isset($_POST['deletePosts']) ||
+                !is_array($_POST['deletePosts'])
+            ) {
+                return;
+            }
+
+            // Validate and collect positive integer IDs.
+            $postIds = [];
+
+            foreach ($_POST['deletePosts'] as $submittedId) {
+                $id = filter_var(
+                    $submittedId,
+                    FILTER_VALIDATE_INT,
+                    ['options' => ['min_range' => 1]]
+                );
+
+                if ($id !== false) {
+                    $postIds[] = $id;
+                }
+            }
+
+            // Remove duplicate IDs.
+            $postIds = array_unique($postIds);
+
+            if (empty($postIds)) {
+                return;
+            }
+
+            // Use a prepared statement for safe deletion.
+            $statement = $this->db->prepare(
+                "DELETE FROM post WHERE id = ?"
+            );
+
+            foreach ($postIds as $id) {
+                $statement->execute([$id]);
+            }
+        }
+
+
+        function deleteUsers(){
+        
+
+        
+        $query = "select * from user";
+        $resultSet = $this->db->query($query);
+        $dummy = $_POST['b7'];
+
+                
+        for($i=0;$i<$resultSet->rowCount();$i++){
+                $user = $resultSet->fetch();
+
+                    if ($_POST['b'.$i] == "Y") {
 
                         $dummy1 = $user['id'];
-                        $query1 = "update user set suspend=0  where id = $dummy1";
-                      }         
-                       $resultSet1 = $this->db->query($query1);         
-                           
-                  }
-            }
+                    $query1 = "delete user from user where id = $dummy1";
+                    $resultSet1 = $this->db->query($query1);
+                    }
+                    else {
+
+                    }         
+                            
+                        
+                }
+        }
+        
+        
+        function SuspendUsers (){
+            $query = "select * from user";
+        $resultSet = $this->db->query($query);
+        $dummy = $_POST['b7'];
+
+                
+        for($i=0;$i<$resultSet->rowCount();$i++){
+                $user = $resultSet->fetch();
+
+                    if ($_POST['b'.$i] == "Y") {
+
+                    $dummy1 = $user['id'];
+                    $query1 = "update user set suspend=1  where id = $dummy1";
+                    
+                    }
+                    else {
+
+                    $dummy1 = $user['id'];
+                    $query1 = "update user set suspend=0  where id = $dummy1";
+                    }         
+                    $resultSet1 = $this->db->query($query1);         
+                        
+                }
+        }
             
             
             

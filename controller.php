@@ -130,16 +130,9 @@
                 $DBM = new DBManager();
                 $data = $DBM->getBlogindex($_COOKIE['username']);
                 $data['reset'] = 0;
-                new View7($data);
+                new AdminDashboardView($data);
                 break;
 
-            // case "delete2":
-            //     handleDeleteBlogs1();
-            //     $DBM = new DBManager();
-            //     $data = $DBM->getBlogindex($_COOKIE['username']);
-            //     $data['reset']=0;
-            //     new View7($data);
-            //     break;
             case "deleteUser":
                 handleDeleteUsers();
                 $DBM = new DBManager();
@@ -160,7 +153,7 @@
                 $bloggerid=  $_GET['bloggerid'];
                 $info['bloggerid']=$bloggerid;
                 $info['reset'] = 1;
-                new View7($info);
+                new AdminDashboardView($info);
                 break;
             case "openblog4":
                 $info['id']=$_GET['userid'];
@@ -225,7 +218,7 @@
                 setCookie("username",$_POST['username'],time()+3600 );
                 $result1 = $DBM->getBlogindex($_POST['username']);
                 $result1['reset']=0;
-                new View7($result1);
+                new AdminDashboardView($result1);
        }
         else if ($result == "blogger")   {
            // no output before setCookie

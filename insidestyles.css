@@ -19,14 +19,14 @@
     overflow: auto;
 }
 
-/* View7: two equal-width content panels */
-/* #main.admin-view7 {
+/* AdminDashboardView: two equal-width content panels */
+/* #main.admin-dashboard {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
 } */
 
-/* View7: Manage posts 40% | Recent posts 60% */
-#main.admin-view7 {
+/* AdminDashboardView: Manage posts 40% | Recent posts 60% */
+#main.admin-dashboard {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     align-items: start;
 }
@@ -43,7 +43,7 @@ body {
 
 
 /* =========================================================
-   Administrator navigation — View7
+   Administrator navigation — admin-dashboard
    ========================================================= */
 
 #admin-menu.admin-navigation {
@@ -187,8 +187,8 @@ body {
     box-sizing: border-box;
 }
 
-/* View7: Manage blog posts — left panel */
-#main.admin-view7 #content {
+/* AdminDashboardView: Manage blog posts — left panel */
+#main.admin-dashboard #content {
     grid-column: 1;
     grid-row: auto;
     min-width: 0;
@@ -205,8 +205,8 @@ body {
     grid-column: 2;
 }
 
-/* View7: Recent blog posts — right panel */
-#main.admin-view7 #bloggerlist {
+/* AdminDashboardView: Recent blog posts — right panel */
+#main.admin-dashboard #bloggerlist {
     grid-column: 2;
     grid-row: auto;
     min-width: 0;
@@ -214,7 +214,7 @@ body {
 
 
 /* =========================================================
-   Comment author and delete option — View7
+   Comment author and delete option — AdminDashboardView
    ========================================================= */
 
 #bloggerlist .comment-header {

@@ -86,7 +86,7 @@ The view classes include:
 * `View4` – registration
 * `View5` / `View51` – blogger interface
 * `View6` – delete blogs
-* `View7` – administrator blog management
+* `AdminDashboardView – administrator blog management
 * `View8` – administrator user suspension
 * `View9` – administrator user deletion
 
