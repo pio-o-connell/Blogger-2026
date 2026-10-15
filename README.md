@@ -77,18 +77,23 @@ logout
 
 Contains the application's view classes and database manager.
 
-The view classes include:
+The view classes use descriptive names:
 
-* `View1` – home/welcome page
-* `View2` – login
-* `View3` – public blog view
-* `View31` – blog/post view
-* `View4` – registration
-* `View5` / `View51` – blogger interface
-* `View6` – delete blogs
-* `AdminDashboardView – administrator blog management
-* `View8` – administrator user suspension
-* `View9` – administrator user deletion
+* `PublicBaseView` – shared layout for public-facing pages
+* `AuthenticatedBaseView` – shared layout for internal/authenticated pages
+* `HomeView` – public welcome page and latest posts
+* `LoginView` – login form
+* `PreviousPostsView` – previous posts display
+* `GuestPostView` – guest posting and alternative comment handling
+* `RegistrationView` – registration form
+* `CreatePostView` – authenticated post creation
+* `BlogPostManagementView` – alternative post-management interface
+* `DeleteBlogPostsView` – blog post selection and deletion
+* `AdminDashboardView` – administrator blog and comment management
+* `AdminBlogManagementView` – administrator blog management interface
+* `SuspendUsersView` – user suspension and restoration
+* `DeleteUsersView` – user deletion
+* `SinglePostView` – individual blog post display
 
 The file also contains the `DBManager` class, which performs database operations.
 
@@ -131,6 +136,33 @@ its former function name to make the transition easy to follow.
 
 The constructor and the already-clear `getPostById()` and
 `getCommentsForPost()` methods retain their existing names.
+
+### View class naming refactor
+
+The numbered legacy view class names were replaced with descriptive names.
+The implementation, routing commands, and MVC behaviour were preserved. Each
+renamed class declaration in `library.php` includes a comment containing its
+former class name.
+
+| Former class name | Current class name |
+| --- | --- |
+| `OutsideView` | `PublicBaseView` |
+| `InsideView` | `AuthenticatedBaseView` |
+| `View1` | `HomeView` |
+| `View2` | `LoginView` |
+| `View3` | `PreviousPostsView` |
+| `View31` | `GuestPostView` |
+| `View4` | `RegistrationView` |
+| `View5` | `CreatePostView` |
+| `View51` | `BlogPostManagementView` |
+| `View6` | `DeleteBlogPostsView` |
+| `ViewSinglePost` | `SinglePostView` |
+| `AdminViewMessages` | `AdminBlogManagementView` |
+| `View8` | `SuspendUsersView` |
+| `View9` | `DeleteUsersView` |
+
+`AdminBaseView`, `AdminDashboardView`, and `AdminUsersView` were intentionally
+kept unchanged because their names already describe their responsibilities.
 
 ### CSS
 

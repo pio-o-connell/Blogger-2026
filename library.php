@@ -1,7 +1,8 @@
 <?php
 
 // Abstract base view providing the shared layout and navigation for public-facing pages.
-    abstract class OutsideView {
+    // Legacy class name: OutsideView.
+    abstract class PublicBaseView {
 
         // Render the page header and opening document structure.
         public function top() {
@@ -74,7 +75,8 @@
 
 
 // Base view providing the shared layout for internal and authenticated pages.
-    class InsideView{
+    // Legacy class name: InsideView.
+    class AuthenticatedBaseView{
 
         // Initialize the view and render its complete page.
         public function __construct($info){
@@ -171,7 +173,8 @@
     }
 
 // Displays the public welcome page and a list of available blog posts.
-    class View1 extends OutsideView{
+    // Legacy class name: View1.
+    class HomeView extends PublicBaseView{
 
 
         // Initialize the view and render its complete page.
@@ -241,7 +244,8 @@
     }
 
 // Displays the login form for users attempting to authenticate.
-    class View2 extends OutsideView{
+    // Legacy class name: View2.
+    class LoginView extends PublicBaseView{
         // Initialize the view and render its complete page.
         public function __construct()
         {
@@ -315,7 +319,8 @@
     }
 
 // Retrieves and displays previous posts for the relevant user or blog.
-    class View3 extends OutsideView {
+    // Legacy class name: View3.
+    class PreviousPostsView extends PublicBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
@@ -357,7 +362,8 @@
     }
 
 // Allows a guest to submit a post and displays previous posts with alternative comment handling.    
-    class View31 extends OutsideView {
+    // Legacy class name: View31.
+    class GuestPostView extends PublicBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
@@ -423,7 +429,8 @@
     }
 
 // Displays an individual blog post, including its author, title and content.
-    class ViewSinglePost extends OutsideView{
+    // Legacy class name: ViewSinglePost.
+    class SinglePostView extends PublicBaseView{
         // Initialize the view and render its complete page.
         public function __construct($post)
         {
@@ -485,7 +492,8 @@
     }
 
 // Displays the registration form for creating a Blogger account and blog.
-    class View4 extends OutsideView{
+    // Legacy class name: View4.
+    class RegistrationView extends PublicBaseView{
         // Initialize the view and render its complete page.
         public function __construct()
         {
@@ -568,7 +576,8 @@
     }
 
 // Allows an authenticated user to create posts and view their previous posts.
-    class View5 extends InsideView {
+    // Legacy class name: View5.
+    class CreatePostView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
@@ -640,7 +649,8 @@
     }
 
 // Provides an alternative post-creation view with previous-post functionality.
-    class View51 extends InsideView {
+    // Legacy class name: View51.
+    class BlogPostManagementView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
@@ -708,7 +718,8 @@
 
 
 // Allows an administrator to select and delete blog posts.
-    class View6 extends InsideView {
+    // Legacy class name: View6.
+    class DeleteBlogPostsView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
@@ -790,7 +801,7 @@
     }
 
 // Provides shared navigation and layout functionality for administrator views.
-    class AdminBaseView extends InsideView{
+    class AdminBaseView extends AuthenticatedBaseView{
 
         // Render navigation links for administration pages.
         protected function adminMenu()
@@ -1040,7 +1051,8 @@
     }
 
 // Allows posts to be created and previous posts to be displayed within the administration interface.
-    class AdminViewMessages extends AdminBaseView{
+    // Legacy class name: AdminViewMessages.
+    class AdminBlogManagementView extends AdminBaseView{
         // Initialize the view and render its complete page.
         public function __construct($info)
         {
@@ -1080,7 +1092,8 @@
             <h3>Previous posts</h3>
             ';
 
-            // Reuse the existing method used by View51.
+            // Reuse the existing method used by BlogPostManagementView
+            // (formerly View51).
             //DBManager::displayPreviousPosts($info);
             $DBM = new DBManager();
             $DBM->displayPreviousPosts($info);
@@ -1148,7 +1161,8 @@
     }
 
 // Allows an administrator to suspend or restore user accounts using the legacy interface.
-    class View8 extends InsideView {
+    // Legacy class name: View8.
+    class SuspendUsersView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
@@ -1220,7 +1234,8 @@
     }
 
 // Allows an administrator to delete user accounts using the legacy interface.
-    class View9 extends InsideView {
+    // Legacy class name: View9.
+    class DeleteUsersView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
