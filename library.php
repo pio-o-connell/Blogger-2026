@@ -1,7 +1,7 @@
 <?php
 
 // Abstract base view providing the shared layout and navigation for public-facing pages.
-    // Legacy class name: OutsideView.
+// Legacy class name: OutsideView.
     abstract class PublicBaseView {
 
         // Render the page header and opening document structure.
@@ -80,6 +80,8 @@
 
         // Initialize the view and render its complete page.
         public function __construct($info){
+
+           $this->info = $info;
             $this->top();
             $this->menu();
             $this->content($info);
@@ -116,9 +118,20 @@
 
             // Render the navigation area for this view.
             public function menu() {
-                echo "
-                    <div id=\"menu\"></div>
-                ";
+                $username = $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest';
+
+                echo '
+                <nav id="admin-menu" class="admin-navigation" aria-label="Personal blog navigation">
+                    <span class="admin-menu-title">'
+                        . htmlspecialchars(ucfirst($username), ENT_QUOTES, 'UTF-8') . ': Personal Blogs
+                    </span>
+
+                    <div class="menu-account">
+                        <a href="controller.php?cmd=logout">Log out</a>
+                    </div>
+                </nav>';
+
+                echo '<div id="menu"></div>';
             }
 
 
@@ -319,7 +332,7 @@
     }
 
 // Retrieves and displays previous posts for the relevant user or blog.
-    // Legacy class name: View3.
+// Legacy class name: View3.
     class PreviousPostsView extends PublicBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
@@ -429,7 +442,7 @@
     }
 
 // Displays an individual blog post, including its author, title and content.
-    // Legacy class name: ViewSinglePost.
+// Legacy class name: ViewSinglePost.
     class SinglePostView extends PublicBaseView{
         // Initialize the view and render its complete page.
         public function __construct($post)
@@ -492,7 +505,7 @@
     }
 
 // Displays the registration form for creating a Blogger account and blog.
-    // Legacy class name: View4.
+// Legacy class name: View4.
     class RegistrationView extends PublicBaseView{
         // Initialize the view and render its complete page.
         public function __construct()
@@ -576,7 +589,7 @@
     }
 
 // Allows an authenticated user to create posts and view their previous posts.
-    // Legacy class name: View5.
+// Legacy class name: View5.
     class CreatePostView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
@@ -649,14 +662,12 @@
     }
 
 // Provides an alternative post-creation view with previous-post functionality.
-    // Legacy class name: View51.
+// Legacy class name: View51.
     class BlogPostManagementView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
                 $this->top();
                 $this->menu();
-            //    $this->bloggerList();
-
 
                 $this->content($info);
                 $this->bloggerList();
@@ -665,6 +676,26 @@
 
 
             }
+
+        public function menu() {
+            $username = $_COOKIE['username'] ?? 'Guest';
+
+            echo '
+            <nav id="admin-menu" class="admin-navigation" aria-label="Personal blog navigation">
+                <span class="admin-menu-title">'
+                    . ucfirst(htmlspecialchars($username, ENT_QUOTES, 'UTF-8')) . ': Personal Blogs
+                </span>
+
+                <div class="menu-account">
+                    <a href="controller.php?cmd=logout">Log out</a>
+                </div>
+            </nav>';
+
+            echo '
+                <div id="menu"></div>
+            ';
+        }
+
 
         // Render the main content for this view.
         public function content($info){
@@ -716,9 +747,8 @@
         }
     }
 
-
 // Allows an administrator to select and delete blog posts.
-    // Legacy class name: View6.
+// Legacy class name: View6.
     class DeleteBlogPostsView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
@@ -801,23 +831,68 @@
     }
 
 // Provides shared navigation and layout functionality for administrator views.
-    class AdminBaseView extends AuthenticatedBaseView{
+    // class AdminBaseView extends AuthenticatedBaseView{
 
-        // Render navigation links for administration pages.
-        protected function adminMenu()
+    //     // Render navigation links for administration pages.
+    //     protected function adminMenu()
+    //     {
+    //         echo '
+    //         <nav id="admin-menu" class="admin-navigation" aria-label="Administrator navigation">
+    //             <span class="admin-menu-title">Administration:All blogs</span>
+
+    //             <div class="menu-account">
+    //                 <a href="controller.php?cmd=manageUsers">Users</a>
+    //                 <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
+    //                 <a href="controller.php?cmd=logout">Log out</a>
+    //             </div>
+    //         </nav>';
+    //     }
+
+    // }
+    class AdminBaseView extends AuthenticatedBaseView {
+
+    // Render navigation links for the selected administrator page.
+        protected function adminMenu($section = 'blogs')
         {
+            // if ($section === 'users') {
+            //     $title = 'Administration: All Users';
+            //     $links = '
+            //         <a href="controller.php?cmd=manageBlogs">Admin: All Blogs</a>
+            //         <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
+            //         <a href="controller.php?cmd=logout">Log out</a>';
+            // } else {
+            //     $title = 'Administration: Personal Blogs';
+            //     $links = '
+            //         <a href="controller.php?cmd=manageUsers">Users</a>
+            //         <a href="controller.php?cmd=adminDashboard">All Blogs</a>
+            //         <a href="controller.php?cmd=logout">Log out</a>';
+            // }
+            if ($section === 'dashboard') {
+                $title = 'Administration: All Blogs';
+                $links = '
+                    <a href="controller.php?cmd=manageUsers">Users</a>
+                    <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
+                    <a href="controller.php?cmd=logout">Log out</a>';
+            } elseif ($section === 'users') {
+                $title = 'Administration: All Users';
+                $links = '
+                    <a href="controller.php?cmd=adminDashboard">Admin: All Blogs</a>
+                    <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
+                    <a href="controller.php?cmd=logout">Log out</a>';
+            } else {
+                $title = 'Administration: Personal Blogs';
+                $links = '
+                    <a href="controller.php?cmd=manageUsers">Users</a>
+                    <a href="controller.php?cmd=adminDashboard">All Blogs</a>
+                    <a href="controller.php?cmd=logout">Log out</a>';
+            }
+
             echo '
             <nav id="admin-menu" class="admin-navigation" aria-label="Administrator navigation">
-                <span class="admin-menu-title">Administration</span>
-
-                <div class="menu-account">
-                    <a href="controller.php?cmd=users">Users</a>
-                    <a href="controller.php?cmd=blogs">Blogs</a>
-                    <a href="controller.php?cmd=logout">Log out</a>
-                </div>
+                <span class="admin-menu-title">' . $title . '</span>
+                <div class="menu-account">' . $links . '</div>
             </nav>';
         }
-
     }
 
 // Displays the administration dashboard for managing blog posts and their comments.    
@@ -833,7 +908,8 @@
             }
 
             $this->top('admin-dashboard');
-            $this->adminMenu();
+          //  $this->adminMenu();
+            $this->adminMenu('dashboard');
             $this->content($info);
             $this->postComments($info);
             // $this->recentPosts();
@@ -1057,7 +1133,8 @@
         public function __construct($info)
         {
             $this->top('admin-dashboard');
-            $this->adminMenu();
+        //    $this->adminMenu();
+            $this->adminMenu('blogs');
             $this->content($info);
             $this->bottom();
         }
@@ -1106,7 +1183,8 @@
         public function __construct($info)
         {
             $this->top('admin-dashboard');
-            $this->adminMenu();
+         //   $this->adminMenu();
+            $this->adminMenu('users');
             $this->content($info);
             $this->bottom();
         }
@@ -1362,35 +1440,31 @@
             // Legacy function name: getBlogindex
             public function getUserBlogDetails($username){
 
-            $query1 = "select * from user";
+                $query1 = "select * from user";
 
 
-                    $resultSet = $this->db->query($query1);
+                $resultSet = $this->db->query($query1);
 
-                    $id=0;
+                $id=0;
 
-                    for($i=0;$i<$resultSet->rowCount();$i++){
+                for($i=0;$i<$resultSet->rowCount();$i++){
 
+                    $blogger = $resultSet->fetch();
+                    if ($username == $blogger['username']){
 
-                        $blogger = $resultSet->fetch();
+                        $id = $blogger['id'];
+                        $blogtitle = $blogger['blogtitle'];
+                //        $textarea = $blogger['textarea'];
 
-
-                        if ($username == $blogger['username']){
-
-                            $id = $blogger['id'];
-                            $blogtitle = $blogger['blogtitle'];
-                    //        $textarea = $blogger['textarea'];
-
-                            $data['id']= $id;
-                            $data['textarea']= " ";
-                            $data['blogtitle'] = $blogtitle;
-                            $date['username'] = $username;
-                        }
-
+                        $data['id']= $id;
+                        $data['textarea']= " ";
+                        $data['blogtitle'] = $blogtitle;
+                        $data['username'] = $username;
                     }
-                    $data['reset']= 1;
 
-                    return $data;
+                }
+                $data['reset']= 1;
+                return $data;
             }
 
             // Create a new blogger account and return its context.

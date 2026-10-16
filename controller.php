@@ -30,6 +30,12 @@
             case "loginRequest":
                 handleLogin();
                 break;
+            case "adminDashboard":
+                $DBM = new DBManager();
+                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
+                $data['reset'] = 0;
+                new AdminDashboardView($data);
+                break;
             case "blogs":
                 $DBM = new DBManager();
                 $data = $DBM->getUserBlogDetails($_COOKIE['username']);
@@ -143,7 +149,7 @@
                 exit;
 
 
-            case "blogs":
+            case "manageBlogs": // specifically for admin to view personal blogs
                 $DBM = new DBManager();
                 $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 new AdminBlogManagementView($data);
@@ -183,7 +189,7 @@
                 $info['reset1'] = 1;
                 new DeleteUsersView($info);
                 break;
-            case "users":
+            case "manageUsers":
                 new AdminUsersView([]);
                 break;
             case "deleteSelectedUsers":
@@ -237,12 +243,21 @@
                     $result1['reset']=0;
                     new AdminDashboardView($result1);
         }
-            else if ($result == "blogger")   {
-            // no output before setCookie
-            setCookie("username",$_POST['username'],time()+3600 );
+            // else if ($result == "blogger")   {
+            // // no output before setCookie
+            // setCookie("username",$_POST['username'],time()+3600 );
+            //         $result1 = $DBM->getUserBlogDetails($_POST['username']);
+            //         new BlogPostManagementView($result1);
+            // }
+            else if ($result == "blogger") {
+                    // no output before setCookie
+                    setCookie("username", $_POST['username'], time() + 3600);
+
                     $result1 = $DBM->getUserBlogDetails($_POST['username']);
+                    $result1['username'] = $_POST['username'];
+
                     new BlogPostManagementView($result1);
-            }
+                }
             else
             {
                     new LoginView();
