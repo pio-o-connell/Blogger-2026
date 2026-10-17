@@ -3,9 +3,20 @@
 A revamp of a 2014 blogging platform, using the original project as a reference to restore its functionality and develop a simple, modern graphical user interface.
 
 ### PHP Front page
-<img src="homepage.jpg" alt="PHP Blog server running " width="40%">
-<img src="login.png" alt="PHP Blog server running " width="40%">
-<img src="loggedin.png" alt="PHP Blog server running " width="40%">
+<img src="Images\login.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\register.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\Homepage.jpg" alt="PHP Blog server running " width="40%">
+
+<img src="Images\AdministraorAll-blgs.jpg" alt="PHP Blog server running " width="40%">>
+<img src="Images\AdminAllUsers.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\adminpersonalblogs.png" alt="PHP Blog server running " width="40%">
+
+<img src="Images\Alice-AllBlogs.png" alt="PHP Blog server running " width="40%">
+<img src="Images\Alice-PersonalBlogs.png" alt="PHP Blog server running " width="40%">
+
+<img src="Images\Guest-add-comment.jpg" alt="PHP Blog server running " width="40%">
+
+
 A simple PHP/MySQL blogging application developed as part of the **Higher Diploma in Cloud Computing, 2014**.
 
 The project is an early web application demonstrating server-side PHP programming, MySQL database interaction, user registration and authentication, blog posts, comments, and basic administration.

@@ -33,12 +33,6 @@
     color: #ffffff;
 }
 
-/* AdminDashboardView: two equal-width content panels */
-/* #main.admin-dashboard {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: start;
-} */
-
 /* AdminDashboardView: Manage posts 40% | Recent posts 60% */
 #main.admin-dashboard {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
@@ -119,31 +113,6 @@ body {
     align-items: center;
     gap: 28px;
 }
-
-/* Plain text links matching the homepage */
-/* #admin-menu.admin-navigation a {
-    display: inline-block;
-    width: auto;
-    padding: 9px 0;
-    margin: 0;
-
-    background: transparent;
-    color: #252923;
-    border-radius: 0;
-
-    text-align: left;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: normal;
-
-    box-sizing: border-box;
-} */
-
-/* #admin-menu.admin-navigation a:hover {
-    background: transparent;
-    color: #386747;
-    text-decoration: underline;
-} */
 
 #admin-menu.admin-navigation a {
     display: inline-block;
