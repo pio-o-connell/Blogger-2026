@@ -235,6 +235,18 @@ input[type="submit"]:hover {
         gap: 14px;
     }
 
+    #menu,
+    #admin-menu.admin-navigation {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+    }
+
+    .menu-account {
+        width: 100%;
+        justify-content: space-between;
+    }
+
     #bloggerlist h2 {
         font-size: 24px;
     }
@@ -264,6 +276,18 @@ input[type="submit"]:hover {
 
 .blog-post:last-child {
     border-bottom: none;
+}
+
+[data-post-row],
+[data-comment-row] {
+    transition: background-color 0.15s ease;
+}
+
+[data-post-row]:hover,
+[data-post-row]:focus-within,
+[data-comment-row]:hover,
+[data-comment-row]:focus-within {
+    background: #edf5ee;
 }
 
 .post-meta {
@@ -352,6 +376,54 @@ input[type="submit"]:hover {
 
 .empty-state {
     color: var(--muted);
+}
+
+/* Progressive enhancement controls */
+
+button:disabled,
+input[type="submit"]:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.selection-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.selection-tool {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    background: var(--surface);
+    color: var(--accent);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.selection-tool:hover {
+    background: var(--page-bg);
+    color: var(--accent-hover);
+}
+
+[data-dismissible] {
+    position: relative;
+    padding-right: 36px;
+}
+
+.message-dismiss {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    min-width: 28px;
+    padding: 2px 8px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transform: translateY(-50%);
 }
 
 

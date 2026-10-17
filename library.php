@@ -13,7 +13,8 @@
             <meta charset=\"UTF-8\">
             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
             <title>Blogger | Ideas worth sharing</title>
-            <link rel=\"stylesheet\" href=\"myStyles.css\">
+            <link rel=\"stylesheet\" href=\"myStyles.css?v=20261017-2\">
+            <script src=\"app.js?v=20261017-2\" defer></script>
         </head>
 
         <body>
@@ -77,6 +78,7 @@
 // Base view providing the shared layout for internal and authenticated pages.
     // Legacy class name: InsideView.
     class AuthenticatedBaseView{
+        protected $info = [];
 
         // Initialize the view and render its complete page.
         public function __construct($info){
@@ -102,7 +104,8 @@
                     <meta charset=\"UTF-8\">
                     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
                     <title>Blogger | Ideas worth sharing</title>
-                    <link rel=\"stylesheet\" href=\"insidestyles.css\">
+                    <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261017-2\">
+                    <script src=\"app.js?v=20261017-2\" defer></script>
                 </head>
                 <body>
                     <div id=\"main\"$classAttribute>
@@ -492,6 +495,47 @@
                     nl2br($body) .
                     '</div>';
 
+                $DBM = new DBManager();
+                $comments = $DBM->getCommentsForPost((int) $post['id']);
+
+                echo '<section class="post-comments" aria-labelledby="comments-heading">';
+                echo '<h2 id="comments-heading">Comments</h2>';
+
+                if (!$comments) {
+                    echo '<p class="empty-state">No comments yet.</p>';
+                } else {
+                    foreach ($comments as $comment) {
+                        $commentAuthor = htmlspecialchars(
+                            $comment['author'] ?? 'Guest',
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+                        $commentBody = htmlspecialchars(
+                            $comment['body'] ?? '',
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+
+                        echo '<article class="comment-item">';
+                        echo '<p class="post-meta">By ' . $commentAuthor . '</p>';
+                        echo '<p>' . nl2br($commentBody) . '</p>';
+                        echo '</article>';
+                    }
+                }
+
+                echo '
+                    <form method="post" action="controller.php"
+                        class="comment-editor">
+                        <input type="hidden" name="cmd" value="addComment">
+                        <input type="hidden" name="postid" value="' .
+                        (int) $post['id'] . '">
+                        <label for="public-comment">Add a comment</label>
+                        <textarea id="public-comment" name="comments"
+                            rows="4" required></textarea>
+                        <button type="submit">Add comment</button>
+                    </form>
+                </section>';
+
                 echo '<p><a class="read-more" href="controller.php">' .
                     '&larr; Back to all posts</a></p>';
 
@@ -666,6 +710,7 @@
     class BlogPostManagementView extends AuthenticatedBaseView {
         // Initialize the view and render its complete page.
         public function __construct($info){
+                $this->info = $info;
                 $this->top();
                 $this->menu();
 
@@ -678,7 +723,9 @@
             }
 
         public function menu() {
-            $username = $_COOKIE['username'] ?? 'Guest';
+            $username = $this->info['username']
+                ?? $_COOKIE['username']
+                ?? 'Guest';
 
             echo '
             <nav id="admin-menu" class="admin-navigation" aria-label="Personal blog navigation">
@@ -854,6 +901,48 @@
     // Render navigation links for the selected administrator page.
         protected function adminMenu($section = 'blogs')
         {
+            if (!empty($this->info['isBlogger'])) {
+                $username = htmlspecialchars(
+                    ucfirst($this->info['username'] ?? $_COOKIE['username'] ?? ''),
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+
+                echo '
+                <nav id="admin-menu" class="admin-navigation"
+                    aria-label="Personal blog navigation">
+                    <span class="admin-menu-title">' . $username .
+                    ': Personal Blogs</span>
+                    <div class="menu-account">
+                        <a href="controller.php?cmd=bloggerAllBlogs">' .
+                        $username . ': All blogs</a>
+                        <a href="controller.php?cmd=logout">Log out</a>
+                    </div>
+                </nav>';
+                return;
+            }
+
+            if (!empty($this->info['isBloggerAllBlogs'])) {
+                $username = htmlspecialchars(
+                    ucfirst($this->info['username'] ?? $_COOKIE['username'] ?? ''),
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+
+                echo '
+                <nav id="admin-menu" class="admin-navigation"
+                    aria-label="All blog navigation">
+                    <span class="admin-menu-title">' . $username .
+                    ': All blogs</span>
+                    <div class="menu-account">
+                        <a href="controller.php?cmd=manageBlogs">' .
+                        $username . ': Personal Blogs</a>
+                        <a href="controller.php?cmd=logout">Log out</a>
+                    </div>
+                </nav>';
+                return;
+            }
+
             // if ($section === 'users') {
             //     $title = 'Administration: All Users';
             //     $links = '
@@ -869,21 +958,37 @@
             // }
             if ($section === 'dashboard') {
                 $title = 'Administration: All Blogs';
+                $username = htmlspecialchars(
+                    ucfirst($_COOKIE['username'] ?? 'Administrator'),
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
                 $links = '
                     <a href="controller.php?cmd=manageUsers">Users</a>
-                    <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
+                    <a href="controller.php?cmd=manageBlogs">' .
+                    $username . ': Personal blogs</a>
                     <a href="controller.php?cmd=logout">Log out</a>';
             } elseif ($section === 'users') {
                 $title = 'Administration: All Users';
+                $username = htmlspecialchars(
+                    ucfirst($_COOKIE['username'] ?? 'Administrator'),
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
                 $links = '
                     <a href="controller.php?cmd=adminDashboard">Admin: All Blogs</a>
-                    <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
+                    <a href="controller.php?cmd=manageBlogs">' .
+                    $username . ': Personal blogs</a>
                     <a href="controller.php?cmd=logout">Log out</a>';
             } else {
-                $title = 'Administration: Personal Blogs';
+                $username = htmlspecialchars(
+                    ucfirst($_COOKIE['username'] ?? 'Administrator'),
+                    ENT_QUOTES,
+                    'UTF-8'
+                );
+                $title = $username . ': Personal blogs';
                 $links = '
-                    <a href="controller.php?cmd=manageUsers">Users</a>
-                    <a href="controller.php?cmd=adminDashboard">All Blogs</a>
+                    <a href="controller.php?cmd=adminDashboard">Administration: All Blogs</a>
                     <a href="controller.php?cmd=logout">Log out</a>';
             }
 
@@ -900,11 +1005,14 @@
 
         // Initialize the view and render its complete page.
         public function __construct($info){
+            $this->info = $info;
             $DBM = new DBManager();
 
             // Default to the most recent post when none is selected.
             if (empty($info['bloggerid'])) {
-                $info['bloggerid'] = $DBM->getLatestPostId();
+                $info['bloggerid'] = !empty($info['isBloggerAllBlogs'])
+                    ? $DBM->getLatestPostIdExcludingUser((int) $info['id'])
+                    : $DBM->getLatestPostId();
             }
 
             $this->top('admin-dashboard');
@@ -918,21 +1026,76 @@
         
         // Left panel: Manage blog posts
         public function content($info){
+            $DBM = new DBManager();
+            $selectedPost = !empty($info['bloggerid'])
+                ? $DBM->getPostById((int) $info['bloggerid'])
+                : null;
+            $editorTitle = htmlspecialchars(
+                $selectedPost['title'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+            $editorBody = htmlspecialchars(
+                $selectedPost['body'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+            $editorCommand = $selectedPost ? 'updatePost' : 'addPost';
+            $editorPostId = $selectedPost ? (int) $selectedPost['id'] : 0;
+
             echo '
                 <main id="content" class="admin-delete-page">
                     <header class="page-heading">
-
+                        <h1>' .
+                        (!empty($info['isBloggerAllBlogs'])
+                            ? htmlspecialchars(
+                                ucfirst($info['username'] ?? ''),
+                                ENT_QUOTES,
+                                'UTF-8'
+                            ) . ': All blogs'
+                            : 'Administration: All Blogs') .
+                        '</h1>
                     </header>
+
+                    <section class="admin-editor-panel">
+                        <h2>Create or edit a blog</h2>
+                        <form method="post" action="controller.php"
+                            data-post-editor>
+                            <input type="hidden" name="cmd"
+                                value="' . $editorCommand . '">
+                            <input type="hidden" name="postid"
+                                value="' . $editorPostId . '">
+                            <input type="hidden" name="returncmd"
+                                value="openblog2">
+
+                            <label for="admin-blogtitle">Post title</label>
+                            <input type="text" id="admin-blogtitle"
+                                name="blogtitle" value="' . $editorTitle . '"
+                                required>
+
+                            <label for="admin-textarea">Post content</label>
+                            <textarea id="admin-textarea" name="textarea"
+                                rows="8" required>' . $editorBody . '</textarea>
+
+                            <button type="submit">' .
+                                ($selectedPost ? 'Update blog' : 'Publish post') .
+                            '</button>
+                        </form>
+                    </section>
 
                     <section class="admin-delete-panel">
                         <form method="post" action="controller.php">
                             <input type="hidden" name="cmd" value="delete2">
+                            <input type="hidden" name="returncmd"
+                                value="openblog2">
 
                             <div class="admin-delete-options">
             ';
 
-            $DBM = new DBManager();
-            $DBM->displayAdminBlogPosts($info);
+            $excludeOwnerId = !empty($info['isBloggerAllBlogs'])
+                ? (int) $info['id']
+                : 0;
+            $DBM->displayAdminBlogPosts($info, 0, $excludeOwnerId);
             echo '
                             </div>
 
@@ -1007,21 +1170,34 @@
                 'UTF-8'
             );
 
+            if ($this instanceof AdminBlogManagementView) {
+                echo '
+                    <article class="blog-post">
+                        <form method="post" action="controller.php"
+                            class="admin-editor-form">
+                            <input type="hidden" name="cmd"
+                                value="updatePost">
+                            <input type="hidden" name="postid"
+                                value="' . $postId . '">
+                            <input type="hidden" name="returncmd"
+                                value="openblog3">
+                            <label for="selected-blogtitle">Post title</label>
+                            <input type="text" id="selected-blogtitle"
+                                name="blogtitle" value="' . $title . '" required>
+                            <label for="selected-blogbody">Post content</label>
+                            <textarea id="selected-blogbody" name="textarea"
+                                rows="8" required>' . $body . '</textarea>
+                            <button type="submit">Update blog</button>
+                        </form>
+
+                        <p class="post-meta">By ' . $originator . '</p>
+                    </article>
+                ';
+            }
+
             echo '
-                <article class="blog-post">
-                    <h3>' . $title . '</h3>
-
-                    <p class="post-meta">
-                        By ' . $originator . '
-                    </p>
-
-                    <div class="post-excerpt">'
-                        . nl2br($body) .
-                    '</div>
-                </article>
-
                 <div class="page-heading">
-                    <h2>Comments</h2>
+                    <h2>Comments for selected blog</h2>
                 </div>
             ';
 
@@ -1036,16 +1212,7 @@
             } else {
                 // Separate form for deleting comments.
                 echo '
-                    <form method="post" action="controller.php"
-                        class="delete-comments-form">
-
-                        <input type="hidden"
-                            name="cmd"
-                            value="deleteComments">
-
-                        <input type="hidden"
-                            name="bloggerid"
-                            value="' . $postId . '">
+                    <div class="delete-comments-list">
                 ';
 
                 foreach ($comments as $comment) {
@@ -1064,9 +1231,10 @@
                     );
 
                     echo '
-                        <article class="blog-post comment-item">
+                        <article class="blog-post comment-item"
+                    data-comment-row>
 
-                            <div class="comment-header">
+                    <div class="comment-header">
                                 <p class="post-meta">
                                     By ' . $author . '
                                 </p>
@@ -1074,24 +1242,52 @@
                                 <label class="delete-comment-choice">
                                     <input type="checkbox"
                                         name="deleteComments[]"
-                                        value="' . $commentId . '">
+                                        value="' . $commentId . '"
+                                        form="delete-comments-form">
                                     Delete this comment
                                 </label>
                             </div>
 
-                            <div class="post-excerpt">'
-                                . nl2br($commentBody) .
-                            '</div>
+                            <form method="post" action="controller.php"
+                                class="comment-editor">
+                                <input type="hidden" name="cmd"
+                                    value="updateComment">
+                                <input type="hidden" name="postid"
+                                    value="' . $postId . '">
+                                <input type="hidden" name="commentid"
+                                    value="' . $commentId . '">
+                                <textarea name="body" rows="3" required>'
+                                    . $commentBody .
+                                '</textarea>
+                                <button type="submit">Update comment</button>
+                                <button type="submit" class="row-delete-button"
+                                    name="deleteComments[]"
+                                    value="' . $commentId . '"
+                                    form="delete-comments-form">
+                                    Delete comment
+                                </button>
+                            </form>
 
                         </article>
                     ';
                 }
 
                 echo '
-                        <button type="submit">
-                            Delete selected comments
-                        </button>
-
+                    </div>
+                    <form method="post" action="controller.php"
+                        id="delete-comments-form"
+                        class="delete-comments-form">
+                        <input type="hidden" name="cmd"
+                            value="deleteComments">
+                        <input type="hidden" name="bloggerid"
+                            value="' . $postId . '">
+                        <input type="hidden" name="returncmd"
+                            value="' . (
+                                $this instanceof AdminBlogManagementView
+                                    ? 'openblog3'
+                                    : 'openblog2'
+                            ) . '">
+                        <button type="submit">Delete selected comments</button>
                     </form>
                 ';
             }
@@ -1128,52 +1324,106 @@
 
 // Allows posts to be created and previous posts to be displayed within the administration interface.
     // Legacy class name: AdminViewMessages.
-    class AdminBlogManagementView extends AdminBaseView{
+    class AdminBlogManagementView extends AdminDashboardView{
         // Initialize the view and render its complete page.
         public function __construct($info)
         {
+            $this->info = $info;
+            $DBM = new DBManager();
+            if (empty($info['bloggerid'])) {
+                $info['bloggerid'] = $DBM->getLatestPostIdForUser(
+                    (int) ($info['id'] ?? 0)
+                );
+            }
             $this->top('admin-dashboard');
         //    $this->adminMenu();
             $this->adminMenu('blogs');
             $this->content($info);
+            $this->postComments($info);
             $this->bottom();
         }
 
         // Render the main content for this view.
         public function content($info)
         {
+            $DBM = new DBManager();
+            $selectedPost = !empty($info['bloggerid'])
+                ? $DBM->getPostById((int) $info['bloggerid'])
+                : null;
+            $editorTitle = htmlspecialchars(
+                $selectedPost['title'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+            $editorBody = htmlspecialchars(
+                $selectedPost['body'] ?? '',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+            $editorCommand = $selectedPost ? 'updatePost' : 'addPost';
+            $editorPostId = $selectedPost ? (int) $selectedPost['id'] : 0;
+
             echo '
-            <h2>Manage Blogs</h2>
+            <main id="content" class="admin-delete-page">
+            <header class="page-heading">
+                <h1>' .
+                (!empty($info['isBlogger'])
+                    ? htmlspecialchars(
+                        ucfirst($info['username'] ?? ''),
+                        ENT_QUOTES,
+                        'UTF-8'
+                    ) . ': Personal blogs'
+                    : 'Administrator: Personal blogs') .
+                '</h1>
+            </header>
 
-            <form method="post" action="controller.php">
-                <input type="hidden" name="cmd" value="addPost">
+            <section class="admin-editor-panel">
+            <h2>Create or edit a blog</h2>
+            <form method="post" action="controller.php" data-post-editor>
+                <input type="hidden" name="cmd"
+                    value="' . $editorCommand . '">
+                <input type="hidden" name="postid"
+                    value="' . $editorPostId . '">
+                <input type="hidden" name="returncmd"
+                    value="openblog3">
 
-                <label for="blogtitle">Post title</label>
+                <label for="personal-blogtitle">Post title</label>
                 <input
                     type="text"
-                    id="blogtitle"
-                    name="blogtitle"
+                    id="personal-blogtitle"
+                    name="blogtitle" value="' . $editorTitle . '"
                     required
                 >
 
-                <label for="textarea">Post content</label>
+                <label for="personal-textarea">Post content</label>
                 <textarea
-                    id="textarea"
+                    id="personal-textarea"
                     name="textarea"
-                    required
-                ></textarea>
+                    rows="8" required>' . $editorBody . '</textarea>
 
-                <input type="submit" value="Publish post">
+                <input type="submit" value="' .
+                    ($selectedPost ? 'Update blog' : 'Publish post') . '">
             </form>
+            </section>
 
-            <h3>Previous posts</h3>
+            <section class="admin-delete-panel">
+            <h2>Personal posts</h2>
+            <form method="post" action="controller.php">
+                <input type="hidden" name="cmd" value="delete2">
+                <input type="hidden" name="returncmd"
+                    value="openblog3">
             ';
 
             // Reuse the existing method used by BlogPostManagementView
             // (formerly View51).
             //DBManager::displayPreviousPosts($info);
-            $DBM = new DBManager();
-            $DBM->displayPreviousPosts($info);
+            $DBM->displayAdminBlogPosts($info, (int) ($info['id'] ?? 0));
+            echo '
+                <button type="submit" class="auth-button">
+                    Delete selected posts
+                </button>
+            </form>
+            </section></main>';
         }
     }
 
@@ -1195,45 +1445,36 @@
             $DBM = new DBManager();
 
             echo '
-            <div id="content">
-                <h1>Manage Users</h1>
+            <main id="content" class="admin-user-page">
+                <header class="page-heading">
+                    <h1>Administrator: All users</h1>
+                    <a class="auth-button inline-action"
+                        href="controller.php?cmd=register">Create new user</a>
+                </header>
 
                 <section class="admin-user-section">
-                    <h2>Suspend or Restore Users</h2>
-
-                    <form method="post" action="controller.php">
-                        <input type="hidden" name="cmd" value="Suspend">
+                    <h2>Users</h2>
+                    <p class="admin-user-help">
+                        Set each account to active or suspended, or mark it for deletion.
+                    </p>
+                    <form method="post" action="controller.php"
+                        data-user-management-form>
             ';
 
-            $DBM->displayUsersForSuspension($info);
-
-            if (!empty($info['reset2'])) {
-                $DBM->displayUserDetails($info);
-            }
+            $DBM->displayUsersForManagement($info);
 
             echo '
-                        <button type="submit">Update user status</button>
+                        <div class="admin-form-actions">
+                            <button type="submit" name="cmd"
+                                value="Suspend">Update status</button>
+                            <button type="submit" name="cmd"
+                                value="deleteUser" class="row-delete-button">
+                                Delete selected users
+                            </button>
+                        </div>
                     </form>
                 </section>
-
-                <section class="admin-user-section">
-                    <h2>Delete Users</h2>
-
-                    <form method="post" action="controller.php">
-                        <input type="hidden" name="cmd" value="deleteUser">
-            ';
-
-            $DBM->displayUsersForDeletion($info);
-
-            if (!empty($info['reset1'])) {
-                $DBM->displayUserDetails($info);
-            }
-
-            echo '
-                        <button type="submit">Delete selected users</button>
-                    </form>
-                </section>
-            </div>
+            </main>
             ';
         }
     }
@@ -1416,7 +1657,7 @@
                 // get the login details and query database
 
 
-                $query = "select * from user";
+                $query = "select * from user order by id desc";
 
                 $resultSet = $this->db->query($query);
 
@@ -1541,6 +1782,76 @@
                     return $data;
             }
 
+            public function updateBlogPost(){
+                $postId = filter_input(
+                    INPUT_POST,
+                    'postid',
+                    FILTER_VALIDATE_INT
+                );
+                $title = trim($_POST['blogtitle'] ?? '');
+                $body = trim($_POST['textarea'] ?? '');
+
+                if (!$postId || $title === '' || $body === '') {
+                    return;
+                }
+
+                $statement = $this->db->prepare(
+                    'UPDATE post SET title = ?, body = ? WHERE id = ?'
+                );
+                $statement->execute([$title, $body, $postId]);
+            }
+
+            public function updateComment(){
+                $commentId = filter_input(
+                    INPUT_POST,
+                    'commentid',
+                    FILTER_VALIDATE_INT
+                );
+                $body = trim($_POST['body'] ?? '');
+
+                if (!$commentId || $body === '') {
+                    return;
+                }
+
+                $statement = $this->db->prepare(
+                    'UPDATE comments SET body = ? WHERE id = ?'
+                );
+                $statement->execute([$body, $commentId]);
+            }
+
+            public function addComment(){
+                $postId = filter_input(
+                    INPUT_POST,
+                    'postid',
+                    FILTER_VALIDATE_INT
+                );
+                $body = trim($_POST['comments'] ?? '');
+                $author = trim($_COOKIE['username'] ?? 'Guest');
+
+                if (!$postId || $body === '') {
+                    return;
+                }
+
+                $postCheck = $this->db->prepare(
+                    'SELECT id FROM post WHERE id = ? LIMIT 1'
+                );
+                $postCheck->execute([$postId]);
+
+                if (!$postCheck->fetchColumn()) {
+                    return;
+                }
+
+                $statement = $this->db->prepare(
+                    'INSERT INTO comments (postid, body, author)
+                    VALUES (?, ?, ?)'
+                );
+                $statement->execute([$postId, $body, $author]);
+            }
+
+            public function addComment1(){
+                $this->addComment();
+            }
+
             // Create the first blog post for a blogger.
             // Legacy function name: processFirstBlog
             public function createInitialBlogPost(){
@@ -1570,6 +1881,32 @@
                 );
 
                 $postId = $query->fetchColumn();
+
+                return $postId === false ? 0 : (int) $postId;
+            }
+
+            public function getLatestPostIdExcludingUser($userId){
+                $statement = $this->db->prepare(
+                    'SELECT id FROM post
+                    WHERE bloggerid <> ?
+                    ORDER BY id DESC
+                    LIMIT 1'
+                );
+                $statement->execute([(int) $userId]);
+                $postId = $statement->fetchColumn();
+
+                return $postId === false ? 0 : (int) $postId;
+            }
+
+            public function getLatestPostIdForUser($userId){
+                $statement = $this->db->prepare(
+                    'SELECT id FROM post
+                    WHERE bloggerid = ?
+                    ORDER BY id DESC
+                    LIMIT 1'
+                );
+                $statement->execute([(int) $userId]);
+                $postId = $statement->fetchColumn();
 
                 return $postId === false ? 0 : (int) $postId;
             }
@@ -1607,7 +1944,7 @@
                     'SELECT id, body, author
                     FROM comments
                     WHERE postid = :post_id
-                    ORDER BY id ASC'
+                    ORDER BY id DESC'
                 );
 
                 $query->execute(['post_id' => $postId]);
@@ -1809,7 +2146,17 @@
                                 <div class="delete-blog-preview">'
                                     . ($preview !== '' ? $preview : 'No preview available.')
                                 . '</div>
+
                             </div>
+
+                            <button type="button" class="post-edit-button"
+                                data-edit-post>Edit</button>
+
+                            <button type="submit" class="row-delete-button"
+                                name="deletePosts[]"
+                                value="' . $postId . '">
+                                Delete
+                            </button>
 
                             <label class="delete-blog-choice">
                                 <input type="checkbox"
@@ -1867,7 +2214,7 @@
                     SELECT id, body
                     FROM comments
                     WHERE postid = :post_id
-                    ORDER BY id ASC
+                    ORDER BY id DESC
                 ");
 
                 echo '<section class="previous-posts">';
@@ -1941,14 +2288,30 @@
 
             // Render blog posts in the administration list.
             // Legacy function name: retrieveAdminBlogPosts
-            public function displayAdminBlogPosts($info = []){
-                $query = $this->db->query(
+            public function displayAdminBlogPosts(
+                $info = [],
+                $ownerId = 0,
+                $excludeOwnerId = 0
+            ){
+                $query = $this->db->prepare(
                     'SELECT post.id, post.title, post.body, user.username
                     FROM post
                     INNER JOIN user ON post.bloggerid = user.id
-                    ORDER BY post.id DESC'
+                    ' . ($ownerId > 0
+                        ? 'WHERE post.bloggerid = :owner_id '
+                        : ($excludeOwnerId > 0
+                            ? 'WHERE post.bloggerid <> :exclude_owner_id '
+                            : '')) .
+                    'ORDER BY post.id DESC'
                 );
 
+                if ($ownerId > 0) {
+                    $query->execute(['owner_id' => $ownerId]);
+                } elseif ($excludeOwnerId > 0) {
+                    $query->execute(['exclude_owner_id' => $excludeOwnerId]);
+                } else {
+                    $query->execute();
+                }
                 $posts = $query->fetchAll(PDO::FETCH_ASSOC);
 
                 echo '
@@ -1994,12 +2357,27 @@
                             'UTF-8'
                         );
 
+                        $bodyData = htmlspecialchars(
+                            $body,
+                            ENT_QUOTES,
+                            'UTF-8'
+                        );
+
+                        $openCommand = $ownerId > 0
+                            ? 'openblog3'
+                            : 'openblog2';
+
                         echo '
-                            <div class="delete-blog-row">
+                            <div class="delete-blog-row"
+                                data-post-row
+                                data-post-id="' . $postId . '"
+                                data-post-title="' . $title . '"
+                                data-post-body="' . $bodyData . '">
                                 <div class="delete-blog-details">
 
                                     <a class="delete-blog-title"
-                                    href="controller.php?cmd=openblog2&amp;bloggerid='
+                                    href="controller.php?cmd=' . $openCommand .
+                                    '&amp;bloggerid='
                                     . $postId . '">'
                                     . $title .
                                     '</a>
@@ -2013,6 +2391,15 @@
                                     '</div>
 
                                 </div>
+
+                                <button type="button" class="post-edit-button"
+                                    data-edit-post>Edit</button>
+
+                                <button type="submit" class="row-delete-button"
+                                    name="deletePosts[]"
+                                    value="' . $postId . '">
+                                    Delete
+                                </button>
 
                                 <label class="delete-blog-choice">
                                     <input type="checkbox"
@@ -2080,22 +2467,95 @@
                 $resultSet = $this->db->query($query);
 
                 echo "Delete users <br>";
-                echo "Y\tN <br>";
+                    echo '<div class="admin-user-list">';
 
                 for ($i = 0; $i < $resultSet->rowCount(); $i++) {
 
                     $user = $resultSet->fetch();
 
-                    $userDisplay = "User #{$user['id']} — {$user['username']} — {$user['email']}";
+                    $userId = (int) $user['id'];
+                    $username = htmlspecialchars(
+                        $user['username'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $email = htmlspecialchars(
+                        $user['email'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
                     $radioName = "b" . $i;
 
-                    echo $radioName;
-                    echo "<input type=\"radio\" name=\"$radioName\" value=\"Y\">";
-                    echo "<input type=\"radio\" name=\"$radioName\" value=\"N\" checked>";
-                    echo "<a href=\"controller.php?cmd=openblog4&amp;userid={$user['id']}\"> $userDisplay</a><br>";
+                    echo '<div class="admin-user-row" data-user-row>';
+                    echo '<div class="admin-user-details">';
+                    echo '<strong>' . $username . '</strong>';
+                    echo '<span>User #' . $userId . ' &middot; ' . $email . '</span>';
+                    echo '</div>';
+                    echo '<label><input type="radio" name="' . $radioName .
+                        '" value="Y"> Delete</label>';
+                    echo '<label><input type="radio" name="' . $radioName .
+                        '" value="N" checked> Keep</label>';
+                    echo '<a href="controller.php?cmd=openblog4&amp;userid=' .
+                        $userId . '">Edit</a>';
+                    echo '</div>';
                 }
+                echo '</div>';
             }
 
+            public function displayUsersForManagement($info){
+                $statement = $this->db->query(
+                    'SELECT id, username, email, suspend
+                    FROM user
+                    ORDER BY id DESC'
+                );
+                $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                echo '<div class="admin-user-list">';
+
+                if (empty($users)) {
+                    echo '<p class="empty-state">No users found.</p>';
+                }
+
+                foreach ($users as $index => $user) {
+                    $userId = (int) $user['id'];
+                    $username = htmlspecialchars(
+                        $user['username'] ?? '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $email = htmlspecialchars(
+                        $user['email'] ?? '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $radioName = 'b' . $index;
+                    $isSuspended = (bool) $user['suspend'];
+
+                    echo '<div class="admin-user-row" data-user-row>';
+                    echo '<div class="admin-user-details">';
+                    echo '<strong>' . $username . '</strong>';
+                    echo '<span>User #' . $userId . ' &middot; ' .
+                        $email . '</span>';
+                    echo '<small class="user-status ' .
+                        ($isSuspended ? 'is-suspended' : 'is-active') . '">' .
+                        ($isSuspended ? 'Suspended' : 'Active') .
+                        '</small>';
+                    echo '</div>';
+                    echo '<div class="user-status-controls">';
+                    echo '<label><input type="radio" name="' . $radioName .
+                        '" value="Y" ' . ($isSuspended ? 'checked' : '') .
+                        '> Suspend</label>';
+                    echo '<label><input type="radio" name="' . $radioName .
+                        '" value="N" ' . (!$isSuspended ? 'checked' : '') .
+                        '> Reinstate</label>';
+                    echo '</div>';
+                    echo '<label class="user-delete-control">';
+                    echo '<input type="checkbox" name="deleteUsers[]" ' .
+                        'value="' . $userId . '"> Delete</label>';
+                    echo '</div>';
+                }
+                echo '</div>';
+            }
 
             // Render users for suspension management.
             // Legacy function name: retrieveallusersdisplay1
@@ -2105,34 +2565,49 @@
                 $user = array();
                 $dummy = array();
                 // get the blogs from the database
-                $query = "select * from user";
+                $query = "select * from user order by id desc";
                 $resultSet = $this->db->query($query);
 
-                echo "Suspend users <br>";
-                echo " Y\tN <br>";
+                echo '<div class="admin-user-list">';
                 for($i=0;$i<$resultSet->rowCount();$i++){
 
 
                     $user = $resultSet->fetch();
 
 
-                    $dummy = "user #"."{$user['id']}"."{$user['username']}"."{$user['password']}" ."{$user['email']}"."<br>";
+                    $userId = (int) $user['id'];
+                    $username = htmlspecialchars(
+                        $user['username'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
+                    $email = htmlspecialchars(
+                        $user['email'],
+                        ENT_QUOTES,
+                        'UTF-8'
+                    );
                     $dummy1= "b".$i;
 
-
-                    if ($user['suspend']){
-                    echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" checked >";
-                    echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" >";
-                    }
-                    else {
-                    echo "<input type=\"radio\" name=\"$dummy1\" value=\"Y\" >";
-                    echo "<input type=\"radio\"name=\"$dummy1\" value=\"N\" checked>";
-                    }
-                    echo "<a href=\"controller.php?cmd=openblog6&amp;userid={$user['id']}\"> $dummy</a><br>";
-
-
-
-                        }
+                    $isSuspended = (bool) $user['suspend'];
+                    echo '<div class="admin-user-row" data-user-row>';
+                    echo '<div class="admin-user-details">';
+                    echo '<strong>' . $username . '</strong>';
+                    echo '<span>User #' . $userId . ' &middot; ' . $email .
+                        '</span>';
+                    echo '<small>' . ($isSuspended ? 'Suspended' : 'Active') .
+                        '</small>';
+                    echo '</div>';
+                    echo '<label><input type="radio" name="' . $dummy1 .
+                        '" value="Y" ' . ($isSuspended ? 'checked' : '') .
+                        '> Suspend</label>';
+                    echo '<label><input type="radio" name="' . $dummy1 .
+                        '" value="N" ' . (!$isSuspended ? 'checked' : '') .
+                        '> Reinstate</label>';
+                    echo '<a href="controller.php?cmd=openblog6&amp;userid=' .
+                        $userId . '">Edit</a>';
+                    echo '</div>';
+                }
+                echo '</div>';
             }
 
             // Load and render details for a selected user.
@@ -2283,15 +2758,33 @@
             // Delete the selected users.
             // Legacy function name: deleteUsers
             function deleteSelectedUsers(){
+                if (isset($_POST['deleteUsers']) &&
+                    is_array($_POST['deleteUsers'])) {
+                    $statement = $this->db->prepare(
+                        'DELETE FROM user WHERE id = ?'
+                    );
+
+                    foreach ($_POST['deleteUsers'] as $submittedId) {
+                        $userId = filter_var(
+                            $submittedId,
+                            FILTER_VALIDATE_INT,
+                            ['options' => ['min_range' => 1]]
+                        );
+
+                        if ($userId !== false) {
+                            $statement->execute([$userId]);
+                        }
+                    }
+                    return;
+                }
 
                 $query = "select * from user";
                 $resultSet = $this->db->query($query);
-                $dummy = $_POST['b7'];
-
                 for($i=0;$i<$resultSet->rowCount();$i++){
                         $user = $resultSet->fetch();
 
-                            if ($_POST['b'.$i] == "Y") {
+                            if (isset($_POST['b'.$i]) &&
+                                $_POST['b'.$i] == "Y") {
 
                                 $dummy1 = $user['id'];
                             $query1 = "delete user from user where id = $dummy1";
@@ -2311,14 +2804,13 @@
 
             function updateUserSuspensionStatus (){
 
-                $query = "select * from user";
+                $query = "select * from user order by id desc";
                 $resultSet = $this->db->query($query);
-                $dummy = $_POST['b7'];
-
                 for($i=0;$i<$resultSet->rowCount();$i++){
                         $user = $resultSet->fetch();
 
-                            if ($_POST['b'.$i] == "Y") {
+                            if (isset($_POST['b'.$i]) &&
+                                $_POST['b'.$i] == "Y") {
 
                             $dummy1 = $user['id'];
                             $query1 = "update user set suspend=1  where id = $dummy1";

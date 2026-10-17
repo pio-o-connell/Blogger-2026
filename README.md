@@ -173,6 +173,26 @@ Two stylesheets are used:
 
 The original layout uses a simple fixed-width, float-based CSS design.
 
+### UI and JavaScript updates
+
+The front-end work is intentionally incremental because the application is
+already functional. The current update improves responsive layout behavior,
+selection controls, destructive-action confirmation, and duplicate-submit
+prevention. Administrator blog and personal-blog screens now use a 40/60
+two-pane layout: posts can be selected into an editor, posts and comments can
+be updated, and delete actions remain confirmation-protected. User management
+now presents users as styled rows with visible active/suspended state and
+existing suspend, reinstate, delete, and registration actions.
+
+The existing PHP routes, database behavior, authentication flow, and
+administrator permissions remain the source of truth. JavaScript must not be
+required for core navigation or form submission, and server-side validation
+must remain in place.
+
+The implementation details, constraints, and acceptance criteria are
+documented in
+[UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md](UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md).
+
 ## Database
 
 The application connects to a MySQL database named:

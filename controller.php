@@ -42,19 +42,29 @@
                 new AdminBlogManagementView($data);
                 break;
             case "addComment":
-                $dummy = $_POST['postid'];
-                 $DBM = new DBManager();
-                 $result1 = $DBM->addComment();
-                  $result1['id'] =$dummy;
-                 new PreviousPostsView($result1);
-                break;
-            case "addComment1":
+                $postId = isset($_POST['postid']) ? (int) $_POST['postid'] : 0;
+                if ($postId <= 0) {
+                    http_response_code(400);
+                    exit('Invalid post identifier.');
+                }
                 $DBM = new DBManager();
-                $dummy = $_POST['postid'];
-                $result1 = $DBM->addComment1();
-                 $result1['id'] =$dummy;
-                 new GuestPostView($result1);
-                break;
+                $DBM->addComment();
+                header(
+                    'Location: controller.php?cmd=openblog1&bloggerid=' . $postId
+                );
+                exit;
+            case "addComment1":
+                $postId = isset($_POST['postid']) ? (int) $_POST['postid'] : 0;
+                if ($postId <= 0) {
+                    http_response_code(400);
+                    exit('Invalid post identifier.');
+                }
+                $DBM = new DBManager();
+                $DBM->addComment1();
+                header(
+                    'Location: controller.php?cmd=openblog1&bloggerid=' . $postId
+                );
+                exit;
             case "add":
                 $DBM = new DBManager();
                 $result1 = $DBM->getUserBlogDetails($_POST['username']);
@@ -86,6 +96,29 @@
                 $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 new AdminBlogManagementView($data);
                 break;
+            case "updatePost":
+                $DBM = new DBManager();
+                $DBM->updateBlogPost();
+                $postId = isset($_POST['postid']) ? (int) $_POST['postid'] : 0;
+                $returnCommand = $_POST['returncmd'] ?? 'openblog2';
+                if (!in_array($returnCommand, ['openblog2', 'openblog3'], true)) {
+                    $returnCommand = 'openblog2';
+                }
+                header(
+                    'Location: controller.php?cmd=' . $returnCommand .
+                    '&bloggerid='
+                    . $postId
+                );
+                exit;
+            case "updateComment":
+                $DBM = new DBManager();
+                $DBM->updateComment();
+                $postId = isset($_POST['postid']) ? (int) $_POST['postid'] : 0;
+                header(
+                    'Location: controller.php?cmd=openblog2&bloggerid='
+                    . $postId
+                );
+                exit;
             case "addPost1":
                 $data = handleFirstAddpost();
                 new BlogPostManagementView($data);
@@ -141,9 +174,13 @@
                 $DBM = new DBManager();
                 $DBM->deleteSelectedCommentsForPost($postId, $commentIds);
 
-                // Return to the same post in the admin dashboard.
+                $returnCommand = $_POST['returncmd'] ?? 'openblog2';
+                if (!in_array($returnCommand, ['openblog2', 'openblog3'], true)) {
+                    $returnCommand = 'openblog2';
+                }
                 header(
-                    'Location: controller.php?cmd=openblog2&bloggerid='
+                    'Location: controller.php?cmd=' . $returnCommand .
+                    '&bloggerid='
                     . $postId
                 );
                 exit;
@@ -152,6 +189,10 @@
             case "manageBlogs": // specifically for admin to view personal blogs
                 $DBM = new DBManager();
                 $data = $DBM->getUserBlogDetails($_COOKIE['username']);
+                if ($_COOKIE['username'] !== 'rmiller') {
+                    $data['username'] = $_COOKIE['username'];
+                    $data['isBlogger'] = true;
+                }
                 new AdminBlogManagementView($data);
                 break;
             case "delete2":
@@ -159,15 +200,19 @@
                 $DBM = new DBManager();
                 $data = $DBM->getUserBlogDetails($_COOKIE['username']);
                 $data['reset'] = 0;
-                new AdminDashboardView($data);
+                $returnCommand = $_POST['returncmd'] ?? 'openblog2';
+                if ($returnCommand === 'openblog3') {
+                    $data['username'] = $_COOKIE['username'];
+                    $data['isBlogger'] = true;
+                    new AdminBlogManagementView($data);
+                } else {
+                    new AdminDashboardView($data);
+                }
                 break;
 
             case "deleteUser":
                 handleDeleteUsers();
-                $DBM = new DBManager();
-                $data = $DBM->getUserBlogDetails($_COOKIE['username']);
-                $data['reset1']=0;
-                new DeleteUsersView($data);
+                new AdminUsersView([]);
                 break;
             case "deleterefresh":
                 $bloggerid = $_GET['blogid'];
@@ -182,6 +227,33 @@
                 $bloggerid=  $_GET['bloggerid'];
                 $info['bloggerid']=$bloggerid;
                 $info['reset'] = 1;
+                if (($_COOKIE['username'] ?? '') !== 'rmiller') {
+                    $DBM = new DBManager();
+                    $info = array_merge(
+                        $DBM->getUserBlogDetails($_COOKIE['username']),
+                        $info
+                    );
+                    $info['username'] = $_COOKIE['username'];
+                    $info['isBloggerAllBlogs'] = true;
+                }
+                new AdminDashboardView($info);
+                break;
+            case "openblog3":
+                $DBM = new DBManager();
+                $info = $DBM->getUserBlogDetails($_COOKIE['username']);
+                $info['username'] = $_COOKIE['username'];
+                $info['isBlogger'] = true;
+                $info['bloggerid'] = isset($_GET['bloggerid'])
+                    ? (int) $_GET['bloggerid']
+                    : 0;
+                $info['reset'] = 1;
+                new AdminBlogManagementView($info);
+                break;
+            case "bloggerAllBlogs":
+                $DBM = new DBManager();
+                $info = $DBM->getUserBlogDetails($_COOKIE['username']);
+                $info['username'] = $_COOKIE['username'];
+                $info['isBloggerAllBlogs'] = true;
                 new AdminDashboardView($info);
                 break;
             case "openblog4":
@@ -211,10 +283,7 @@
                 break;
             case "Suspend":
                 handleSuspendUsers();
-                $DBM = new DBManager();
-                $result1 = $DBM->getUserBlogDetails($_COOKIE['username']);
-                $result1['reset2']=0;
-                new SuspendUsersView($result1);
+                new AdminUsersView([]);
                 break;
             case "logout":
                 if(isset($_COOKIE['username'])) {
@@ -255,8 +324,9 @@
 
                     $result1 = $DBM->getUserBlogDetails($_POST['username']);
                     $result1['username'] = $_POST['username'];
+                    $result1['isBlogger'] = true;
 
-                    new BlogPostManagementView($result1);
+                    new AdminBlogManagementView($result1);
                 }
             else
             {

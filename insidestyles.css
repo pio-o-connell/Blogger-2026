@@ -19,6 +19,20 @@
     overflow: auto;
 }
 
+.row-delete-button {
+    padding: 7px 12px;
+    border: 1px solid #a63d3d;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #a63d3d;
+    cursor: pointer;
+}
+
+.row-delete-button:hover {
+    background: #a63d3d;
+    color: #ffffff;
+}
+
 /* AdminDashboardView: two equal-width content panels */
 /* #main.admin-dashboard {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -29,6 +43,39 @@
 #main.admin-dashboard {
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     align-items: start;
+}
+
+.user-status-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.user-status.is-suspended {
+    color: #a63d3d;
+}
+
+.user-status.is-active {
+    color: #386747;
+}
+
+.user-delete-control {
+    white-space: nowrap;
+}
+
+#main.admin-dashboard #content,
+#main.admin-dashboard #bloggerlist {
+    min-height: 420px;
+    padding: 28px;
+    background: #ffffff;
+}
+
+#main.admin-dashboard #content {
+    border-right: 1px solid #e5e4dc;
+}
+
+#main.admin-dashboard #bloggerlist {
+    background: #fafcf9;
 }
 
 /* Shared page background */
@@ -192,6 +239,10 @@ body {
     grid-column: 1;
     grid-row: auto;
     min-width: 0;
+}
+
+#main.admin-dashboard #content.admin-user-page {
+    grid-column: 1 / -1;
 }
 
 #bloggerlist {
@@ -418,6 +469,119 @@ body {
     background: #ffffff;
 }
 
+.delete-blog-row {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.delete-blog-row:hover,
+.delete-blog-row:focus-within {
+    background: #294d35;
+    color: #ffffff;
+}
+
+.delete-blog-row:hover .delete-blog-title,
+.delete-blog-row:hover .delete-blog-originator,
+.delete-blog-row:hover .delete-blog-preview,
+.delete-blog-row:focus-within .delete-blog-title,
+.delete-blog-row:focus-within .delete-blog-originator,
+.delete-blog-row:focus-within .delete-blog-preview {
+    color: #ffffff;
+}
+
+.admin-editor-panel,
+.admin-editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-editor-panel {
+    margin-bottom: 24px;
+    padding: 18px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #fafcf9;
+}
+
+.admin-editor-panel h2 {
+    margin: 0;
+}
+
+.admin-editor-panel input,
+.admin-editor-panel textarea,
+.admin-editor-form input,
+.admin-editor-form textarea,
+.comment-editor textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-editor-panel textarea,
+.admin-editor-form textarea {
+    resize: vertical;
+}
+
+.comment-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.admin-user-section {
+    margin-bottom: 28px;
+    padding: 20px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #fafcf9;
+}
+
+.admin-user-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #ffffff;
+    transition: background-color 0.15s ease;
+}
+
+.admin-user-row:hover,
+.admin-user-row:focus-within {
+    background: #294d35;
+    color: #ffffff;
+}
+
+.admin-user-row:hover .admin-user-details span,
+.admin-user-row:hover .admin-user-details small,
+.admin-user-row:focus-within .admin-user-details span,
+.admin-user-row:focus-within .admin-user-details small {
+    color: #ffffff;
+}
+
+.admin-user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.admin-user-details span,
+.admin-user-details small {
+    color: #777b73;
+    overflow-wrap: anywhere;
+}
+
 /* Blog title */
 .delete-blog-title {
     min-width: 0;
@@ -445,6 +609,28 @@ body {
     accent-color: #386747;
 }
 
+.post-edit-button {
+    padding: 6px 10px;
+    border: 1px solid #386747;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #386747;
+    cursor: pointer;
+}
+
+.post-edit-button:hover,
+.inline-action:hover {
+    background: #386747;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.inline-action {
+    display: inline-block;
+    width: auto;
+    text-decoration: none;
+}
+
 /* Accessible labels hidden visually */
 .visually-hidden {
     position: absolute;
@@ -456,6 +642,55 @@ body {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+}
+
+/* Progressive enhancement controls */
+
+button:disabled,
+input[type="submit"]:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.selection-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.selection-tool {
+    padding: 6px 10px;
+    border: 1px solid #dce5dc;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #386747;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.selection-tool:hover {
+    background: #edf5ee;
+    color: #294d35;
+}
+
+[data-dismissible] {
+    position: relative;
+    padding-right: 36px;
+}
+
+.message-dismiss {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    min-width: 28px;
+    padding: 2px 8px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transform: translateY(-50%);
 }
 
 
@@ -592,6 +827,27 @@ body {
    ========================================================= */
 
 @media (max-width: 480px) {
+    #main,
+    #main.admin-dashboard {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+        border: none;
+    }
+
+    #admin-menu.admin-navigation,
+    #menu {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+    }
+
+    #admin-menu.admin-navigation .menu-account {
+        width: 100%;
+        justify-content: space-between;
+    }
+
     .delete-blog-heading,
     .delete-blog-row {
         grid-template-columns: minmax(0, 1fr) 42px;
@@ -605,5 +861,13 @@ body {
 
     .delete-blog-title {
         font-size: 13px;
+    }
+
+    .admin-user-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-user-details {
+        grid-column: 1 / -1;
     }
 }
