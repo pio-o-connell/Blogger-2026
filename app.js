@@ -9,7 +9,9 @@
     function isDestructiveCommand(command) {
         return [
             'delete1',
+            'deletePosts',
             'delete2',
+            'deleteComment',
             'deleteComments',
             'deleteSelectedUsers',
             'deleteUser'
@@ -112,15 +114,35 @@
                 command.value = 'updatePost';
 
                 if (submit.tagName.toLowerCase() === 'button') {
-                    submit.textContent = 'Update blog';
+                    submit.textContent = 'Save Changes';
                 } else {
-                    submit.value = 'Update blog';
+                    submit.value = 'Save Changes';
+                }
+                editor.dataset.originalTitle = row.dataset.postTitle;
+                editor.dataset.originalBody = row.dataset.postBody;
+                var indicator = editor.querySelector('[data-unsaved-indicator]');
+                if (indicator) {
+                    indicator.hidden = true;
+                }
+                var list = row.closest('.delete-blog-list');
+                if (list) {
+                    list.querySelectorAll('[data-post-row]').forEach(
+                        function (otherRow) {
+                            otherRow.classList.toggle(
+                                'is-selected',
+                                otherRow === row
+                            );
+                        }
+                    );
                 }
                 editor.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
 
             row.querySelectorAll('[data-edit-post]').forEach(function (button) {
                 button.addEventListener('click', function () {
+                    if (button.disabled) {
+                        return;
+                    }
                     var link = row.querySelector('.delete-blog-title');
                     if (link) {
                         window.location.href = link.href;
@@ -158,7 +180,8 @@
                 }
 
                 if (isDestructiveCommand(command)) {
-                    if (!hasSelectedItems(form, submitter)) {
+                    if (command !== 'deleteComment' &&
+                        !hasSelectedItems(form, submitter)) {
                         event.preventDefault();
                         window.alert('Select at least one item to continue.');
                         return;
@@ -176,6 +199,33 @@
                     setBusyState(form);
                 }
             });
+        });
+    }
+
+    function enhancePostEditor() {
+        document.querySelectorAll('[data-post-editor]').forEach(function (editor) {
+            var title = editor.querySelector('input[name="blogtitle"]');
+            var body = editor.querySelector('textarea[name="textarea"]');
+            var cancel = editor.querySelector('[data-cancel-edit]');
+            var indicator = editor.querySelector('[data-unsaved-indicator]');
+
+            function updateDirtyState() {
+                if (indicator) {
+                    indicator.hidden =
+                        title.value === (editor.dataset.originalTitle || '') &&
+                        body.value === (editor.dataset.originalBody || '');
+                }
+            }
+
+            title.addEventListener('input', updateDirtyState);
+            body.addEventListener('input', updateDirtyState);
+            if (cancel) {
+                cancel.addEventListener('click', function () {
+                    title.value = editor.dataset.originalTitle || '';
+                    body.value = editor.dataset.originalBody || '';
+                    updateDirtyState();
+                });
+            }
         });
     }
 
@@ -206,8 +256,8 @@
 
     document.addEventListener('DOMContentLoaded', function () {
         enhanceForms();
-        enhanceSelectionForms();
         enhancePostRows();
+        enhancePostEditor();
         enhanceUserRows();
         enhanceDismissibleMessages();
     });

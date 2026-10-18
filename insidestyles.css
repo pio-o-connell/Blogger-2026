@@ -35,7 +35,7 @@
 
 /* AdminDashboardView: Manage posts 40% | Recent posts 60% */
 #main.admin-dashboard {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
     align-items: start;
 }
 
@@ -264,6 +264,50 @@ body {
     height: 16px;
     margin: 0;
     accent-color: #386747;
+}
+
+#main.admin-dashboard [data-post-row].is-selected {
+    border-color: #386747;
+    background: #f0f7f1;
+}
+
+.comment-form {
+    margin: 0 0 24px;
+    padding: 16px;
+    border: 1px solid #d8ded6;
+    background: #ffffff;
+}
+
+.comment-form p {
+    margin: 0 0 8px;
+    color: #777b73;
+}
+
+.comment-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.comment-item {
+    overflow-wrap: anywhere;
+}
+
+.comment-item strong {
+    display: block;
+}
+
+.comment-item p {
+    margin: 4px 0 12px;
+}
+
+.unsaved-indicator {
+    margin-right: 10px;
+    color: #a63d3d;
+    font-size: 13px;
+}
+
+.secondary-button {
+    margin-left: 8px;
 }
 
 
@@ -592,6 +636,13 @@ body {
     background: #386747;
     color: #ffffff;
     text-decoration: none;
+}
+
+.post-edit-button:disabled {
+    border-color: #c8cec8;
+    background: #f1f2f1;
+    color: #8b918b;
+    cursor: not-allowed;
 }
 
 .inline-action {
