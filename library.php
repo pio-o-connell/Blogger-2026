@@ -877,25 +877,7 @@
             }
     }
 
-// Provides shared navigation and layout functionality for administrator views.
-    // class AdminBaseView extends AuthenticatedBaseView{
 
-    //     // Render navigation links for administration pages.
-    //     protected function adminMenu()
-    //     {
-    //         echo '
-    //         <nav id="admin-menu" class="admin-navigation" aria-label="Administrator navigation">
-    //             <span class="admin-menu-title">Administration:All blogs</span>
-
-    //             <div class="menu-account">
-    //                 <a href="controller.php?cmd=manageUsers">Users</a>
-    //                 <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
-    //                 <a href="controller.php?cmd=logout">Log out</a>
-    //             </div>
-    //         </nav>';
-    //     }
-
-    // }
     class AdminBaseView extends AuthenticatedBaseView {
 
     // Render navigation links for the selected administrator page.
@@ -943,19 +925,6 @@
                 return;
             }
 
-            // if ($section === 'users') {
-            //     $title = 'Administration: All Users';
-            //     $links = '
-            //         <a href="controller.php?cmd=manageBlogs">Admin: All Blogs</a>
-            //         <a href="controller.php?cmd=manageBlogs">Personal Blogs</a>
-            //         <a href="controller.php?cmd=logout">Log out</a>';
-            // } else {
-            //     $title = 'Administration: Personal Blogs';
-            //     $links = '
-            //         <a href="controller.php?cmd=manageUsers">Users</a>
-            //         <a href="controller.php?cmd=adminDashboard">All Blogs</a>
-            //         <a href="controller.php?cmd=logout">Log out</a>';
-            // }
             if ($section === 'dashboard') {
                 $title = 'Administration: All Blogs';
                 $username = htmlspecialchars(
