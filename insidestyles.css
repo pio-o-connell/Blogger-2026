@@ -272,20 +272,43 @@ body {
 }
 
 .comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin: 0 0 24px;
     padding: 16px;
     border: 1px solid #d8ded6;
+    border-radius: 6px;
     background: #ffffff;
 }
 
 .comment-form p {
-    margin: 0 0 8px;
+    margin: 0;
     color: #777b73;
+    font-size: 14px;
+}
+
+.comment-form label {
+    color: #26382d;
+    font-weight: 600;
 }
 
 .comment-form textarea {
     width: 100%;
     box-sizing: border-box;
+    min-height: 100px;
+    padding: 10px 12px;
+    border: 1px solid #ccd4ce;
+    border-radius: 5px;
+    font: inherit;
+    resize: vertical;
+}
+
+.comment-form textarea:focus,
+.admin-editor-panel input:focus,
+.admin-editor-panel textarea:focus {
+    outline: 2px solid #4caf50;
+    outline-offset: 1px;
 }
 
 .comment-item {
@@ -536,6 +559,24 @@ body {
     resize: vertical;
 }
 
+.admin-editor-panel input[type="submit"],
+.admin-editor-panel button[type="submit"] {
+    width: 100%;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-editor-panel input[type="submit"]:hover,
+.admin-editor-panel button[type="submit"]:hover {
+    background: #244f33;
+}
+
 .comment-editor {
     display: flex;
     flex-direction: column;
@@ -623,17 +664,21 @@ body {
 }
 
 .post-edit-button {
-    padding: 6px 10px;
-    border: 1px solid #386747;
-    border-radius: 4px;
-    background: #ffffff;
-    color: #386747;
+    padding: 9px 14px;
+    border: 1px solid #2f6542;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #ffffff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
 }
 
 .post-edit-button:hover,
 .inline-action:hover {
-    background: #386747;
+    background: #244f33;
+    border-color: #244f33;
     color: #ffffff;
     text-decoration: none;
 }

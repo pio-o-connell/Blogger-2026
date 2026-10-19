@@ -104,7 +104,7 @@
                     <meta charset=\"UTF-8\">
                     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
                     <title>Blogger | Ideas worth sharing</title>
-                    <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261017-2\">
+                    <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261019-1\">
                     <script src=\"app.js?v=20261017-2\" defer></script>
                 </head>
                 <body>
@@ -996,7 +996,12 @@
         // Left panel: Manage blog posts
         public function content($info){
             $DBM = new DBManager();
-            $selectedPost = !empty($info['bloggerid'])
+            $isAllBlogs = !empty($info['isBloggerAllBlogs']) ||
+                (
+                    !empty($_SESSION['is_admin']) &&
+                    empty($info['isBlogger'])
+                );
+            $selectedPost = !$isAllBlogs && !empty($info['bloggerid'])
                 ? $DBM->getPostById((int) $info['bloggerid'])
                 : null;
             $editorTitle = htmlspecialchars(
@@ -1016,8 +1021,10 @@
                 (int) ($info['id'] ?? 0);
             $editorDisabled = $canEditSelected ? '' : ' disabled';
 
-            echo '
-                <main id="content" class="admin-delete-page">
+            echo '<main id="content" class="admin-delete-page">';
+
+            if (!$isAllBlogs) {
+                echo '
                     <section class="admin-editor-panel">
                         <h2>Create or edit a blog</h2>
                         <form method="post" action="controller.php"
@@ -1051,6 +1058,10 @@
                         </form>
                     </section>
 
+                ';
+            }
+
+            echo '
                     <section class="admin-delete-panel">
                         <form method="post" action="controller.php">
                             <input type="hidden" name="cmd" value="deletePosts">
@@ -1067,16 +1078,6 @@
             echo '
                             </div>
 
-                            <div class="admin-form-actions">
-                                <p class="delete-blog-notice">
-                                    Posts marked Delete will be submitted
-                                    for removal.
-                                </p>
-
-                                <button type="submit" class="auth-button">
-                                    Submit changes
-                                </button>
-                            </div>
                         </form>
                     </section>
                 </main>
@@ -1092,9 +1093,6 @@
 
             echo '
                 <section id="bloggerlist">
-                    <div class="page-heading">
-                        <h2>Selected blog post</h2>
-                    </div>
             ';
 
             if ($postId <= 0) {
@@ -1137,9 +1135,6 @@
                     <h3>' . $title . '</h3>
                     <p class="post-meta">By ' . $originator . '</p>
                 </article>
-                <div class="page-heading">
-                    <h2>Comments</h2>
-                </div>
                 <form method="post" action="controller.php"
                     class="comment-form">
                     <input type="hidden" name="cmd" value="addComment">
@@ -1150,10 +1145,9 @@
                         ENT_QUOTES,
                         'UTF-8'
                     ) . '</p>
-                    <label for="dashboard-comment">Body<span aria-hidden="true">*</span></label>
                     <textarea id="dashboard-comment" name="comments"
                         rows="4" required></textarea>
-                    <button type="submit">Save comment</button>
+                    <button type="submit" class="auth-button">Save comment</button>
                 </form>
             ';
 
@@ -1295,20 +1289,23 @@
             $editorCommand = $selectedPost ? 'updatePost' : 'createPost';
             $editorPostId = $selectedPost ? (int) $selectedPost['id'] : 0;
 
-            echo '
-            <main id="content" class="admin-delete-page">
+            echo '<main id="content" class="admin-delete-page">';
+
+            if (!empty($info['isBlogger'])) {
+                echo '
             <header class="page-heading">
                 <h1>' .
-                (!empty($info['isBlogger'])
-                    ? htmlspecialchars(
+                    htmlspecialchars(
                         ucfirst($info['username'] ?? ''),
                         ENT_QUOTES,
                         'UTF-8'
-                    ) . ': Personal blogs'
-                    : 'Administrator: Personal blogs') .
-                '</h1>
+                    ) . ': Personal blogs
+                </h1>
             </header>
+                ';
+            }
 
+            echo '
             <section class="admin-editor-panel">
             <h2>Create or edit a blog</h2>
             <form method="post" action="controller.php"             data-post-editor
@@ -1357,9 +1354,6 @@
             //DBManager::displayPreviousPosts($info);
             $DBM->displayAdminBlogPosts($info, (int) ($info['id'] ?? 0));
             echo '
-                <button type="submit" class="auth-button">
-                    Delete selected posts
-                </button>
             </form>
             </section></main>';
         }
@@ -2420,13 +2414,6 @@
                                     value="' . $postId . '">
                                     Delete
                                 </button>' : '') . '
-                                ' . ($isAdmin ? '
-                                <label class="delete-blog-choice">
-                                    <input type="checkbox"
-                                        name="deletePosts[]"
-                                        value="' . $postId . '">
-                                    <span class="visually-hidden">Delete</span>
-                                </label>' : '') . '
                             </div>
                         ';
                     }
