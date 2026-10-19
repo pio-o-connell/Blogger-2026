@@ -30,20 +30,6 @@
             ";
         }
 
-        // // Render the navigation area for this view.
-        // public function menu() {
-        //     echo "
-        //         <nav id=\"menu\" aria-label=\"Main navigation\">
-
-        //             <a class=\"home-text\" href=\"controller.php\">Home</a>
-
-        //             <div class=\"menu-account\">
-        //                 <a href=\"controller.php?cmd=showLogin\">Login</a>
-        //                 <a class=\"register-link\" href=\"controller.php?cmd=showRegistration\">Register</a>
-        //             </div>
-        //         </nav>
-        //     ";
-        // }
         public function menu() {
             echo "
                 <nav id=\"menu\" aria-label=\"Main navigation\">
@@ -1318,20 +1304,6 @@
             $editorPostId = $selectedPost ? (int) $selectedPost['id'] : 0;
 
             echo '<main id="content" class="admin-delete-page">';
-
-            if (!empty($info['isBlogger'])) {
-                echo '
-            <header class="page-heading">
-                <h1>' .
-                    htmlspecialchars(
-                        ucfirst($info['username'] ?? ''),
-                        ENT_QUOTES,
-                        'UTF-8'
-                    ) . ': Personal blogs
-                </h1>
-            </header>
-                ';
-            }
 
             echo '
             <section class="admin-editor-panel">
