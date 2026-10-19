@@ -957,7 +957,8 @@
                 );
                 $title = $username . ': Personal blogs';
                 $links = '
-                    <a href="controller.php?cmd=manageBlogs">Administration: All Blogs</a>
+                    <a href="controller.php?cmd=manageUsers">Users</a>
+                    <a href="controller.php?cmd=manageBlogs">Administrator: All Blogs</a>
                     <a href="controller.php?cmd=logout">Log out</a>';
             }
 
@@ -1054,7 +1055,7 @@
                                 ($selectedPost ? 'Save Changes' : 'Publish post') .
                             '</button>
                             <button type="button" data-cancel-edit
-                                class="secondary-button">Cancel</button>
+                                class="secondary-button">Revert</button>
                         </form>
                     </section>
 
@@ -1183,8 +1184,12 @@
                             ($comment['author'] ?? '') === $currentUsername
                         );
 
+                    $commentClass = $canDeleteComment
+                        ? ''
+                        : ' comment-item--readonly';
+
                     echo '
-                        <article class="blog-post comment-item"
+                        <article class="blog-post comment-item' . $commentClass . '"
                     data-comment-row>
                             <strong>' . $author . '</strong>
                             <p>' . $commentBody . '</p>
@@ -1337,12 +1342,11 @@
                 <input type="submit" value="' .
                     ($selectedPost ? 'Save Changes' : 'Publish post') . '">
                 <button type="button" data-cancel-edit
-                    class="secondary-button">Cancel</button>
+                        class="secondary-button">Revert</button>
             </form>
             </section>
 
             <section class="admin-delete-panel">
-            <h2>Personal posts</h2>
             <form method="post" action="controller.php">
                 <input type="hidden" name="cmd" value="deletePosts">
                 <input type="hidden" name="returncmd"
@@ -2314,12 +2318,15 @@
                     $query->execute();
                 }
                 $posts = $query->fetchAll(PDO::FETCH_ASSOC);
+                $isAdmin = !empty($_SESSION['is_admin']);
+                $postListTitle = $isAdmin && $ownerId === 0
+                    ? 'Administrator: All Blogs'
+                    : 'Blog post';
 
                 echo '
                     <div class="delete-blog-list">
                         <div class="delete-blog-heading">
-                            <span>Blog post</span>
-                            <span>Delete</span>
+                            <span>' . $postListTitle . '</span>
                         </div>
                 ';
 
@@ -2330,7 +2337,6 @@
                         </div>
                     ';
                 } else {
-                    $isAdmin = !empty($_SESSION['is_admin']);
                     foreach ($posts as $post) {
                         $postId = (int) $post['id'];
                         $canEdit = (int) ($post['bloggerid'] ?? 0) ===
