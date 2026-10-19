@@ -312,7 +312,7 @@ body {
     outline-offset: 1px;
 }
 
-.comment-item {
+/* .comment-item {
     overflow-wrap: anywhere;
 }
 
@@ -338,6 +338,36 @@ body {
 }
 
 .comment-item--readonly p {
+    margin-bottom: 16px;
+} */
+
+.comment-item {
+    overflow-wrap: anywhere;
+}
+
+.comment-item strong {
+    display: block;
+}
+
+.comment-item p {
+    margin: 4px 0 12px;
+}
+
+/* Previous comments: muted appearance, independent of permissions */
+.comment-item--previous {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #777b73;
+}
+
+.comment-item--previous strong {
+    color: #777b73;
+    font-weight: normal;
+}
+
+.comment-item--previous p {
     margin-bottom: 16px;
 }
 
@@ -873,6 +903,25 @@ input[type="submit"]:disabled {
     border: 1px solid #e5e7e5;
     border-radius: 6px;
     box-sizing: border-box;
+}
+
+/* Previous comments: muted appearance, independent of permissions */
+#main.admin-dashboard #bloggerlist .comment-item--previous {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #777b73;
+    box-shadow: none;
+}
+
+#main.admin-dashboard #bloggerlist .comment-item--previous strong {
+    color: #777b73;
+    font-weight: normal;
+}
+
+#main.admin-dashboard #bloggerlist .comment-item--previous p {
+    margin: 4px 0 16px;
 }
 
 /* Author and blog title */

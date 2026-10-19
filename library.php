@@ -1186,20 +1186,24 @@
                         ENT_QUOTES,
                         'UTF-8'
                     ));
+ 
                     $currentUsername = $_SESSION['username'] ?? '';
-                    $canDeleteComment = !empty($_SESSION['is_admin']) ||
+                    $isAdmin = !empty($_SESSION['is_admin']);
+
+                    $isPostOwner = (int) ($post['bloggerid'] ?? 0) ===
+                        (int) ($this->info['id'] ?? 0);
+
+                    // Deletion permission is independent of the comment's appearance.
+                    $canDeleteComment = $isAdmin ||
+                        $isPostOwner ||
                         (
                             $currentUsername !== '' &&
                             ($comment['author'] ?? '') === $currentUsername
                         );
 
-                    $commentClass = $canDeleteComment
-                        ? ''
-                        : ' comment-item--readonly';
-
                     echo '
-                        <article class="blog-post comment-item' . $commentClass . '"
-                    data-comment-row>
+                        <article class="blog-post comment-item comment-item--previous"
+                            data-comment-row>
                             <strong>' . $author . '</strong>
                             <p>' . $commentBody . '</p>
                     ' . ($canDeleteComment ? '
