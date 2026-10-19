@@ -739,6 +739,15 @@ input[type="submit"]:disabled {
     text-decoration: underline;
 }
 
+
+.login-error {
+    margin: 0 0 16px;
+    color: #b42318;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+
 @media (max-width: 600px) {
     #menu {
         align-items: flex-start;

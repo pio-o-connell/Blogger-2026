@@ -30,12 +30,24 @@
             ";
         }
 
-        // Render the navigation area for this view.
+        // // Render the navigation area for this view.
+        // public function menu() {
+        //     echo "
+        //         <nav id=\"menu\" aria-label=\"Main navigation\">
+
+        //             <a class=\"home-text\" href=\"controller.php\">Home</a>
+
+        //             <div class=\"menu-account\">
+        //                 <a href=\"controller.php?cmd=showLogin\">Login</a>
+        //                 <a class=\"register-link\" href=\"controller.php?cmd=showRegistration\">Register</a>
+        //             </div>
+        //         </nav>
+        //     ";
+        // }
         public function menu() {
             echo "
                 <nav id=\"menu\" aria-label=\"Main navigation\">
-
-                <span class=\"home-text\">Home</span>
+                    <a href=\"controller.php\" class=\"home-text\">Home</a>
 
                     <div class=\"menu-account\">
                         <a href=\"controller.php?cmd=showLogin\">Login</a>
@@ -263,16 +275,15 @@
     // Legacy class name: View2.
     class LoginView extends PublicBaseView{
         // Initialize the view and render its complete page.
-        public function __construct()
+        public function __construct($loginFailed = false)
         {
             $this->top();
             $this->menu();
-            $this->content();
+            $this->content($loginFailed);
             $this->bottom();
         }
-
-        // Render the main content for this view.
-        public function content()
+   
+        public function content($loginFailed = false)
         {
             echo '
                 <main id="content" class="auth-page">
@@ -286,7 +297,18 @@
                             Log in to your account to continue reading
                             and sharing your thoughts.
                         </p>
+            ';
 
+            // Display an error only after a failed login attempt.
+            if ($loginFailed) {
+                echo '
+                    <p class="login-error" role="alert">
+                        Login attempt failed. Please check your username and password.
+                    </p>
+                ';
+            }
+
+            echo '
                         <form method="post" action="controller.php">
                             <input type="hidden"
                                 name="cmd"
@@ -334,6 +356,7 @@
         }
     }
 
+    
 // Retrieves and displays previous posts for the relevant user or blog.
 // Legacy class name: View3.
     class PreviousPostsView extends PublicBaseView {

@@ -421,7 +421,7 @@ session_start();
                 }
             else
             {
-                    new LoginView();
+                    new LoginView(true);
             }
 
     }
