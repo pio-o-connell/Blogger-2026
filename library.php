@@ -14,6 +14,11 @@
             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
             <title>Blogger | Ideas worth sharing</title>
             <link rel=\"stylesheet\" href=\"myStyles.css?v=20261017-2\">
+            <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+            <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"
+                crossorigin>
+            <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&display=swap\"
+                rel=\"stylesheet\">
             <script src=\"app.js?v=20261017-2\" defer></script>
         </head>
 
@@ -105,6 +110,11 @@
                 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
                 <title>Blogger | Ideas worth sharing</title>
                 <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261019-1\">
+                <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+                <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"
+                    crossorigin>
+                <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&display=swap\"
+                    rel=\"stylesheet\">
                 <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">
                 <script src=\"app.js?v=20261017-2\" defer></script>
             </head>
@@ -902,7 +912,6 @@
                     ENT_QUOTES,
                     'UTF-8'
                 );
-
                 echo '
                 <nav id="admin-menu" class="admin-navigation"
                     aria-label="Personal blog navigation">
@@ -993,7 +1002,8 @@
 
             // Default to the most recent post when none is selected.
             if (empty($info['bloggerid'])) {
-                $info['bloggerid'] = !empty($info['isBloggerAllBlogs'])
+                $info['bloggerid'] = !empty($info['isBloggerAllBlogs']) ||
+                    !empty($info['isAdministratorAllBlogs'])
                     ? $DBM->getLatestPostIdExcludingUser((int) $info['id'])
                     : $DBM->getLatestPostId();
             }
@@ -1011,6 +1021,7 @@
         public function content($info){
             $DBM = new DBManager();
             $isAllBlogs = !empty($info['isBloggerAllBlogs']) ||
+                !empty($info['isAdministratorAllBlogs']) ||
                 (
                     !empty($_SESSION['is_admin']) &&
                     empty($info['isBlogger'])
@@ -1085,7 +1096,8 @@
                             <div class="admin-delete-options">
             ';
 
-            $excludeOwnerId = !empty($info['isBloggerAllBlogs'])
+            $excludeOwnerId = !empty($info['isBloggerAllBlogs']) ||
+                !empty($info['isAdministratorAllBlogs'])
                 ? (int) $info['id']
                 : 0;
             $DBM->displayAdminBlogPosts($info, 0, $excludeOwnerId);
@@ -1249,8 +1261,13 @@
                 ? (int) $info['bloggerid']
                 : 0;
 
+            $commentsPanelClass = $this instanceof AdminBlogManagementView
+                ? ' personal-blog-comments'
+                : '';
+
             echo '
-                <section id="bloggerlist">
+                <section id="bloggerlist" class="comments-panel' .
+                $commentsPanelClass . '">
             ';
 
             if ($postId <= 0) {
@@ -1296,7 +1313,8 @@
 
             echo '
                 <article class="selected-post-context">
-                    <h3>' . $title . '</h3>
+                    <h3>Leave a comment</h3>
+                    <p class="selected-post-title">' . $title . '</p>
                     <p class="post-meta">By ' . $originator . '</p>
                 </article>
 
@@ -1309,20 +1327,28 @@
                         Posting as: <strong>' . $currentUsername . '</strong>
                     </p>
 
-                    <label for="dashboard-comment">
-                        Body <span class="required">*</span>
+                    <label for="dashboard-comment">Comment
+                        <span class="required">*</span>
                     </label>
 
                     <textarea id="dashboard-comment" name="comments"
                         rows="4" required></textarea>
 
                     <button type="submit" class="auth-button">
-                        Submit
+                        Submit Comment
                     </button>
                 </form>
             ';
 
             $comments = $DBM->getCommentsForPost($postId);
+
+            echo '<div class="comment-summary">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    <span>' . count($comments) . ' comment' .
+                    (count($comments) === 1 ? '' : 's') . '</span>
+                </div>
+                <hr class="comments-divider">
+                <h2 class="comments-heading">Comments</h2>';
 
             if (empty($comments)) {
                 echo '
@@ -1361,9 +1387,15 @@
                             $currentUsername !== '' &&
                             ($comment['author'] ?? '') === $currentUsername
                         );
+                    $canUpdateComment = $currentUsername !== '' &&
+                        ($comment['author'] ?? '') === $currentUsername;
+                    $returnCommand = $this instanceof AdminBlogManagementView
+                        ? 'openblog3'
+                        : 'openblog2';
 
                     echo '
-                        <article class="blog-post comment-item comment-item--previous"
+                        <article class="blog-post comment-item comment-item--previous' .
+                            ($canUpdateComment ? ' comment-item--editable' : '') . '"
                             data-comment-row>
 
                             <div class="comment-header">
@@ -1373,30 +1405,54 @@
                                     <strong>' . $author . '</strong>
                                 </div>
 
+                                <div class="comment-actions">
+                                ' . ($canUpdateComment ? '
+                                <form method="post" action="controller.php"
+                                    class="comment-update-form">
+                                    <input type="hidden" name="cmd"
+                                        value="updateComment">
+                                    <input type="hidden" name="bloggerid"
+                                        value="' . $postId . '">
+                                    <input type="hidden" name="returncmd"
+                                        value="' . $returnCommand . '">
+                                    <input type="hidden" name="commentid"
+                                        value="' . $commentId . '">
+                                    <label class="visually-hidden"
+                                        for="comment-body-' . $commentId . '">
+                                        Update comment
+                                    </label>
+                                    <textarea id="comment-body-' . $commentId . '"
+                                        name="body" rows="2" required>' .
+                                        htmlspecialchars(
+                                            $comment['body'] ?? '',
+                                            ENT_QUOTES,
+                                            'UTF-8'
+                                        ) . '</textarea>
+                                    <button type="submit"
+                                        class="comment-update-button">
+                                        Update
+                                    </button>
+                                </form>
+                                ' : '') . '
                                 ' . ($canDeleteComment ? '
                                 <form method="post" action="controller.php"
                                     class="comment-delete-form"
                                     data-confirm-delete>
                                     <input type="hidden" name="cmd"
                                         value="deleteComment">
-                                    <input type="hidden" name="postid"
-                                        value="' . $postId . '">
                                     <input type="hidden" name="bloggerid"
                                         value="' . $postId . '">
                                     <input type="hidden" name="returncmd"
-                                        value="' . (
-                                            $this instanceof AdminBlogManagementView
-                                                ? 'openblog3'
-                                                : 'openblog2'
-                                        ) . '">
+                                        value="' . $returnCommand . '">
                                     <input type="hidden" name="commentid"
                                         value="' . $commentId . '">
                                     <button type="submit"
                                         class="row-delete-button">
-                                        Delete comment
+                                        Delete
                                     </button>
                                 </form>
                                 ' : '') . '
+                                </div>
                             </div>
 
                             <div class="comment-content">
@@ -1453,7 +1509,7 @@
                     (int) ($info['id'] ?? 0)
                 );
             }
-            $this->top('admin-dashboard');
+            $this->top('admin-dashboard personal-blog-window');
         //    $this->adminMenu();
             $this->adminMenu('blogs');
             $this->content($info);
@@ -1485,7 +1541,6 @@
 
             echo '
             <section class="admin-editor-panel">
-            <h2>Create or edit a blog</h2>
             <form method="post" action="controller.php"             data-post-editor
             data-original-title="' . $editorTitle . '"
             data-original-body="' . $editorBody . '">
@@ -1496,7 +1551,7 @@
                 <input type="hidden" name="returncmd"
                     value="openblog3">
 
-                <label for="personal-blogtitle">Post title</label>
+                <label for="personal-blogtitle">Title</label>
                 <input
                     type="text"
                     id="personal-blogtitle"
@@ -1504,7 +1559,7 @@
                     required
                 >
 
-                <label for="personal-textarea">Post content</label>
+                <label for="personal-textarea">Content</label>
                 <textarea
                     id="personal-textarea"
                     name="textarea"
@@ -1512,10 +1567,11 @@
 
                 <span class="unsaved-indicator" data-unsaved-indicator
                     hidden>Unsaved changes</span>
-                <input type="submit" value="' .
-                    ($selectedPost ? 'Save Changes' : 'Publish post') . '">
-                <button type="button" data-cancel-edit
-                        class="secondary-button">Revert</button>
+                <div class="editor-actions">
+                    <input type="submit" value="Create/Edit Post">
+                    <button type="button" data-cancel-edit
+                            class="secondary-button">Revert</button>
+                </div>
             </form>
             </section>
 
@@ -1968,19 +2024,13 @@
                     return;
                 }
 
-                $ownership = $isAdmin
-                    ? 'id = ?'
-                    : 'id = ? AND author = (
-                            SELECT username FROM user WHERE id = ?
-                        )';
+                $ownership = 'id = ? AND author = (
+                        SELECT username FROM user WHERE id = ?
+                    )';
                 $statement = $this->db->prepare(
                     'UPDATE comments SET body = ? WHERE ' . $ownership
                 );
-                $statement->execute(
-                    $isAdmin
-                        ? [$body, $commentId]
-                        : [$body, $commentId, $userId]
-                );
+                $statement->execute([$body, $commentId, $userId]);
             }
 
             public function addComment($userId = 0){
@@ -2890,22 +2940,34 @@
                     array_fill(0, count($commentIds), '?')
                 );
 
-                $authorClause = '';
+                $permissionClause = '';
+                $permissionParams = [];
                 if (!$isAdmin) {
-                    $authorClause = ' AND author = ?';
+                    $permissionClause = ' AND (
+                        author = (
+                            SELECT username FROM user WHERE id = ?
+                        )
+                        OR EXISTS (
+                            SELECT 1 FROM post
+                            WHERE post.id = comments.postid
+                            AND post.bloggerid = ?
+                        )
+                    )';
+                    $permissionParams = [
+                        (int) $userId,
+                        (int) $userId
+                    ];
                 }
                 $sql = "DELETE FROM comments
                         WHERE postid = ?
-                        AND id IN ($placeholders)" . $authorClause;
+                        AND id IN ($placeholders)" . $permissionClause;
 
                 $statement = $this->db->prepare($sql);
                 $statement->execute(
                     array_merge(
                         [$postId],
                         $commentIds,
-                        $isAdmin
-                            ? []
-                            : [$this->getUsernameById($userId)]
+                        $permissionParams
                     )
                 );
 

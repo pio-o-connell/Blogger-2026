@@ -3,8 +3,24 @@
    Shared dashboard, editor, comments and user management
    ========================================================= */
 /* Authenticated pages use the shared warm page background */
+:root {
+    --primary-font: "Montserrat", sans-serif;
+    --secondary-font: "Roboto", sans-serif;
+    --page-height: calc(100vh - 80px);
+    --page-height: calc(100dvh - 80px);
+}
+
 body {
+    margin: 0;
     background: #f5f4ef;
+    color: #252923;
+    font-family: var(--secondary-font);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--primary-font);
 }
 
 /* =========================================================
@@ -14,36 +30,51 @@ body {
 #main {
     display: grid;
     grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto auto auto minmax(0, 1fr);
     align-items: start;
 
     width: min(1100px, calc(100% - 40px));
+    height: var(--page-height);
     margin: 40px auto;
     padding: 0 42px;
 
     background: #ffffff;
     border: 1px solid #e5e4dc;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
 }
 
 /* Dashboard: posts/editor on the left, comments on the right */
 #main.admin-dashboard {
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-    align-items: start;
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    align-items: stretch;
 }
 
 #main.admin-dashboard #content,
 #main.admin-dashboard #bloggerlist {
     min-width: 0;
-    min-height: 420px;
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
     padding: 28px;
     background: #ffffff;
     box-sizing: border-box;
 }
 
+#main.admin-dashboard.personal-blog-window {
+    overflow: hidden;
+}
+
+#main.admin-dashboard.personal-blog-window #content,
+#main.admin-dashboard.personal-blog-window #bloggerlist {
+    height: 100%;
+    overflow-y: auto;
+}
+
 #main.admin-dashboard #content {
     grid-column: 1;
-    grid-row: auto;
+    grid-row: 4;
     border-right: 1px solid #e5e4dc;
 }
 
@@ -53,7 +84,7 @@ body {
 
 #main.admin-dashboard #bloggerlist {
     grid-column: 2;
-    grid-row: auto;
+    grid-row: 4;
     background: #fafcf9;
 }
 
@@ -74,6 +105,14 @@ body {
     border: none;
     background: #fafcf9;
     box-sizing: border-box;
+}
+
+@media (max-height: 700px) {
+    #main {
+        height: 100dvh;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
 
 
@@ -108,7 +147,7 @@ body {
 .site-tagline {
     margin: 2px 0 0;
     color: #777b73;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--secondary-font);
     font-size: 14px;
     font-weight: normal;
     letter-spacing: 1px;
@@ -286,6 +325,25 @@ body {
     margin: 0;
 }
 
+.admin-editor-panel label,
+.comments-panel h2,
+.comments-panel > h3,
+.comment-author strong {
+    font-family: var(--primary-font);
+}
+
+.admin-editor-panel label {
+    margin-top: 4px;
+}
+
+.admin-editor-panel label + input {
+    margin-top: -4px;
+}
+
+.admin-editor-panel textarea {
+    margin-top: 4px;
+}
+
 .admin-editor-panel input,
 .admin-editor-panel textarea,
 .admin-editor-form input,
@@ -309,7 +367,8 @@ body {
 
 .admin-editor-panel input[type="submit"],
 .admin-editor-panel button[type="submit"] {
-    width: 100%;
+    width: 150px;
+    min-height: 42px;
     padding: 12px 18px;
     border: 0;
     border-radius: 5px;
@@ -318,6 +377,37 @@ body {
     font: inherit;
     font-weight: 600;
     cursor: pointer;
+}
+
+.editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.editor-actions .secondary-button {
+    width: 150px;
+    min-height: 42px;
+    margin-left: 0;
+    padding: 12px 18px;
+    border: 1px solid #2f6542;
+    border-radius: 5px;
+    background: #ffffff;
+    color: #2f6542;
+    font-weight: 600;
+}
+
+.editor-actions input[type="submit"] {
+    background: #ffffff;
+    color: #2f6542;
+    border: 1px solid #2f6542;
+}
+
+.editor-actions input[type="submit"]:hover,
+.editor-actions .secondary-button:hover {
+    background: #2f6542;
+    color: #ffffff;
 }
 
 .admin-editor-panel input[type="submit"]:hover,
@@ -412,8 +502,39 @@ body {
 }
 
 .comment-form .auth-button {
-    align-self: flex-start;
+    align-self: flex-end;
     font-family: inherit;
+}
+
+.comments-panel > .selected-post-context h3 {
+    margin-bottom: 4px;
+    font-family: var(--primary-font);
+}
+
+.selected-post-title {
+    margin: 0;
+    font-family: var(--primary-font);
+    font-weight: 600;
+}
+
+.comment-summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 12px;
+    color: #386747;
+    font-family: var(--primary-font);
+    font-weight: 600;
+}
+
+.comments-divider {
+    margin: 0 0 18px;
+    border: 0;
+    border-top: 1px solid #e5e4dc;
+}
+
+.comments-heading {
+    margin: 0 0 14px;
 }
 
 .comment-editor {
@@ -476,6 +597,77 @@ body {
 #bloggerlist .comment-delete-form {
     flex-shrink: 0;
     margin: 0 0 0 auto;
+}
+
+#bloggerlist .comment-actions {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-left: auto;
+}
+
+#bloggerlist .comment-item--editable .comment-header {
+    display: block;
+    margin-bottom: 0;
+}
+
+#bloggerlist .comment-item--editable .comment-author {
+    margin-bottom: 10px;
+}
+
+#bloggerlist .comment-item--editable .comment-actions {
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+}
+
+#bloggerlist .comment-item--editable .comment-update-form textarea {
+    flex: 0 0 100%;
+    width: 100%;
+    padding-left: 14px;
+}
+
+#bloggerlist .comment-item--editable .comment-update-button,
+#bloggerlist .comment-item--editable .comment-delete-form {
+    flex: 0 0 auto;
+}
+
+#bloggerlist .comment-update-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+#bloggerlist .comment-item--editable .comment-update-form {
+    display: contents;
+}
+
+#bloggerlist .comment-update-form textarea {
+    width: 180px;
+    min-height: 42px;
+    padding: 7px 9px;
+    border: 1px solid #ccd4ce;
+    border-radius: 4px;
+    font: inherit;
+    resize: vertical;
+}
+
+#bloggerlist .comment-update-button,
+#bloggerlist .row-delete-button {
+    min-height: 42px;
+    padding: 9px 14px;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #2f6542;
+    border: 1px solid #2f6542;
+    cursor: pointer;
+}
+
+#bloggerlist .comment-update-button:hover,
+#bloggerlist .row-delete-button:hover {
+    background: #2f6542;
+    color: #ffffff;
 }
 
 #bloggerlist .comment-content {
@@ -661,7 +853,7 @@ body {
 #bloggerlist > .page-heading h2 {
     margin: 0 auto;
     color: #26382d;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--primary-font);
     font-size: 2em;
     font-weight: bold;
     line-height: 1.2;

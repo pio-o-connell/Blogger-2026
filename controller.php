@@ -44,6 +44,7 @@ session_start();
                 $DBM = new DBManager();
                 $data = $DBM->getUserBlogDetails(currentUsername());
                 $data['reset'] = 0;
+                $data['isAdministratorAllBlogs'] = true;
                 new AdminDashboardView($data);
                 break;
             case "blogs":
@@ -403,7 +404,8 @@ session_start();
         if ($result !== "invalid" && $result['username'] === "rmiller"){
                     $result1 = $DBM->getUserBlogDetails($result['username']);
                     $result1['reset']=0;
-                    new AdminDashboardView($result1);
+            $result1['isAdministratorAllBlogs'] = true;
+            new AdminDashboardView($result1);
         }
             // else if ($result == "blogger")   {
             // // no output before setCookie

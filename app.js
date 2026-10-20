@@ -114,9 +114,9 @@
                 command.value = 'updatePost';
 
                 if (submit.tagName.toLowerCase() === 'button') {
-                    submit.textContent = 'Save Changes';
+                    submit.textContent = 'Create/Edit Post';
                 } else {
-                    submit.value = 'Save Changes';
+                    submit.value = 'Create/Edit Post';
                 }
                 editor.dataset.originalTitle = row.dataset.postTitle;
                 editor.dataset.originalBody = row.dataset.postBody;
