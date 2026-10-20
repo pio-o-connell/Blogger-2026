@@ -7,12 +7,12 @@ A revamp of a 2014 blogging platform, using the original project as a reference 
 <img src="Images\register.jpg" alt="PHP Blog server running " width="40%">
 <img src="Images\Homepage.jpg" alt="PHP Blog server running " width="40%">
 
-<img src="Images\2-Adminstrator-allblog.png" alt="PHP Blog server running " width="40%">>
-<img src="Images\2-Administator-personalblogs.png" alt="PHP Blog server running " width="40%">
+<img src="Images\3-admin-allblogs.jpg" alt="PHP Blog server running " width="40%">>
+<img src="Images\3-admin-personal-blogs.jpg" alt="PHP Blog server running " width="40%">
 <img src="Images\AdminAllUsers.jpg" alt="PHP Blog server running " width="40%">
 
-<img src="Images\2-Alice-Allblogs.png" alt="PHP Blog server running " width="40%">
-<img src="Images\2-Alice-personalblogs.png" alt="PHP Blog server running " width="40%">
+<img src="Images\3-alice-all-blogs.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\3-alice-personal-blogs.jpg" alt="PHP Blog server running " width="40%">
 
 <img src="Images\Guest-add-comment.jpg" alt="PHP Blog server running " width="40%">
 

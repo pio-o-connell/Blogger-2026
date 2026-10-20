@@ -1,0 +1,1022 @@
+
+/* =========================================================
+   Main page layout
+   ========================================================= */
+
+/* Shared centred white page */
+#main {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    align-items: start;
+
+    width: min(1100px, calc(100% - 40px));
+    margin: 40px auto;
+    padding: 0 42px;
+
+    background: #ffffff;
+    border: 1px solid #e5e4dc;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.row-delete-button {
+    padding: 7px 12px;
+    border: 1px solid #a63d3d;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #a63d3d;
+    cursor: pointer;
+}
+
+.row-delete-button:hover {
+    background: #a63d3d;
+    color: #ffffff;
+}
+
+/* AdminDashboardView: Manage posts 40% | Recent posts 60% */
+#main.admin-dashboard {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+}
+
+.user-status-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.user-status.is-suspended {
+    color: #a63d3d;
+}
+
+.user-status.is-active {
+    color: #386747;
+}
+
+.user-delete-control {
+    white-space: nowrap;
+}
+
+#main.admin-dashboard #content,
+#main.admin-dashboard #bloggerlist {
+    min-height: 420px;
+    padding: 28px;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#main.admin-dashboard #content {
+    border-right: 1px solid #e5e4dc;
+}
+
+#main.admin-dashboard #bloggerlist {
+    background: #fafcf9;
+}
+
+/* Shared page background */
+body {
+    margin: 0;
+    background: #f5f4ef;
+    color: #252923;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   Administrator navigation — admin-dashboard
+   ========================================================= */
+
+#admin-menu.admin-navigation {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    width: 100%;
+    min-height: 58px;
+    padding: 14px 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+
+    border: none;
+    border-bottom: 1px solid #e5e4dc;
+    box-sizing: border-box;
+}
+
+/* Users and Log out grouped on the right */
+#admin-menu.admin-navigation .menu-account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+}
+
+#admin-menu.admin-navigation a {
+    display: inline-block;
+    width: auto;
+    padding: 9px 0;
+    margin: 0;
+    background: transparent;
+    color: #386747;
+    border-radius: 0;
+    text-align: left;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+#admin-menu.admin-navigation a:hover {
+    background: transparent;
+    color: #292775;
+    text-decoration: underline;
+}
+
+#admin-menu.admin-navigation .admin-menu-title {
+    color: #386747;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
+/* =========================================================
+   Standard navigation menu
+   ========================================================= */
+
+#menu {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 58px;
+    height: auto;
+    padding: 14px 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 28px;
+
+    border: none;
+    border-bottom: 1px solid #e5e4dc;
+    box-sizing: border-box;
+}
+
+#menu a {
+    display: inline-block;
+    width: auto;
+    padding: 9px 0;
+    margin: 0;
+
+    background: transparent;
+    color: #252923;
+
+    border-radius: 0;
+    text-align: left;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+#menu a:hover {
+    background: transparent;
+    color: #386747;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   Main content panels
+   ========================================================= */
+
+#content {
+    float: none;
+    width: 100%;
+    padding: 20px;
+
+    border: none;
+    box-sizing: border-box;
+}
+
+/* AdminDashboardView: Manage blog posts — left panel */
+#main.admin-dashboard #content {
+    grid-column: 1;
+    grid-row: auto;
+    min-width: 0;
+}
+
+#main.admin-dashboard #content.admin-user-page {
+    grid-column: 1 / -1;
+}
+
+#bloggerlist {
+    float: none;
+    width: 100%;
+    padding: 20px;
+
+    border: none;
+    box-sizing: border-box;
+
+    grid-column: 2;
+}
+
+/* AdminDashboardView: Recent blog posts — right panel */
+#main.admin-dashboard #bloggerlist {
+    grid-column: 2;
+    grid-row: auto;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   Comment author and delete option — AdminDashboardView
+   ========================================================= */
+
+#bloggerlist .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+#bloggerlist .comment-header .post-meta {
+    margin: 0;
+}
+
+#bloggerlist .delete-comment-choice {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #777b73;
+}
+
+#bloggerlist .delete-comment-choice input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #386747;
+}
+
+#main.admin-dashboard [data-post-row].is-selected {
+    border-color: #386747;
+    background: #f0f7f1;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 0 24px;
+    padding: 16px;
+    border: 1px solid #d8ded6;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+.comment-form p {
+    margin: 0;
+    color: #777b73;
+    font-size: 14px;
+}
+
+.comment-form label {
+    color: #26382d;
+    font-weight: 600;
+}
+
+.comment-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 100px;
+    padding: 10px 12px;
+    border: 1px solid #ccd4ce;
+    border-radius: 5px;
+    font: inherit;
+    resize: vertical;
+}
+
+.comment-form textarea:focus,
+.admin-editor-panel input:focus,
+.admin-editor-panel textarea:focus {
+    outline: 2px solid #4caf50;
+    outline-offset: 1px;
+}
+
+/* .comment-item {
+    overflow-wrap: anywhere;
+}
+
+.comment-item strong {
+    display: block;
+}
+
+.comment-item p {
+    margin: 4px 0 12px;
+}
+
+.comment-item--readonly {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #777b73;
+}
+
+.comment-item--readonly strong {
+    color: #777b73;
+    font-weight: normal;
+}
+
+.comment-item--readonly p {
+    margin-bottom: 16px;
+} */
+
+.comment-item {
+    overflow-wrap: anywhere;
+}
+
+.comment-item strong {
+    display: block;
+}
+
+.comment-item p {
+    margin: 4px 0 12px;
+}
+
+/* Previous comments: muted appearance, independent of permissions */
+.comment-item--previous {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #777b73;
+}
+
+.comment-item--previous strong {
+    color: #777b73;
+    font-weight: normal;
+}
+
+.comment-item--previous p {
+    margin-bottom: 16px;
+}
+
+.unsaved-indicator {
+    margin-right: 10px;
+    color: #a63d3d;
+    font-size: 13px;
+}
+
+.secondary-button {
+    margin-left: 8px;
+    padding: 9px 18px;
+    border: 1px solid #2f6542;
+    border-radius: 4px;
+    background: transparent;
+    color: #2f6542;
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.secondary-button:hover {
+    background: #2f6542;
+    color: #ffffff;
+}
+
+.secondary-button:focus-visible {
+    outline: 2px solid #2f6542;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   Login and registration pages
+   ========================================================= */
+
+.auth-page {
+    max-width: 520px;
+    margin: 48px auto;
+    padding: 0 20px;
+}
+
+.auth-panel {
+    padding: 36px;
+    background: #ffffff;
+    border: 1px solid #e5e7e5;
+    border-radius: 8px;
+}
+
+.auth-panel h1 {
+    margin-top: 0;
+    color: #26382d;
+}
+
+.auth-intro {
+    color: #68736b;
+    margin-bottom: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #ccd4ce;
+    border-radius: 5px;
+
+    font: inherit;
+}
+
+.form-group input:focus {
+    outline: 2px solid #4caf50;
+    outline-offset: 1px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px 18px;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: #2f6542;
+    color: #ffffff;
+
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-button:hover {
+    background: #244f33;
+}
+
+.auth-footer {
+    margin: 24px 0 0;
+    color: #68736b;
+}
+
+.auth-footer a {
+    color: #2f6542;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   Site logo and header
+   ========================================================= */
+
+.site-logo {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    line-height: 0;
+}
+
+.site-logo img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+.site-tagline {
+    margin: 2px 0 0;
+    color: #777b73;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+#header {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 35px 0 28px;
+    margin-bottom: 0;
+    border: none;
+    border-bottom: 1px solid #e5e4dc;
+}
+
+
+/* =========================================================
+   Blog deletion list
+   ========================================================= */
+
+.delete-blog-list {
+    width: 100%;
+    margin: 20px 0;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Column headings: blog post and delete checkbox */
+.delete-blog-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: center;
+
+    padding: 12px 16px;
+    background: #386747;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Each blog row */
+.delete-blog-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 75px;
+    gap: 10px;
+    align-items: center;
+
+    padding: 13px 16px;
+    border-top: 1px solid #dce5dc;
+    box-sizing: border-box;
+}
+
+/* Alternating row colours */
+.delete-blog-row:nth-child(even) {
+    background: #edf5ee;
+}
+
+.delete-blog-row:nth-child(odd) {
+    background: #ffffff;
+}
+
+.delete-blog-row {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.delete-blog-row:hover,
+.delete-blog-row:focus-within {
+    background: #294d35;
+    color: #ffffff;
+}
+
+.delete-blog-row:hover .delete-blog-title,
+.delete-blog-row:hover .delete-blog-originator,
+.delete-blog-row:hover .delete-blog-preview,
+.delete-blog-row:focus-within .delete-blog-title,
+.delete-blog-row:focus-within .delete-blog-originator,
+.delete-blog-row:focus-within .delete-blog-preview {
+    color: #ffffff;
+}
+
+.admin-editor-panel,
+.admin-editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-editor-panel {
+    margin-bottom: 24px;
+    padding: 18px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #fafcf9;
+}
+
+.admin-editor-panel h2 {
+    margin: 0;
+}
+
+.admin-editor-panel input,
+.admin-editor-panel textarea,
+.admin-editor-form input,
+.admin-editor-form textarea,
+.comment-editor textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-editor-panel textarea,
+.admin-editor-form textarea {
+    resize: vertical;
+}
+
+.admin-editor-panel input[type="submit"],
+.admin-editor-panel button[type="submit"] {
+    width: 100%;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-editor-panel input[type="submit"]:hover,
+.admin-editor-panel button[type="submit"]:hover {
+    background: #244f33;
+}
+
+.comment-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.admin-user-section {
+    margin-bottom: 28px;
+    padding: 20px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #fafcf9;
+}
+
+.admin-user-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #ffffff;
+    transition: background-color 0.15s ease;
+}
+
+.admin-user-row:hover,
+.admin-user-row:focus-within {
+    background: #294d35;
+    color: #ffffff;
+}
+
+.admin-user-row:hover .admin-user-details span,
+.admin-user-row:hover .admin-user-details small,
+.admin-user-row:focus-within .admin-user-details span,
+.admin-user-row:focus-within .admin-user-details small {
+    color: #ffffff;
+}
+
+.admin-user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.admin-user-details span,
+.admin-user-details small {
+    color: #777b73;
+    overflow-wrap: anywhere;
+}
+
+/* Blog title */
+.delete-blog-title {
+    min-width: 0;
+    color: #294d35;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.delete-blog-title:hover {
+    color: #386747;
+    text-decoration: underline;
+}
+
+/* Delete checkboxes */
+.delete-blog-choice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-blog-choice input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: #386747;
+}
+
+.post-edit-button {
+    padding: 9px 14px;
+    border: 1px solid #2f6542;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #ffffff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.post-edit-button:hover,
+.inline-action:hover {
+    background: #244f33;
+    border-color: #244f33;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.post-edit-button:disabled {
+    border-color: #c8cec8;
+    background: #f1f2f1;
+    color: #8b918b;
+    cursor: not-allowed;
+}
+
+.inline-action {
+    display: inline-block;
+    width: auto;
+    text-decoration: none;
+}
+
+/* Accessible labels hidden visually */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Progressive enhancement controls */
+
+button:disabled,
+input[type="submit"]:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.selection-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.selection-tool {
+    padding: 6px 10px;
+    border: 1px solid #dce5dc;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #386747;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.selection-tool:hover {
+    background: #edf5ee;
+    color: #294d35;
+}
+
+[data-dismissible] {
+    position: relative;
+    padding-right: 36px;
+}
+
+.message-dismiss {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    min-width: 28px;
+    padding: 2px 8px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+
+/* =========================================================
+   Blog deletion headings and descriptions
+   ========================================================= */
+
+/* Centre the Manage blog posts heading */
+.admin-delete-page .page-heading {
+    text-align: center;
+}
+
+/* Consistent admin page headings */
+.admin-delete-page .page-heading h1,
+#bloggerlist > .page-heading h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #26382d;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Blog title and preview */
+.delete-blog-details {
+    min-width: 0;
+}
+
+.delete-blog-title {
+    color: #294d35;
+    font-size: 15px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+/* First line of each blog post */
+.delete-blog-preview {
+    margin-top: 5px;
+    color: #777b73;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.delete-blog-notice {
+    margin: 12px 0;
+    color: #777b73;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: normal;
+    text-align: right;
+}
+
+
+/* =========================================================
+   Recent blog posts
+   ========================================================= */
+
+/* Recent blog posts — match the homepage styling */
+#bloggerlist > .page-heading {
+    text-align: center;
+    margin: 0 0 12px;
+}
+
+/* Introduction beneath the heading */
+#bloggerlist .blog-list-intro {
+    margin: 0 0 20px;
+    color: #68736b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Individual blog cards */
+#bloggerlist .blog-post {
+    margin: 0 0 16px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7e5;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Previous comments: muted appearance, independent of permissions */
+#main.admin-dashboard #bloggerlist .comment-item--previous {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #777b73;
+    box-shadow: none;
+}
+
+#main.admin-dashboard #bloggerlist .comment-item--previous strong {
+    color: #777b73;
+    font-weight: normal;
+}
+
+#main.admin-dashboard #bloggerlist .comment-item--previous p {
+    margin: 4px 0 16px;
+}
+
+/* Author and blog title */
+#bloggerlist .post-meta {
+    margin: 0 0 8px;
+    color: #777b73;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+#bloggerlist .blog-post h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+#bloggerlist .blog-post h3 a {
+    color: #294d35;
+    text-decoration: none;
+}
+
+#bloggerlist .blog-post h3 a:hover {
+    color: #386747;
+    text-decoration: underline;
+}
+
+/* Post excerpt */
+#bloggerlist .post-excerpt {
+    margin: 0 0 12px;
+    color: #444444;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Read post link */
+#bloggerlist .read-more {
+    color: #386747;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#bloggerlist .read-more:hover {
+    color: #294d35;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   Small screens
+   ========================================================= */
+
+@media (max-width: 480px) {
+    #main,
+    #main.admin-dashboard {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+        border: none;
+    }
+
+    #admin-menu.admin-navigation,
+    #menu {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+    }
+
+    #admin-menu.admin-navigation .menu-account {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .delete-blog-heading,
+    .delete-blog-row {
+        grid-template-columns: minmax(0, 1fr) 42px;
+        gap: 6px;
+        padding: 12px 8px;
+    }
+
+    .delete-blog-heading {
+        font-size: 12px;
+    }
+
+    .delete-blog-title {
+        font-size: 13px;
+    }
+
+    .admin-user-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-user-details {
+        grid-column: 1 / -1;
+    }
+}

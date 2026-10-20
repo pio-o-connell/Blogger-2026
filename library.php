@@ -89,101 +89,105 @@
             $this->bottom();
         }
 
-            // Render the page header and opening document structure.
-            public function top($mainClass = '') {
-                $classAttribute = $mainClass !== ''
-                    ? ' class="' . htmlspecialchars($mainClass, ENT_QUOTES, 'UTF-8') . '"'
-                    : '';
+        
+            
+        // Render the page header and opening document structure.
+        public function top($mainClass = '') {
+            $classAttribute = $mainClass !== ''
+                ? ' class="' . htmlspecialchars($mainClass, ENT_QUOTES, 'UTF-8') . '"'
+                : '';
 
-                echo "
-                <!DOCTYPE html>
-                <html lang=\"en\">
-                <head>
-                    <meta charset=\"UTF-8\">
-                    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-                    <title>Blogger | Ideas worth sharing</title>
-                    <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261019-1\">
-                    <script src=\"app.js?v=20261017-2\" defer></script>
-                </head>
-                <body>
-                    <div id=\"main\"$classAttribute>
-                        <header id=\"header\">
-                            <a class=\"site-logo\" href=\"controller.php\">
-                                <img src=\"icon.jpg\" alt=\"Blogger logo\">
-                            </a>
-                            <p class=\"site-tagline\">Ideas worth sharing.</p>
-                        </header>
-                ";
-            }
-
-
-            // Render the navigation area for this view.
-            public function menu() {
-                $username = $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest';
-
-                echo '
-                <nav id="admin-menu" class="admin-navigation" aria-label="Personal blog navigation">
-                    <span class="admin-menu-title">'
-                        . htmlspecialchars(ucfirst($username), ENT_QUOTES, 'UTF-8') . ': Personal Blogs
-                    </span>
-
-                    <div class="menu-account">
-                        <a href="controller.php?cmd=logout">Log out</a>
-                    </div>
-                </nav>';
-
-                echo '<div id="menu"></div>';
-            }
-
-
-            // Render the main content for this view.
-            public function content($info){
-
-                echo "
-
-                    <div id=\"content\">
-                                <h1> Add a post!!</h1>
-                                <FORM METHOD=\"post\" ACTION=\"controller.php\">
-
-
-                                        <input type=\"hidden\" name=\"cmd\" value=\"createPost\">
-                                    // <textarea>
-                                    <textarea name=\"textarea\" ROWS=6 COLS=50>
-                                        Add post here!
-                                        </textarea>
+            echo "
+            <!DOCTYPE html>
+            <html lang=\"en\">
+            <head>
+                <meta charset=\"UTF-8\">
+                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+                <title>Blogger | Ideas worth sharing</title>
+                <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261019-1\">
+                <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">
+                <script src=\"app.js?v=20261017-2\" defer></script>
+            </head>
+            <body>
+                <div id=\"main\"$classAttribute>
+                    <header id=\"header\">
+                        <a class=\"site-logo\" href=\"controller.php\">
+                            <img src=\"icon.jpg\" alt=\"Blogger logo\">
+                        </a>
+                        <p class=\"site-tagline\">Ideas worth sharing.</p>
+                    </header>
+            ";
+        }
 
 
 
-                                <input type=\"submit\" value=\"addPost\">
-                            </FORM>
+        // Render the navigation area for this view.
+        public function menu() {
+            $username = $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest';
 
+            echo '
+            <nav id="admin-menu" class="admin-navigation" aria-label="Personal blog navigation">
+                <span class="admin-menu-title">'
+                    . htmlspecialchars(ucfirst($username), ENT_QUOTES, 'UTF-8') . ': Personal Blogs
+                </span>
 
-                            </div>
-                            ";
-                        }
-
-
-            // Render the blog list area for this view.
-            public function bloggerList()
-            {
-
-
-                    echo "
-                        <div id=\"bloggerlist\">
-                            <h3> blogger list </h3>";
-
-                    echo "</div>";
-            }
-
-            // Render the page footer and close the document structure.
-            public function bottom(){
-                echo "
+                <div class="menu-account">
+                    <a href="controller.php?cmd=logout">Log out</a>
                 </div>
+            </nav>';
 
-                </body>
-                </html>
-                ";
-            }
+            echo '<div id="menu"></div>';
+        }
+
+
+        // Render the main content for this view.
+        public function content($info){
+
+            echo "
+
+                <div id=\"content\">
+                            <h1> Add a post!!</h1>
+                            <FORM METHOD=\"post\" ACTION=\"controller.php\">
+
+
+                                    <input type=\"hidden\" name=\"cmd\" value=\"createPost\">
+                                // <textarea>
+                                <textarea name=\"textarea\" ROWS=6 COLS=50>
+                                    Add post here!
+                                    </textarea>
+
+
+
+                            <input type=\"submit\" value=\"addPost\">
+                        </FORM>
+
+
+                        </div>
+                        ";
+                    }
+
+
+        // Render the blog list area for this view.
+        public function bloggerList()
+        {
+
+
+                echo "
+                    <div id=\"bloggerlist\">
+                        <h3> blogger list </h3>";
+
+                echo "</div>";
+        }
+
+        // Render the page footer and close the document structure.
+        public function bottom(){
+            echo "
+            </div>
+
+            </body>
+            </html>
+            ";
+        }
     }
 
 // Displays the public welcome page and a list of available blog posts.
@@ -1095,6 +1099,150 @@
             }
 
 
+        // // Right panel: Selected blog post and its comments
+        // public function postComments($info){
+        //     $postId = isset($info['bloggerid'])
+        //         ? (int) $info['bloggerid']
+        //         : 0;
+
+        //     echo '
+        //         <section id="bloggerlist">
+        //     ';
+
+        //     if ($postId <= 0) {
+        //         echo '
+        //             <p class="blog-list-intro">
+        //                 No blog posts are available yet.
+        //             </p>
+        //         ';
+        //         echo '</section>';
+        //         return;
+        //     }
+
+        //     $DBM = new DBManager();
+        //     $post = $DBM->getPostById($postId);
+
+        //     if (!$post) {
+        //         echo '
+        //             <p class="blog-list-intro">
+        //                 The selected blog post could not be found.
+        //             </p>
+        //         ';
+        //         echo '</section>';
+        //         return;
+        //     }
+
+        //     $title = htmlspecialchars(
+        //         $post['title'] ?? '',
+        //         ENT_QUOTES,
+        //         'UTF-8'
+        //     );
+
+        //     $originator = htmlspecialchars(
+        //         $post['username'] ?? 'Unknown',
+        //         ENT_QUOTES,
+        //         'UTF-8'
+        //     );
+
+        //     echo '
+        //         <article class="selected-post-context">
+        //             <h3>' . $title . '</h3>
+        //             <p class="post-meta">By ' . $originator . '</p>
+        //         </article>
+        //         <form method="post" action="controller.php"
+        //             class="comment-form">
+        //             <input type="hidden" name="cmd" value="addComment">
+        //             <input type="hidden" name="postid" value="' . $postId . '">
+        //             <label for="dashboard-comment">Leave a comment:</label>
+        //             <p>Posting as: ' . htmlspecialchars(
+        //                 $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest',
+        //                 ENT_QUOTES,
+        //                 'UTF-8'
+        //             ) . '</p>
+        //             <textarea id="dashboard-comment" name="comments"
+        //                 rows="4" required></textarea>
+        //             <button type="submit" class="auth-button">Save comment</button>
+        //         </form>
+        //     ';
+
+        //     $comments = $DBM->getCommentsForPost($postId);
+
+        //     if (empty($comments)) {
+        //         echo '
+        //             <p class="blog-list-intro">
+        //                 No comments have been added to this post yet.
+        //             </p>
+        //         ';
+        //     } else {
+        //         echo '<div class="delete-comments-list">';
+
+        //         foreach ($comments as $comment) {
+        //             $commentId = (int) $comment['id'];
+
+        //             $author = htmlspecialchars(
+        //                 $comment['author'] ?? 'Unknown',
+        //                 ENT_QUOTES,
+        //                 'UTF-8'
+        //             );
+
+        //             $commentBody = nl2br(htmlspecialchars(
+        //                 $comment['body'] ?? '',
+        //                 ENT_QUOTES,
+        //                 'UTF-8'
+        //             ));
+ 
+        //             $currentUsername = $_SESSION['username'] ?? '';
+        //             $isAdmin = !empty($_SESSION['is_admin']);
+
+        //             $isPostOwner = (int) ($post['bloggerid'] ?? 0) ===
+        //                 (int) ($this->info['id'] ?? 0);
+
+        //             // Deletion permission is independent of the comment's appearance.
+        //             $canDeleteComment = $isAdmin ||
+        //                 $isPostOwner ||
+        //                 (
+        //                     $currentUsername !== '' &&
+        //                     ($comment['author'] ?? '') === $currentUsername
+        //                 );
+
+        //             echo '
+        //                 <article class="blog-post comment-item comment-item--previous"
+        //                     data-comment-row>
+        //                     <strong>' . $author . '</strong>
+        //                     <p>' . $commentBody . '</p>
+        //             ' . ($canDeleteComment ? '
+        //                     <form method="post" action="controller.php"
+        //                         data-confirm-delete>
+        //                         <input type="hidden" name="cmd"
+        //                             value="deleteComment">
+        //                         <input type="hidden" name="postid"
+        //                             value="' . $postId . '">
+        //                         <input type="hidden" name="bloggerid"
+        //                             value="' . $postId . '">
+        //                         <input type="hidden" name="returncmd"
+        //                             value="' . (
+        //                                 $this instanceof AdminBlogManagementView
+        //                                     ? 'openblog3'
+        //                                     : 'openblog2'
+        //                             ) . '">
+        //                         <input type="hidden" name="commentid"
+        //                             value="' . $commentId . '">
+        //                         <button type="submit"
+        //                             class="row-delete-button">
+        //                             Delete comment
+        //                         </button>
+        //                     </form>
+        //             ' : '') . '
+        //                 </article>
+        //             ';
+        //         }
+
+        //         echo '</div>';
+        //     }
+
+        //     echo '</section>';
+        // }
+        
         // Right panel: Selected blog post and its comments
         public function postComments($info){
             $postId = isset($info['bloggerid'])
@@ -1140,24 +1288,37 @@
                 'UTF-8'
             );
 
+            $currentUsername = htmlspecialchars(
+                $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest',
+                ENT_QUOTES,
+                'UTF-8'
+            );
+
             echo '
                 <article class="selected-post-context">
                     <h3>' . $title . '</h3>
                     <p class="post-meta">By ' . $originator . '</p>
                 </article>
+
                 <form method="post" action="controller.php"
                     class="comment-form">
                     <input type="hidden" name="cmd" value="addComment">
                     <input type="hidden" name="postid" value="' . $postId . '">
-                    <label for="dashboard-comment">Leave a comment:</label>
-                    <p>Posting as: ' . htmlspecialchars(
-                        $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest',
-                        ENT_QUOTES,
-                        'UTF-8'
-                    ) . '</p>
+
+                    <p class="comment-posting-as">
+                        Posting as: <strong>' . $currentUsername . '</strong>
+                    </p>
+
+                    <label for="dashboard-comment">
+                        Body <span class="required">*</span>
+                    </label>
+
                     <textarea id="dashboard-comment" name="comments"
                         rows="4" required></textarea>
-                    <button type="submit" class="auth-button">Save comment</button>
+
+                    <button type="submit" class="auth-button">
+                        Submit
+                    </button>
                 </form>
             ';
 
@@ -1186,7 +1347,7 @@
                         ENT_QUOTES,
                         'UTF-8'
                     ));
- 
+
                     $currentUsername = $_SESSION['username'] ?? '';
                     $isAdmin = !empty($_SESSION['is_admin']);
 
@@ -1204,31 +1365,44 @@
                     echo '
                         <article class="blog-post comment-item comment-item--previous"
                             data-comment-row>
-                            <strong>' . $author . '</strong>
-                            <p>' . $commentBody . '</p>
-                    ' . ($canDeleteComment ? '
-                            <form method="post" action="controller.php"
-                                data-confirm-delete>
-                                <input type="hidden" name="cmd"
-                                    value="deleteComment">
-                                <input type="hidden" name="postid"
-                                    value="' . $postId . '">
-                                <input type="hidden" name="bloggerid"
-                                    value="' . $postId . '">
-                                <input type="hidden" name="returncmd"
-                                    value="' . (
-                                        $this instanceof AdminBlogManagementView
-                                            ? 'openblog3'
-                                            : 'openblog2'
-                                    ) . '">
-                                <input type="hidden" name="commentid"
-                                    value="' . $commentId . '">
-                                <button type="submit"
-                                    class="row-delete-button">
-                                    Delete comment
-                                </button>
-                            </form>
-                    ' : '') . '
+
+                            <div class="comment-header">
+                                <div class="comment-author">
+                                    <i class="fa fa-comments"
+                                        aria-hidden="true"></i>
+                                    <strong>' . $author . '</strong>
+                                </div>
+
+                                ' . ($canDeleteComment ? '
+                                <form method="post" action="controller.php"
+                                    class="comment-delete-form"
+                                    data-confirm-delete>
+                                    <input type="hidden" name="cmd"
+                                        value="deleteComment">
+                                    <input type="hidden" name="postid"
+                                        value="' . $postId . '">
+                                    <input type="hidden" name="bloggerid"
+                                        value="' . $postId . '">
+                                    <input type="hidden" name="returncmd"
+                                        value="' . (
+                                            $this instanceof AdminBlogManagementView
+                                                ? 'openblog3'
+                                                : 'openblog2'
+                                        ) . '">
+                                    <input type="hidden" name="commentid"
+                                        value="' . $commentId . '">
+                                    <button type="submit"
+                                        class="row-delete-button">
+                                        Delete comment
+                                    </button>
+                                </form>
+                                ' : '') . '
+                            </div>
+
+                            <div class="comment-content">
+                                ' . $commentBody . '
+                            </div>
+
                         </article>
                     ';
                 }

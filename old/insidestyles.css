@@ -1,7 +1,13 @@
-/* Main page layout */
+/* =========================================================
+   BLOGGER 2014 — AUTHENTICATED AND ADMINISTRATION STYLES
+   Shared dashboard, editor, comments and user management
+   ========================================================= */
 
 
-/* Shared centred white page */
+/* =========================================================
+   1. MAIN PAGE LAYOUT
+   ========================================================= */
+
 #main {
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -17,219 +23,121 @@
     overflow: auto;
 }
 
+/* Dashboard: posts/editor on the left, comments on the right */
+/* #main.admin-dashboard {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+}
 
-/* Shared page background */
-body {
-    margin: 0;
-    background: #f5f4ef;
-    color: #252923;
+#main.admin-dashboard #content,
+#main.admin-dashboard #bloggerlist {
+    min-width: 0;
+    min-height: 420px;
+    padding: 28px;
+    background: #ffffff;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
+    box-sizing: border-box;
 }
 
-
-/* Administrator navigation — shared horizontal style */
-
-
-/* Administration sidebar */
-#admin-menu {
+#main.admin-dashboard #content {
     grid-column: 1;
-    grid-row: 3;
-
-    width: 100%;
-    height: auto;
-    padding: 20px;
-
-    border: none;
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    grid-row: auto;
+    border-right: 1px solid #e5e4dc;
 }
 
-/* Group the account-management links vertically */
-#admin-menu .menu-account {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Administration buttons */
-#admin-menu a {
-    display: block;
-    width: 50%;
-    padding: 12px 14px;
-    margin: 6px 0;
-
-    background: #386747;
-    color: #ffffff;
-
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    box-sizing: border-box;
-    transition: background 0.2s ease;
-}
-
-/* Button hover */
-#admin-menu a:hover {
-    background: #294d35;
-    color: #ffffff;
-    text-decoration: none;
-}
-
-
-
-
-#menu {
+#main.admin-dashboard #content.admin-user-page {
     grid-column: 1 / -1;
-    width: 100%;
-    min-height: 58px;
-    height: auto;
-    padding: 14px 0;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 28px;
-
-    border: none;
-    border-bottom: 1px solid #e5e4dc;
-    box-sizing: border-box;
 }
 
-#menu a {
-    display: inline-block;
-    width: auto;
-    padding: 9px 0;
-    margin: 0;
+#main.admin-dashboard #bloggerlist {
+    grid-column: 2;
+    grid-row: auto;
+    background: #fafcf9;
+} */
 
-    background: transparent;
-    color: #252923;
 
-    border-radius: 0;
-    text-align: left;
-    text-decoration: none;
 
-    font-size: 14px;
-    font-weight: normal;
-    box-sizing: border-box;
-}
 
-#menu a:hover {
-    background: transparent;
-    color: #386747;
-    text-decoration: underline;
-}
-
-/* Main content panel */
-#content {
+/* Standard content panels */
+/* #content {
     float: none;
     width: 100%;
     padding: 20px;
-
     border: none;
     box-sizing: border-box;
 }
-
 
 #bloggerlist {
     float: none;
     width: 100%;
     padding: 20px;
-
     border: none;
     box-sizing: border-box;
+} */
 
-    grid-column: 2;
+
+/* Dashboard: posts/editor on the left, comments on the right */
+#main.admin-dashboard {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
 }
 
-/* Login and registration pages */
-.auth-page {
-    max-width: 520px;
-    margin: 48px auto;
-    padding: 0 20px;
-}
-
-.auth-panel {
-    padding: 36px;
+#main.admin-dashboard #content,
+#main.admin-dashboard #bloggerlist {
+    min-width: 0;
+    min-height: 420px;
+    padding: 28px;
     background: #ffffff;
-    border: 1px solid #e5e7e5;
-    border-radius: 8px;
-}
-
-.auth-panel h1 {
-    margin-top: 0;
-    color: #26382d;
-}
-
-.auth-intro {
-    color: #68736b;
-    margin-bottom: 28px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.form-group input {
     box-sizing: border-box;
+}
+
+#main.admin-dashboard #content {
+    grid-column: 1;
+    grid-row: auto;
+    border-right: 1px solid #e5e4dc;
+}
+
+#main.admin-dashboard #content.admin-user-page {
+    grid-column: 1 / -1;
+}
+
+#main.admin-dashboard #bloggerlist {
+    grid-column: 2;
+    grid-row: auto;
+    background: #fafcf9;
+}
+
+/* Standard content panels */
+#content {
+    float: none;
     width: 100%;
-    padding: 12px;
-
-    border: 1px solid #ccd4ce;
-    border-radius: 5px;
-
-    font: inherit;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
 }
 
-.form-group input:focus {
-    outline: 2px solid #4caf50;
-    outline-offset: 1px;
-}
-
-.auth-button {
+#bloggerlist {
+    float: none;
     width: 100%;
-    padding: 12px 18px;
-
-    border: 0;
-    border-radius: 5px;
-
-    background: #2f6542;
-    color: #ffffff;
-
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
+    padding: 20px;
+    border: none;
+    box-sizing: border-box;
 }
 
-.auth-button:hover {
-    background: #244f33;
-}
 
-.auth-footer {
-    margin: 24px 0 0;
-    color: #68736b;
-}
 
-.auth-footer a {
-    color: #2f6542;
-    font-weight: 600;
+
+/* =========================================================
+   2. PAGE HEADER AND LOGO
+   ========================================================= */
+
+#header {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    padding: 35px 0 28px;
+    border: none;
+    border-bottom: 1px solid #e5e4dc;
+    text-align: center;
 }
 
 .site-logo {
@@ -243,8 +151,8 @@ body {
     display: block;
     width: 100px;
     height: 100px;
-    object-fit: contain;
     margin: 0 auto;
+    object-fit: contain;
 }
 
 .site-tagline {
@@ -259,19 +167,504 @@ body {
 }
 
 
+/* =========================================================
+   3. STANDARD NAVIGATION
+   ========================================================= */
 
-
-
-#header {
+#menu {
     grid-column: 1 / -1;
-    text-align: center;
-    padding: 35px 0 28px;
-    margin-bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 28px;
+
+    width: 100%;
+    min-height: 58px;
+    height: auto;
+    padding: 14px 0;
+
     border: none;
     border-bottom: 1px solid #e5e4dc;
+    box-sizing: border-box;
+}
+
+#menu a {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 9px 0;
+
+    background: transparent;
+    color: #252923;
+    border-radius: 0;
+
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+#menu a:hover {
+    background: transparent;
+    color: #386747;
+    text-decoration: underline;
 }
 
 
+/* =========================================================
+   4. ADMINISTRATOR NAVIGATION
+   ========================================================= */
+
+#admin-menu.admin-navigation {
+    grid-column: 1 / -1;
+    grid-row: auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+
+    width: 100%;
+    min-height: 58px;
+    padding: 14px 0;
+
+    border: none;
+    border-bottom: 1px solid #e5e4dc;
+    box-sizing: border-box;
+}
+
+/* Group account links together */
+#admin-menu.admin-navigation .menu-account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+}
+
+#admin-menu.admin-navigation a {
+    display: inline-block;
+    width: auto;
+    margin: 0;
+    padding: 9px 0;
+
+    background: transparent;
+    color: #386747;
+    border-radius: 0;
+
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+#admin-menu.admin-navigation a:hover {
+    background: transparent;
+    color: #292775;
+    text-decoration: underline;
+}
+
+#admin-menu.admin-navigation .admin-menu-title {
+    color: #386747;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
+/* =========================================================
+   5. USER STATUS AND DELETE CONTROLS
+   ========================================================= */
+
+.user-status-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.user-status.is-suspended {
+    color: #a63d3d;
+}
+
+.user-status.is-active {
+    color: #386747;
+}
+
+.user-delete-control {
+    white-space: nowrap;
+}
+
+.row-delete-button {
+    padding: 7px 12px;
+    border: 1px solid #a63d3d;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #a63d3d;
+    cursor: pointer;
+}
+
+.row-delete-button:hover {
+    background: #a63d3d;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   6. BLOG EDITOR
+   ========================================================= */
+
+.admin-editor-panel,
+.admin-editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-editor-panel {
+    margin-bottom: 24px;
+    padding: 18px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #fafcf9;
+}
+
+.admin-editor-panel h2 {
+    margin: 0;
+}
+
+.admin-editor-panel input,
+.admin-editor-panel textarea,
+.admin-editor-form input,
+.admin-editor-form textarea,
+.comment-editor textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-editor-panel textarea,
+.admin-editor-form textarea {
+    resize: vertical;
+}
+
+.admin-editor-panel input:focus,
+.admin-editor-panel textarea:focus,
+.comment-form textarea:focus {
+    outline: 2px solid #4caf50;
+    outline-offset: 1px;
+}
+
+.admin-editor-panel input[type="submit"],
+.admin-editor-panel button[type="submit"] {
+    width: 100%;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-editor-panel input[type="submit"]:hover,
+.admin-editor-panel button[type="submit"]:hover {
+    background: #244f33;
+}
+
+.unsaved-indicator {
+    margin-right: 10px;
+    color: #a63d3d;
+    font-size: 13px;
+}
+
+.secondary-button {
+    margin-left: 8px;
+    padding: 9px 18px;
+    border: 1px solid #2f6542;
+    border-radius: 4px;
+    background: transparent;
+    color: #2f6542;
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.secondary-button:hover {
+    background: #2f6542;
+    color: #ffffff;
+}
+
+.secondary-button:focus-visible {
+    outline: 2px solid #2f6542;
+    outline-offset: 3px;
+}
+
+
+/* /* =========================================================
+   7. COMMENT FORM AND COMMENT ITEMS
+   ========================================================= */
+
+/*.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 0 0 24px;
+    padding: 16px;
+
+    border: 1px solid #d8ded6;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+.comment-form p {
+    margin: 0;
+    color: #777b73;
+    font-size: 14px;
+}
+
+.comment-form label {
+    color: #26382d;
+    font-weight: 600;
+}
+
+.comment-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px 12px;
+
+    border: 1px solid #ccd4ce;
+    border-radius: 5px;
+
+    font: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.comment-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.comment-item {
+    overflow-wrap: anywhere;
+}
+
+.comment-item strong {
+    display: block;
+}
+
+.comment-item p {
+    margin: 4px 0 12px;
+}
+
+/* Previous comments have a muted appearance */
+/*.comment-item--previous {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #777b73;
+}
+
+.comment-item--previous strong {
+    color: #777b73;
+    font-weight: normal;
+}
+
+.comment-item--previous p {
+    margin-bottom: 16px;
+}
+
+/* Comment author and delete checkbox */
+/*#bloggerlist .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+#bloggerlist .comment-header .post-meta {
+    min-width: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+#bloggerlist .delete-comment-choice {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 6px;
+    margin: 0;
+
+    color: #777b73;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+#bloggerlist .delete-comment-choice input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: #386747;
+} */
+
+/* =========================================================
+   7. COMMENT FORM AND COMMENT ITEMS
+   ========================================================= */
+
+/* Leave a comment */
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 0 0 24px;
+    padding: 16px;
+
+    border: 1px solid #d8ded6;
+    border-radius: 6px;
+    background: #ffffff;
+}
+
+.comment-form p {
+    margin: 0;
+    color: #777b73;
+    font-size: 14px;
+}
+
+.comment-form .comment-posting-as {
+    margin-bottom: 2px;
+}
+
+.comment-form .comment-posting-as strong {
+    color: #26382d;
+    font-weight: 700;
+}
+
+.comment-form label {
+    color: #26382d;
+    font-weight: 600;
+}
+
+.comment-form .required {
+    color: #a32929;
+}
+
+.comment-form textarea {
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    padding: 10px 12px;
+    margin: 0;
+
+    border: 1px solid #ccd4ce;
+    border-radius: 5px;
+
+    font: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.comment-form .auth-button {
+    align-self: flex-start;
+    font-family: inherit;
+}
+
+.comment-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Previous comments */
+.comment-item {
+    overflow-wrap: anywhere;
+}
+
+.comment-item--previous {
+    padding: 16px;
+    margin-bottom: 12px;
+
+    border: 1px solid #e5e4dc;
+    border-radius: 6px;
+    background: #ffffff;
+
+    color: #454b45;
+}
+
+.comment-item--previous strong {
+    color: #26382d;
+    font-weight: 700;
+}
+
+.comment-item--previous p {
+    margin: 4px 0 0;
+}
+
+/* Comment author and delete button */
+#bloggerlist .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+#bloggerlist .comment-author {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+}
+
+#bloggerlist .comment-author .fa-comments {
+    flex-shrink: 0;
+    color: #386747;
+}
+
+#bloggerlist .comment-author strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+#bloggerlist .comment-delete-form {
+    flex-shrink: 0;
+    margin: 0 0 0 auto;
+}
+
+#bloggerlist .comment-content {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Responsive comment layout */
+@media (max-width: 480px) {
+    #bloggerlist .comment-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    #bloggerlist .comment-delete-form {
+        margin-left: auto;
+    }
+}
+
+
+/* =========================================================
+   8. SELECTED POSTS AND POST LISTS
+   ========================================================= */
+
+#main.admin-dashboard [data-post-row].is-selected {
+    border-color: #386747;
+    background: #f0f7f1;
+}
 
 /* Blog deletion list */
 .delete-blog-list {
@@ -283,11 +676,10 @@ body {
     box-sizing: border-box;
 }
 
-/* Column headings */
+/* Column heading */
 .delete-blog-heading {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 75px 75px;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
 
     padding: 12px 16px;
@@ -297,19 +689,21 @@ body {
     font-weight: 600;
 }
 
-/* Each blog row */
+/* Blog rows */
 .delete-blog-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 75px 75px;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     align-items: center;
+    gap: 10px;
 
     padding: 13px 16px;
     border-top: 1px solid #dce5dc;
     box-sizing: border-box;
+
+    cursor: pointer;
+    transition: background-color 0.15s ease;
 }
 
-/* Alternating row colours */
 .delete-blog-row:nth-child(even) {
     background: #edf5ee;
 }
@@ -318,10 +712,30 @@ body {
     background: #ffffff;
 }
 
-/* Blog title */
+.delete-blog-row:hover,
+.delete-blog-row:focus-within {
+    background: #294d35;
+    color: #ffffff;
+}
+
+.delete-blog-row:hover .delete-blog-title,
+.delete-blog-row:hover .delete-blog-originator,
+.delete-blog-row:hover .delete-blog-preview,
+.delete-blog-row:focus-within .delete-blog-title,
+.delete-blog-row:focus-within .delete-blog-originator,
+.delete-blog-row:focus-within .delete-blog-preview {
+    color: #ffffff;
+}
+
+.delete-blog-details {
+    min-width: 0;
+}
+
 .delete-blog-title {
     min-width: 0;
     color: #294d35;
+    font-size: 15px;
+    font-weight: 600;
     text-decoration: none;
     overflow-wrap: anywhere;
 }
@@ -331,83 +745,6 @@ body {
     text-decoration: underline;
 }
 
-/* Radio buttons */
-.delete-blog-choice {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.delete-blog-choice input[type="radio"] {
-    width: 17px;
-    height: 17px;
-    margin: 0;
-    accent-color: #386747;
-}
-
-/* Accessible labels hidden visually */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* Small screens */
-@media (max-width: 480px) {
-    .delete-blog-heading,
-    .delete-blog-row {
-        grid-template-columns: minmax(0, 1fr) 42px 42px;
-        gap: 6px;
-        padding: 12px 8px;
-    }
-
-    .delete-blog-heading {
-        font-size: 12px;
-    }
-
-    .delete-blog-title {
-        font-size: 13px;
-    }
-}
-
-
-/* Centre the Manage blog posts heading */
-.admin-delete-page .page-heading {
-    text-align: center;
-}
-
-
-/* Consistent admin page headings */
-.admin-delete-page .page-heading h1,
-#bloggerlist > .page-heading h2 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 2em;
-    font-weight: bold;
-    line-height: 1.2;
-    color: #26382d;
-    text-align: center;
-    margin: 0 auto;
-}
-
-/* Blog title and preview */
-.delete-blog-details {
-    min-width: 0;
-}
-
-.delete-blog-title {
-    color: #294d35;
-    font-size: 15px;
-    font-weight: 600;
-    overflow-wrap: anywhere;
-}
-
-/* First line of each blog post */
 .delete-blog-preview {
     margin-top: 5px;
     color: #777b73;
@@ -415,6 +752,19 @@ body {
     font-weight: normal;
     line-height: 1.5;
     overflow-wrap: anywhere;
+}
+
+.delete-blog-choice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-blog-choice input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    margin: 0;
+    accent-color: #386747;
 }
 
 .delete-blog-notice {
@@ -426,16 +776,59 @@ body {
     text-align: right;
 }
 
+.post-edit-button {
+    padding: 9px 14px;
+    border: 1px solid #2f6542;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #ffffff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
 
+.post-edit-button:hover,
+.inline-action:hover {
+    background: #244f33;
+    border-color: #244f33;
+    color: #ffffff;
+    text-decoration: none;
+}
 
-/* Recent blog posts — match the homepage styling */
-#bloggerlist > .page-heading {
-    text-align: center;
-    margin: 0 0 12px;
+.post-edit-button:disabled {
+    border-color: #c8cec8;
+    background: #f1f2f1;
+    color: #8b918b;
+    cursor: not-allowed;
+}
+
+.inline-action {
+    display: inline-block;
+    width: auto;
+    text-decoration: none;
 }
 
 
-/* Introduction beneath the heading */
+/* =========================================================
+   9. RECENT BLOG POSTS PANEL
+   ========================================================= */
+
+#bloggerlist > .page-heading {
+    margin: 0 0 12px;
+    text-align: center;
+}
+
+#bloggerlist > .page-heading h2 {
+    margin: 0 auto;
+    color: #26382d;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+
 #bloggerlist .blog-list-intro {
     margin: 0 0 20px;
     color: #68736b;
@@ -443,7 +836,6 @@ body {
     line-height: 1.6;
 }
 
-/* Individual blog cards */
 #bloggerlist .blog-post {
     margin: 0 0 16px;
     padding: 16px;
@@ -453,7 +845,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Author and blog title */
 #bloggerlist .post-meta {
     margin: 0 0 8px;
     color: #777b73;
@@ -477,7 +868,6 @@ body {
     text-decoration: underline;
 }
 
-/* Post excerpt */
 #bloggerlist .post-excerpt {
     margin: 0 0 12px;
     color: #444444;
@@ -486,7 +876,6 @@ body {
     overflow-wrap: anywhere;
 }
 
-/* Read post link */
 #bloggerlist .read-more {
     color: #386747;
     font-size: 14px;
@@ -499,4 +888,307 @@ body {
     text-decoration: underline;
 }
 
+/* Keep previous comments visually distinct from blog cards */
+#main.admin-dashboard #bloggerlist .comment-item--previous {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #777b73;
+    box-shadow: none;
+}
 
+#main.admin-dashboard #bloggerlist .comment-item--previous strong {
+    color: #777b73;
+    font-weight: normal;
+}
+
+#main.admin-dashboard #bloggerlist .comment-item--previous p {
+    margin: 4px 0 16px;
+}
+
+
+/* =========================================================
+   10. ADMINISTRATOR USER MANAGEMENT
+   ========================================================= */
+
+.admin-user-section {
+    margin-bottom: 28px;
+    padding: 20px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #fafcf9;
+}
+
+.admin-user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.admin-user-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 16px;
+    border: 1px solid #dce5dc;
+    border-radius: 6px;
+    background: #ffffff;
+
+    transition: background-color 0.15s ease;
+}
+
+.admin-user-row:hover,
+.admin-user-row:focus-within {
+    background: #294d35;
+    color: #ffffff;
+}
+
+.admin-user-row:hover .admin-user-details span,
+.admin-user-row:hover .admin-user-details small,
+.admin-user-row:focus-within .admin-user-details span,
+.admin-user-row:focus-within .admin-user-details small {
+    color: #ffffff;
+}
+
+.admin-user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.admin-user-details span,
+.admin-user-details small {
+    color: #777b73;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   11. AUTHENTICATION PAGES
+   ========================================================= */
+
+.auth-page {
+    max-width: 520px;
+    margin: 48px auto;
+    padding: 0 20px;
+}
+
+.auth-panel {
+    padding: 36px;
+    background: #ffffff;
+    border: 1px solid #e5e7e5;
+    border-radius: 8px;
+}
+
+.auth-panel h1 {
+    margin-top: 0;
+    color: #26382d;
+}
+
+.auth-intro {
+    margin-bottom: 28px;
+    color: #68736b;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd4ce;
+    border-radius: 5px;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: 2px solid #4caf50;
+    outline-offset: 1px;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 5px;
+    background: #2f6542;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-button:hover {
+    background: #244f33;
+}
+
+.auth-footer {
+    margin: 24px 0 0;
+    color: #68736b;
+}
+
+.auth-footer a {
+    color: #2f6542;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   12. ACCESSIBILITY AND PROGRESSIVE ENHANCEMENT
+   ========================================================= */
+
+button:disabled,
+input[type="submit"]:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.selection-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 12px;
+}
+
+.selection-tool {
+    padding: 6px 10px;
+    border: 1px solid #dce5dc;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #386747;
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.selection-tool:hover {
+    background: #edf5ee;
+    color: #294d35;
+}
+
+[data-dismissible] {
+    position: relative;
+    padding-right: 36px;
+}
+
+.message-dismiss {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    min-width: 28px;
+    padding: 2px 8px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* =========================================================
+   13. RESPONSIVE LAYOUT
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    /* Stack dashboard panels on narrow screens */
+    #main,
+    #main.admin-dashboard {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+        border: none;
+    }
+
+    #main.admin-dashboard #content,
+    #main.admin-dashboard #bloggerlist {
+        min-height: 0;
+        padding: 20px 0;
+        border-right: none;
+    }
+
+    /* Stack navigation links */
+    #admin-menu.admin-navigation,
+    #menu {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+    }
+
+    #admin-menu.admin-navigation .menu-account {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+    }
+
+    /* Compact deletion rows */
+    .delete-blog-heading,
+    .delete-blog-row {
+        grid-template-columns: minmax(0, 1fr) 42px;
+        gap: 6px;
+        padding: 12px 8px;
+    }
+
+    .delete-blog-heading {
+        font-size: 12px;
+    }
+
+    .delete-blog-title {
+        font-size: 13px;
+    }
+
+    /* Compact user rows */
+    .admin-user-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-user-details {
+        grid-column: 1 / -1;
+    }
+
+    /* Avoid cramped comment controls */
+    #bloggerlist .comment-header {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    #bloggerlist .delete-comment-choice {
+        white-space: normal;
+    }
+
+    /* Authentication pages */
+    .auth-page {
+        margin: 28px auto;
+    }
+
+    .auth-panel {
+        padding: 26px 22px;
+    }
+}
