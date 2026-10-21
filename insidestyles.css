@@ -617,20 +617,31 @@ h3 {
 }
 
 #bloggerlist .comment-item--editable .comment-actions {
+    width: 100%;
     flex-wrap: wrap;
     align-items: center;
     margin-top: 8px;
+    margin-left: 0;
 }
 
 #bloggerlist .comment-item--editable .comment-update-form textarea {
     flex: 0 0 100%;
     width: 100%;
+    box-sizing: border-box;
     padding-left: 14px;
 }
 
 #bloggerlist .comment-item--editable .comment-update-button,
 #bloggerlist .comment-item--editable .comment-delete-form {
     flex: 0 0 auto;
+}
+
+#bloggerlist .comment-item--editable .comment-delete-form {
+    margin: 0;
+}
+
+#bloggerlist .comment-item--editable .comment-revert-button {
+    margin-left: 0;
 }
 
 #bloggerlist .comment-update-form {
@@ -654,7 +665,8 @@ h3 {
 }
 
 #bloggerlist .comment-update-button,
-#bloggerlist .row-delete-button {
+#bloggerlist .row-delete-button,
+#bloggerlist .comment-revert-button {
     min-height: 42px;
     padding: 9px 14px;
     border-radius: 4px;
@@ -1152,14 +1164,19 @@ input[type="submit"]:disabled {
     #main.admin-dashboard {
         display: block;
         width: 100%;
+        height: auto;
+        min-height: 100dvh;
         margin: 0 auto;
         padding: 0 20px;
         border: none;
+        overflow: visible;
     }
 
     #main.admin-dashboard #content,
     #main.admin-dashboard #bloggerlist {
         min-height: 0;
+        height: auto;
+        overflow-y: visible;
         padding: 20px 0;
         border-right: none;
     }

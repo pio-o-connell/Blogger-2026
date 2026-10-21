@@ -226,7 +226,31 @@
                     updateDirtyState();
                 });
             }
+
         });
+    }
+
+    function enhanceCommentEditors() {
+        document.querySelectorAll('[data-comment-revert]').forEach(
+            function (revert) {
+                var form = revert.closest('form');
+                var editor = form
+                    ? form.querySelector('[data-comment-editor]')
+                    : null;
+
+                if (!editor) {
+                    return;
+                }
+
+                revert.addEventListener('click', function () {
+                    editor.value = editor.dataset.originalBody || '';
+                    editor.dispatchEvent(new Event('input', {
+                        bubbles: true
+                    }));
+                    editor.focus();
+                });
+            }
+        );
     }
 
     function enhanceDismissibleMessages() {
@@ -258,6 +282,7 @@
         enhanceForms();
         enhancePostRows();
         enhancePostEditor();
+        enhanceCommentEditors();
         enhanceUserRows();
         enhanceDismissibleMessages();
     });

@@ -1109,151 +1109,6 @@
                 </main>
                 ';
             }
-
-
-        // // Right panel: Selected blog post and its comments
-        // public function postComments($info){
-        //     $postId = isset($info['bloggerid'])
-        //         ? (int) $info['bloggerid']
-        //         : 0;
-
-        //     echo '
-        //         <section id="bloggerlist">
-        //     ';
-
-        //     if ($postId <= 0) {
-        //         echo '
-        //             <p class="blog-list-intro">
-        //                 No blog posts are available yet.
-        //             </p>
-        //         ';
-        //         echo '</section>';
-        //         return;
-        //     }
-
-        //     $DBM = new DBManager();
-        //     $post = $DBM->getPostById($postId);
-
-        //     if (!$post) {
-        //         echo '
-        //             <p class="blog-list-intro">
-        //                 The selected blog post could not be found.
-        //             </p>
-        //         ';
-        //         echo '</section>';
-        //         return;
-        //     }
-
-        //     $title = htmlspecialchars(
-        //         $post['title'] ?? '',
-        //         ENT_QUOTES,
-        //         'UTF-8'
-        //     );
-
-        //     $originator = htmlspecialchars(
-        //         $post['username'] ?? 'Unknown',
-        //         ENT_QUOTES,
-        //         'UTF-8'
-        //     );
-
-        //     echo '
-        //         <article class="selected-post-context">
-        //             <h3>' . $title . '</h3>
-        //             <p class="post-meta">By ' . $originator . '</p>
-        //         </article>
-        //         <form method="post" action="controller.php"
-        //             class="comment-form">
-        //             <input type="hidden" name="cmd" value="addComment">
-        //             <input type="hidden" name="postid" value="' . $postId . '">
-        //             <label for="dashboard-comment">Leave a comment:</label>
-        //             <p>Posting as: ' . htmlspecialchars(
-        //                 $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest',
-        //                 ENT_QUOTES,
-        //                 'UTF-8'
-        //             ) . '</p>
-        //             <textarea id="dashboard-comment" name="comments"
-        //                 rows="4" required></textarea>
-        //             <button type="submit" class="auth-button">Save comment</button>
-        //         </form>
-        //     ';
-
-        //     $comments = $DBM->getCommentsForPost($postId);
-
-        //     if (empty($comments)) {
-        //         echo '
-        //             <p class="blog-list-intro">
-        //                 No comments have been added to this post yet.
-        //             </p>
-        //         ';
-        //     } else {
-        //         echo '<div class="delete-comments-list">';
-
-        //         foreach ($comments as $comment) {
-        //             $commentId = (int) $comment['id'];
-
-        //             $author = htmlspecialchars(
-        //                 $comment['author'] ?? 'Unknown',
-        //                 ENT_QUOTES,
-        //                 'UTF-8'
-        //             );
-
-        //             $commentBody = nl2br(htmlspecialchars(
-        //                 $comment['body'] ?? '',
-        //                 ENT_QUOTES,
-        //                 'UTF-8'
-        //             ));
- 
-        //             $currentUsername = $_SESSION['username'] ?? '';
-        //             $isAdmin = !empty($_SESSION['is_admin']);
-
-        //             $isPostOwner = (int) ($post['bloggerid'] ?? 0) ===
-        //                 (int) ($this->info['id'] ?? 0);
-
-        //             // Deletion permission is independent of the comment's appearance.
-        //             $canDeleteComment = $isAdmin ||
-        //                 $isPostOwner ||
-        //                 (
-        //                     $currentUsername !== '' &&
-        //                     ($comment['author'] ?? '') === $currentUsername
-        //                 );
-
-        //             echo '
-        //                 <article class="blog-post comment-item comment-item--previous"
-        //                     data-comment-row>
-        //                     <strong>' . $author . '</strong>
-        //                     <p>' . $commentBody . '</p>
-        //             ' . ($canDeleteComment ? '
-        //                     <form method="post" action="controller.php"
-        //                         data-confirm-delete>
-        //                         <input type="hidden" name="cmd"
-        //                             value="deleteComment">
-        //                         <input type="hidden" name="postid"
-        //                             value="' . $postId . '">
-        //                         <input type="hidden" name="bloggerid"
-        //                             value="' . $postId . '">
-        //                         <input type="hidden" name="returncmd"
-        //                             value="' . (
-        //                                 $this instanceof AdminBlogManagementView
-        //                                     ? 'openblog3'
-        //                                     : 'openblog2'
-        //                             ) . '">
-        //                         <input type="hidden" name="commentid"
-        //                             value="' . $commentId . '">
-        //                         <button type="submit"
-        //                             class="row-delete-button">
-        //                             Delete comment
-        //                         </button>
-        //                     </form>
-        //             ' : '') . '
-        //                 </article>
-        //             ';
-        //         }
-
-        //         echo '</div>';
-        //     }
-
-        //     echo '</section>';
-        // }
         
         // Right panel: Selected blog post and its comments
         public function postComments($info){
@@ -1422,7 +1277,14 @@
                                         Update comment
                                     </label>
                                     <textarea id="comment-body-' . $commentId . '"
-                                        name="body" rows="2" required>' .
+                                        name="body" rows="2" required
+                                        data-comment-editor
+                                        data-original-body="' .
+                                        htmlspecialchars(
+                                            $comment['body'] ?? '',
+                                            ENT_QUOTES,
+                                            'UTF-8'
+                                        ) . '">' .
                                         htmlspecialchars(
                                             $comment['body'] ?? '',
                                             ENT_QUOTES,
@@ -1431,6 +1293,11 @@
                                     <button type="submit"
                                         class="comment-update-button">
                                         Update
+                                    </button>
+                                    <button type="button"
+                                        class="secondary-button comment-revert-button"
+                                        data-comment-revert>
+                                        Revert
                                     </button>
                                 </form>
                                 ' : '') . '
@@ -1455,9 +1322,11 @@
                                 </div>
                             </div>
 
+                            ' . (!$canUpdateComment ? '
                             <div class="comment-content">
                                 ' . $commentBody . '
                             </div>
+                            ' : '') . '
 
                         </article>
                     ';

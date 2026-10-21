@@ -2,44 +2,79 @@
 
 A revamp of a 2014 blogging platform, using the original project as a reference to restore its functionality and develop a simple, modern graphical user interface.
 
-### PHP Front page
-<img src="Images\login.jpg" alt="PHP Blog server running " width="40%">
-<img src="Images\register.jpg" alt="PHP Blog server running " width="40%">
-<img src="Images\Homepage.jpg" alt="PHP Blog server running " width="40%">
+## Project Screenshots
 
-<img src="Images\3-admin-allblogs.jpg" alt="PHP Blog server running " width="40%">>
-<img src="Images\3-admin-personal-blogs.jpg" alt="PHP Blog server running " width="40%">
-<img src="Images\AdminAllUsers.jpg" alt="PHP Blog server running " width="40%">
+The screenshots below use the image paths supplied for the project. GitHub renders repository image paths most reliably with forward slashes.
 
-<img src="Images\3-alice-all-blogs.jpg" alt="PHP Blog server running " width="40%">
-<img src="Images\3-alice-personal-blogs.jpg" alt="PHP Blog server running " width="40%">
+### Public pages
 
-<img src="Images\Guest-add-comment.jpg" alt="PHP Blog server running " width="40%">
+<p>
+  <img src="Images/Homepage.jpg" alt="Blogger login page" width="40%">
+  <img src="Images/Homepage-add-comment.jpg" alt="Blogger registration page" width="40%">
+  <img src="Images/Homepage-login.jpg" alt="Blogger public home page" width="40%">
+   <img src="Images/Homepage-register.jpg" alt="Blogger public home page" width="40%">
+</p>
 
+### Administration and blogger views
 
-A simple PHP/MySQL blogging application developed as part of the **Higher Diploma in Cloud Computing, 2014**.
+<p>
+  <img src="Images/administratot-All-Blogs.jpg" alt="Administrator all blogs" width="40%">
+  <img src="Images/administratot-personal-blogs.jpg" alt="Administrator personal blogs" width="40%">
+  <img src="Images/administrator-all-users.jpg" alt="Administrator user management" width="40%">
+  <img src="Images/blogger-all-blogs.jpg" alt="Blogger all blogs" width="40%">
+  <img src="Images/blogger-personal-blogs.jpg" alt="Blogger personal blog" width="40%">
+ 
+</p>
 
-The project is an early web application demonstrating server-side PHP programming, MySQL database interaction, user registration and authentication, blog posts, comments, and basic administration.
+> If an image does not display on GitHub, check that its filename and letter case match the file in the repository exactly.
 
-## Project Overview
+## Overview
+---
 
-The Blogger application allows users to:
+Blogger is a simple PHP/MySQL blogging application originally developed in **2014 as part of a Higher Diploma in Cloud Computing**. This updated project uses the original application as a reference to restore its functionality and provide a clearer, more modern graphical interface while retaining its legacy PHP/MVC-style structure.
 
-* Register as a blogger
-* Log in and out
-* Create blog posts
-* View blog posts
-* Comment on posts
-* Delete their own blog posts
-* Browse other bloggers
-* Manage users and blogs through an administrator account
-* Suspend users
+<img src="Images/original-blogger-2014.png" alt="Blogger personal blog" width="80%">
 
-The application uses a traditional PHP MVC-like structure, with a central controller routing requests to different view classes and a database manager handling MySQL operations.
+The application demonstrates server-side PHP programming, MySQL database interaction, user registration and authentication, blog posts, comments, and basic administration.
+
+### Project goals
+
+- Preserve and understand the original application's behaviour.
+- Restore core blogging and administration functionality.
+- Improve the consistency and usability of the interface without undertaking an unnecessary full rewrite.
+- Refine the legacy code incrementally, using clearer names and shared view components where practical.
+
+## Project Features
+---
+
+### General functionality
+
+- Register and log in.
+- Log out of an authenticated session.
+- Browse blog posts and other bloggers.
+- Create, view, update, and delete blog posts where permitted.
+- Add and read comments.
+- Manage users and blogs through the administrator interface.
+- Suspend and reinstate users.
+
+### Main application views
+
+The current interface is organised around seven principal views:
+
+1. **Guest Home** — browse the blog collection.
+2. **Guest Individual Blog** — read a selected post and its comments.
+3. **Blogger: All Blogs** — browse blogs through the blogger interface.
+4. **Blogger: Personal Blog** — manage personal posts and view comments for the selected post.
+5. **Administrator: All Blogs** — review and manage the blog collection.
+6. **Administrator: All Users** — manage user accounts and their status.
+7. **Administrator: Personal Blog** — manage the administrator's own posts and comments.
+
+The administrator and blogger personal-blog screens share an implementation where practical, helping keep the layout and comment handling consistent.
 
 ## Architecture
+---
 
-The basic application flow is:
+The application follows a traditional PHP/MVC-like structure. A central controller routes requests to view classes, and a database manager performs database operations.
 
 ```text
 Browser
@@ -47,7 +82,7 @@ Browser
    v
 controller.php
    |
-   +-- command (GET/POST)
+   +-- command from GET or POST
    |
    v
 View classes
@@ -59,15 +94,11 @@ DBManager
 MySQL database
 ```
 
-The main components are:
-
 ### `controller.php`
 
-The main entry point for the application.
+The main entry point. It reads the `cmd` parameter from `$_POST` or `$_GET` and uses a `switch` statement to select the requested operation.
 
-It reads the `cmd` parameter from either `$_POST` or `$_GET` and uses a `switch` statement to determine what operation should be performed.
-
-Examples include:
+Examples of command names used by the application include:
 
 ```text
 login
@@ -84,38 +115,30 @@ Suspend
 logout
 ```
 
+The controller's current command routing is the source of truth; command names should not be changed as part of a CSS-only adjustment.
+
 ### `library.php`
 
-Contains the application's view classes and database manager.
+Contains the application's view classes and the `DBManager` class. Despite its filename, it includes PHP application logic and generated HTML; it is not a CSS library.
 
-The view classes use descriptive names:
+Key view classes include:
 
-* `PublicBaseView` – shared layout for public-facing pages
-* `AuthenticatedBaseView` – shared layout for internal/authenticated pages
-* `HomeView` – public welcome page and latest posts
-* `LoginView` – login form
-* `PreviousPostsView` – previous posts display
-* `GuestPostView` – guest posting and alternative comment handling
-* `RegistrationView` – registration form
-* `CreatePostView` – authenticated post creation
-* `BlogPostManagementView` – alternative post-management interface
-* `DeleteBlogPostsView` – blog post selection and deletion
-* `AdminDashboardView` – administrator blog and comment management
-* `AdminBlogManagementView` – administrator blog management interface
-* `SuspendUsersView` – user suspension and restoration
-* `DeleteUsersView` – user deletion
-* `SinglePostView` – individual blog post display
+- `PublicBaseView` — shared layout for public-facing pages.
+- `AuthenticatedBaseView` — shared layout for authenticated pages.
+- `HomeView` — public welcome page and blog listing.
+- `LoginView` — login form.
+- `RegistrationView` — registration form.
+- `SinglePostView` — individual post and comments.
+- `AdminDashboardView` — administrator blog and comment management.
+- `AdminBlogManagementView` — personal-blog management interface shared by the administrator and blogger.
+- `AdminUsersView` — administrator user management.
+- `PreviousPostsView`, `GuestPostView`, `CreatePostView`, `BlogPostManagementView`, `DeleteBlogPostsView`, `SuspendUsersView`, and `DeleteUsersView` — additional legacy views retained in the project.
 
-The file also contains the `DBManager` class, which performs database operations.
+Some older views remain for compatibility or historical context; their presence does not necessarily mean they are part of the main current navigation.
 
-> **Note:** Despite the name `library.php`, the supplied project code contains both PHP application logic and HTML output. It is not a CSS library.
+### Database manager naming refactor
 
-### DBManager naming refactor
-
-The DBManager methods have been renamed to describe their responsibilities more
-clearly. The implementation and database behaviour were intentionally
-preserved. Each renamed declaration in the PHP source has a comment containing
-its former function name to make the transition easy to follow.
+Several `DBManager` methods have been renamed to describe their responsibilities more clearly. The intention is to preserve implementation and database behaviour while making the code easier to read. Comments in the source identify former names where applicable.
 
 | Former name | Current name |
 | --- | --- |
@@ -145,15 +168,11 @@ its former function name to make the transition easy to follow.
 | `processBlog()` | `createBlogPost()` |
 | `processFirstBlog()` | `createInitialBlogPost()` |
 
-The constructor and the already-clear `getPostById()` and
-`getCommentsForPost()` methods retain their existing names.
+The constructor and already descriptive methods such as `getPostById()` and `getCommentsForPost()` retain their existing names.
 
 ### View class naming refactor
 
-The numbered legacy view class names were replaced with descriptive names.
-The implementation, routing commands, and MVC behaviour were preserved. Each
-renamed class declaration in `library.php` includes a comment containing its
-former class name.
+Numbered legacy view names were replaced with descriptive names. The intent was to improve readability while preserving routing and behaviour. The source includes comments identifying former class names.
 
 | Former class name | Current class name |
 | --- | --- |
@@ -172,55 +191,35 @@ former class name.
 | `View8` | `SuspendUsersView` |
 | `View9` | `DeleteUsersView` |
 
-`AdminBaseView`, `AdminDashboardView`, and `AdminUsersView` were intentionally
-kept unchanged because their names already describe their responsibilities.
+`AdminBaseView`, `AdminDashboardView`, and `AdminUsersView` were retained because their names already describe their responsibilities.
 
-### CSS
+### CSS and JavaScript
 
-Two stylesheets are used:
+The application uses separate stylesheets for the public and authenticated areas:
 
-* `mystyles.css` – public pages
-* `insidestyles.css` – logged-in/inside pages
+- `myStyles.css` — public pages.
+- `insidestyles.css` — authenticated and administration pages.
 
-The original layout uses a simple fixed-width, float-based CSS design.
+JavaScript supports selected interface interactions. The application remains based on PHP routes and form submissions; core navigation and server-side validation should not depend solely on JavaScript.
 
-### UI and JavaScript updates
+Recent UI work focuses on consistent typography and spacing, clearer controls, confirmation for destructive actions, prevention of duplicate submissions, and a two-pane layout for post management and comments. The existing PHP routes, database behaviour, authentication flow, and server-side permissions remain authoritative.
 
-The front-end work is intentionally incremental because the application is
-already functional. The current update improves responsive layout behavior,
-selection controls, destructive-action confirmation, and duplicate-submit
-prevention. Administrator blog and personal-blog screens now use a 40/60
-two-pane layout: posts can be selected into an editor, posts and comments can
-be updated, and delete actions remain confirmation-protected. User management
-now presents users as styled rows with visible active/suspended state and
-existing suspend, reinstate, delete, and registration actions.
-
-The existing PHP routes, database behavior, authentication flow, and
-administrator permissions remain the source of truth. JavaScript must not be
-required for core navigation or form submission, and server-side validation
-must remain in place.
-
-The implementation details, constraints, and acceptance criteria are
-documented in
-[UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md](UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md).
+Further implementation details and acceptance criteria are documented in [`UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md`](UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md), if that file is present in the repository.
 
 ## Database
+---
 
-The application connects to a MySQL database named:
+The application uses a MySQL database named `blogger`.
+
+The original connection configuration was:
 
 ```text
-blogger
-```
-
-The original connection configuration is:
-
-```php
 mysql:host=localhost:3306;dbname=blogger
 ```
 
-with the MySQL `root` account and an empty password in the original code.
+The local development setup may use a different port; update the connection settings to match the environment.
 
-The application expects three principal tables:
+The three principal tables are:
 
 ```text
 user
@@ -230,229 +229,224 @@ comments
 
 ### `user`
 
-Stores blogger and administrator information, including:
+Stores user and administrator information, including fields such as:
 
-* `id`
-* `username`
-* `password`
-* `blogtitle`
-* `email`
-* `suspend`
+- `id`
+- `username`
+- `password`
+- `blogtitle`
+- `email`
+- `suspend`
 
 ### `post`
 
-Stores blog posts:
+Stores blog posts, including:
 
-* `id`
-* `bloggerid`
-* `title`
-* `body`
+- `id`
+- `bloggerid`
+- `title`
+- `body`
 
-`bloggerid` associates a post with a user.
+`bloggerid` associates a post with its owner.
 
 ### `comments`
 
-Stores comments associated with posts:
+Stores comments associated with posts, including:
 
-* `id`
-* `postid`
-* `body`
-* `author`
+- `id`
+- `postid`
+- `body`
+- `author`
 
-The basic relationship is:
+`postid` associates a comment with a blog post.
 
 ```text
 user
   |
-  | id
+  | user.id
   v
 post
   |
-  | id
+  | post.id
   v
 comments.postid
 ```
 
-## Authentication
+Use the schema and database scripts in the repository as the definitive reference for table definitions and relationships.
 
-The original application uses a simple cookie-based login mechanism.
+## Authentication and Permissions
+---
 
-After successful login, the username is stored in a cookie:
+The original application uses a legacy cookie-based login mechanism. The administrator account is identified in the application logic by the username `rmiller`.
 
-```text
-username
-```
+The current implementation's controller, database code, and permission checks define the actual access rules. The interface should reflect those rules, but hiding a button is not a substitute for server-side authorization.
 
-The administrator account is identified by the username:
-
-```text
-rmiller
-```
-
-The original application therefore distinguishes between the administrator and ordinary bloggers through application logic rather than a modern role/permission framework.
+**Security note:** The original code was written in 2014 and should be treated as an educational project, not production-ready software. Before any public deployment, review password storage, session handling, SQL query construction, input validation, output escaping, error handling, and authorization checks.
 
 ## Main User Flows
+---
 
 ### Registration
 
 ```text
-Register
-   |
-   v
-View4
-   |
-   v
-addBlogger
-   |
-   v
-DBManager::registerBlogger()
-   |
-   v
+Registration form
+      |
+      v
+controller.php
+      |
+      v
+registerBlogger
+      |
+      v
+DBManager
+      |
+      v
 user table
 ```
 
 ### Login
 
 ```text
-Login
-   |
-   v
-View2
-   |
-   v
+Login form
+      |
+      v
+controller.php
+      |
+      v
 loginRequest
-   |
-   v
+      |
+      v
 handleLogin()
-   |
-   v
+      |
+      v
 DBManager::authenticateUser()
 ```
 
-### Creating a Post
+### Creating a post
 
 ```text
-Add Post
-   |
-   v
-View51
-   |
-   v
+Post form
+    |
+    v
+controller.php
+    |
+    v
 addPost
-   |
-   v
+    |
+    v
 handleAddpost()
-   |
-   v
+    |
+    v
 DBManager::createBlogPost()
-   |
-   v
+    |
+    v
 post table
 ```
 
 ### Comments
 
-Comments are submitted through:
+Comments are submitted through controller commands such as `addComment` and `addComment1`, depending on the view and flow being used.
 
-```text
-addComment
-```
+## Local Setup
+---
 
-or:
+### Requirements
 
-```text
-addComment1
-```
+- PHP
+- MySQL-compatible database
+- Web browser
+- Project source code and required database setup scripts
 
-depending on whether the post is being viewed through the public or logged-in interface.
+### Run the application
 
-## Administrator Functions
+1. Clone or download the repository.
+2. Configure the database connection for your local MySQL instance.
+3. Create or import the `blogger` database and required tables.
+4. From the project directory, start PHP's built-in development server. For example, on Windows where PHP is installed at the following path:
 
-The original administrator interface provides functionality for:
+   ```powershell
+   & "C:\php-8.4.26\php.exe" -S localhost:8000
+   ```
 
-* Viewing all blogs
-* Deleting blogs
-* Viewing users
-* Deleting users
-* Suspending users
-* Restoring users
+5. Open `http://localhost:8000` in your browser.
 
-The administrator interface is reached when the username `rmiller` successfully authenticates.
+Do not commit database passwords or other secrets. The credentials shown in historical source code should not be reused for a public or production environment.
 
-## Technology
+## Testing
+---
 
-The project represents the web development technology and programming style used during the **2014 Higher Diploma in Cloud Computing** course.
+Manual testing should cover the main views and role-based actions.
 
-Primary technologies include:
+- Check that the guest home page lists posts and public navigation works.
+- Open an individual post and confirm its content and comments are displayed.
+- Test login, logout, and registration.
+- Test post creation, editing, and deletion using accounts with appropriate permissions.
+- Confirm the comments shown correspond to the selected post.
+- Verify that comment controls match the current ownership and role rules.
+- Test administrator blog and user management, including suspension and reinstatement.
+- Confirm that forms refresh the appropriate view after successful actions.
+- Test normal desktop dimensions, shorter viewport heights, and narrower screens.
+- Confirm long lists scroll within their intended panels without clipping content.
 
-* PHP
-* MySQL
-* HTML
-* CSS
-* Apache/PHP web hosting environment
-* SQL
-* PDO
+Record validation results only after running the relevant tools. No unverified automated-test or Lighthouse results are claimed here.
 
-The application predates modern PHP frameworks and uses direct PHP classes, HTML generation and SQL queries.
+## AI-Assisted Development
+---
 
-## Historical Context
+AI tools may assist with code review, explaining legacy behaviour, drafting documentation, and proposing focused changes. Suggestions should be reviewed against the actual code and tested locally before being accepted.
 
-This project was created in **2014 as part of a Higher Diploma in Cloud Computing**.
+Architectural decisions, permission rules, and final verification remain the developer's responsibility.
 
-It is preserved as a snapshot of an earlier stage of web development and of the programming techniques used during the course.
+## References
+---
 
-The intention of preserving the project is to document and understand the original implementation rather than retrospectively rewrite it as a modern application.
+- [PHP documentation](https://www.php.net/docs.php)
+- [MySQL documentation](https://dev.mysql.com/doc/)
+- [GitHub Markdown documentation](https://docs.github.com/en/get-started/writing-on-github)
 
-## Modernisation Considerations
+The original 2014 Blogger project is the primary reference for its established architecture and behaviour.
 
-The application is an educational/historical project and should **not be considered production-ready software**.
+## Tech Employed
+---
 
-The original implementation contains practices that would normally be changed in a modern PHP application, including:
+### Languages and technologies
 
-* Plain-text password handling
-* SQL constructed using string interpolation
-* Limited input validation
-* Cookie-based authentication rather than modern session/authentication mechanisms
-* No prepared SQL statements
-* Minimal error handling
-* HTML generated directly from PHP classes
-* Older CSS layout techniques
-* Some duplicated and unused code
-* Some inconsistent naming and legacy code
+- PHP
+- MySQL / SQL
+- HTML
+- CSS
+- JavaScript
+- PDO
 
-These characteristics are retained in the source because they form part of the original 2014 implementation.
+### Tools
 
-If the application is modernised, the preferred approach would be to first preserve the original behaviour and then make changes incrementally.
+- Git and GitHub
+- Visual Studio Code
+- PHP's built-in development server
 
-## Project Structure
+## Historical Context and Learning Points
+---
 
-The original project follows a structure broadly similar to:
+Blogger began as a 2014 Higher Diploma in Cloud Computing project. Revisiting it provides an opportunity to understand the original implementation, restore its functionality, and improve its presentation without losing sight of its historical structure.
 
-```text
-Blogger/
-│
-├── controller.php
-├── library.php
-│
-├── mystyles.css
-├── insidestyles.css
-│
-└── database/
-    └── ...
-```
+Key learning points include:
 
-Additional files may be present in the original project, including database setup scripts and supporting resources.
+- Understand existing behaviour before refactoring legacy code.
+- Prefer incremental, testable changes over an unnecessary rewrite.
+- Keep shared views consistent and avoid duplicated implementations where practical.
+- Treat PHP-generated markup and CSS as one layout system when diagnosing UI issues.
+- Enforce authorization on the server, not only through the interface.
+- Review AI-assisted changes carefully and test them against the real application.
 
-## Status
+## Project Status
+---
 
-**Historical / educational project – 2014**
+**Historical educational project — originally developed in 2014; currently being revisited and refined.**
 
-The project is being reconstructed and documented from its original source code.
-
-The priority is to understand and preserve the original application behaviour before making any significant changes or modernisation.
+The current priority is to preserve the original application's core behaviour while improving code readability, interface consistency, and maintainability.
 
 ---
 
-**Author:** Pio O'Connell
-**Course:** Higher Diploma in Cloud Computing
-**Year:** 2014
+**Author:** Pio O'Connell  
+**Course:** Higher Diploma in Cloud Computing  
+**Original project year:** 2014

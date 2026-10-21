@@ -3,9 +3,20 @@
 A revamp of a 2014 blogging platform, using the original project as a reference to restore its functionality and develop a simple, modern graphical user interface.
 
 ### PHP Front page
-<img src="homepage.jpg" alt="PHP Blog server running " width="40%">
-<img src="login.png" alt="PHP Blog server running " width="40%">
-<img src="loggedin.png" alt="PHP Blog server running " width="40%">
+<img src="Images\login.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\register.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\Homepage.jpg" alt="PHP Blog server running " width="40%">
+
+<img src="Images\3-admin-allblogs.jpg" alt="PHP Blog server running " width="40%">>
+<img src="Images\3-admin-personal-blogs.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\AdminAllUsers.jpg" alt="PHP Blog server running " width="40%">
+
+<img src="Images\3-alice-all-blogs.jpg" alt="PHP Blog server running " width="40%">
+<img src="Images\3-alice-personal-blogs.jpg" alt="PHP Blog server running " width="40%">
+
+<img src="Images\Guest-add-comment.jpg" alt="PHP Blog server running " width="40%">
+
+
 A simple PHP/MySQL blogging application developed as part of the **Higher Diploma in Cloud Computing, 2014**.
 
 The project is an early web application demonstrating server-side PHP programming, MySQL database interaction, user registration and authentication, blog posts, comments, and basic administration.
@@ -172,6 +183,26 @@ Two stylesheets are used:
 * `insidestyles.css` – logged-in/inside pages
 
 The original layout uses a simple fixed-width, float-based CSS design.
+
+### UI and JavaScript updates
+
+The front-end work is intentionally incremental because the application is
+already functional. The current update improves responsive layout behavior,
+selection controls, destructive-action confirmation, and duplicate-submit
+prevention. Administrator blog and personal-blog screens now use a 40/60
+two-pane layout: posts can be selected into an editor, posts and comments can
+be updated, and delete actions remain confirmation-protected. User management
+now presents users as styled rows with visible active/suspended state and
+existing suspend, reinstate, delete, and registration actions.
+
+The existing PHP routes, database behavior, authentication flow, and
+administrator permissions remain the source of truth. JavaScript must not be
+required for core navigation or form submission, and server-side validation
+must remain in place.
+
+The implementation details, constraints, and acceptance criteria are
+documented in
+[UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md](UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md).
 
 ## Database
 
