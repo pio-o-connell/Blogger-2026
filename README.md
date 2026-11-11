@@ -170,6 +170,11 @@ Several `DBManager` methods have been renamed to describe their responsibilities
 
 The constructor and already descriptive methods such as `getPostById()` and `getCommentsForPost()` retain their existing names.
 
+
+### Database manager naming refactor
+
+The original application used PHP's legacy mysql_* database functions. These have been replaced with PDO (PHP Data Objects), providing a consistent database interface and support for prepared statements. Database operations are centralised in the DBManager class.
+
 ### View class naming refactor
 
 Numbered legacy view names were replaced with descriptive names. The intent was to improve readability while preserving routing and behaviour. The source includes comments identifying former class names.
