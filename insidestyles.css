@@ -267,6 +267,45 @@ textarea:focus-visible {
 
 .menu-toggle {
     display: none;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    position: relative;
+}
+
+.menu-toggle::before,
+.menu-toggle::after,
+.menu-toggle span:not(.visually-hidden) {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menu-toggle::before { top: 14px; }
+.menu-toggle span:not(.visually-hidden) { top: 21px; }
+.menu-toggle::after { top: 28px; }
+
+.menu-toggle[aria-expanded="true"]::before {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:not(.visually-hidden) {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"]::after {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 
@@ -1221,6 +1260,82 @@ input[type="submit"]:disabled {
     border: 0;
 }
 
+/* =========================================================
+   13. PERSONAL BLOG MOBILE TABS
+   ========================================================= */
+
+.personal-blog-mobile-header {
+    display: none;
+}
+
+.personal-blog-tabs {
+    display: flex;
+    margin-top: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.personal-blog-tabs .tab {
+    flex: 1;
+    padding: 12px 10px;
+    border: none;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.personal-blog-tabs .tab.is-active {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+@media (min-width: 601px) {
+    .personal-blog-mobile-header {
+        display: none !important;
+    }
+
+    .tab-panel {
+        display: block !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .personal-blog-mobile-header {
+        display: block;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .current-post-label {
+        margin: 0 0 2px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+
+    .current-post-title {
+        margin: 0;
+        color: var(--text);
+        font-size: 1.25rem;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .tab-panel {
+        display: none;
+    }
+
+    .tab-panel.is-active {
+        display: block;
+    }
+}
+
 
 /* =========================================================
    13. RESPONSIVE LAYOUT
@@ -1288,6 +1403,44 @@ input[type="submit"]:disabled {
     }
 }
 
+@media (max-width: 600px) {
+    #menu .menu-toggle,
+    #admin-menu.admin-navigation .menu-toggle {
+        display: block;
+        align-self: flex-end;
+    }
+
+    #menu .menu-account,
+    #admin-menu.admin-navigation .menu-account {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        margin-top: 12px;
+        padding: 8px 0;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+    }
+
+    #menu .menu-account.is-open,
+    #admin-menu.admin-navigation .menu-account.is-open {
+        display: flex;
+    }
+
+    #menu .menu-account a,
+    #admin-menu.admin-navigation .menu-account a {
+        width: 100%;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    #menu .menu-account a:last-child,
+    #admin-menu.admin-navigation .menu-account a:last-child {
+        border-bottom: none;
+    }
+}
+
 @media (max-width: 480px) {
 
     /* Stack dashboard panels on narrow screens */
@@ -1348,17 +1501,20 @@ input[type="submit"]:disabled {
     #menu .menu-toggle,
     #admin-menu.admin-navigation .menu-toggle {
         display: block;
-        align-self: stretch;
-        padding: 9px 12px;
-        border: 1px solid var(--accent);
-        background: var(--surface);
-        color: var(--accent);
-        text-align: left;
+        align-self: flex-end;
     }
 
     #menu .menu-account,
     #admin-menu.admin-navigation .menu-account {
         display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        margin-top: 12px;
+        padding: 8px 0;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
     }
 
     #menu .menu-account.is-open,
@@ -1367,10 +1523,20 @@ input[type="submit"]:disabled {
     }
 
     #admin-menu.admin-navigation .menu-account {
-        width: 100%;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 12px 20px;
+    }
+
+    #menu .menu-account a,
+    #admin-menu.admin-navigation .menu-account a {
+        width: 100%;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    #menu .menu-account a:last-child,
+    #admin-menu.admin-navigation .menu-account a:last-child {
+        border-bottom: none;
     }
 
     /* Compact deletion rows */

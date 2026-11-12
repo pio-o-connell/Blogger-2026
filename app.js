@@ -290,6 +290,45 @@
         });
     }
 
+    function enhancePersonalBlogTabs() {
+        document.querySelectorAll('.personal-blog-tabs').forEach(
+            function (tabList) {
+                var tabs = Array.prototype.slice.call(
+                    tabList.querySelectorAll('.tab')
+                );
+                var main = tabList.closest('#main');
+
+                if (!tabs.length || !main) {
+                    return;
+                }
+
+                tabs.forEach(function (tab) {
+                    tab.addEventListener('click', function () {
+                        var target = tab.dataset.tab;
+
+                        tabs.forEach(function (currentTab) {
+                            var active = currentTab === tab;
+                            currentTab.classList.toggle('is-active', active);
+                            currentTab.setAttribute(
+                                'aria-selected',
+                                String(active)
+                            );
+                        });
+
+                        main.querySelectorAll('.tab-panel').forEach(
+                            function (panel) {
+                                panel.classList.toggle(
+                                    'is-active',
+                                    panel.dataset.panel === target
+                                );
+                            }
+                        );
+                    });
+                });
+            }
+        );
+    }
+
     function enhanceContentPaneAccordions() {
         document.querySelectorAll('#main').forEach(function (main) {
             var panes = Array.prototype.slice.call(
@@ -385,6 +424,7 @@
         enhanceUserRows();
         enhanceDismissibleMessages();
         enhanceMobileNavigation();
+        enhancePersonalBlogTabs();
         enhanceContentPaneAccordions();
     });
 }());

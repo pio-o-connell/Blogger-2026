@@ -13,65 +13,89 @@ The screenshots below use the image paths supplied for the project. GitHub rende
   
 </p>
 
+
 ### Desktop
 
 <details>
-  <summary><strong>View Desktop Screenshots</strong></summary>
+<summary><strong>View Desktop Screenshots</strong></summary>
 
-#### Public Pages
-
-<details>
-  <summary>Public Home, Comments, Login and Registration</summary>
-
-  <img src="Images/Homepage.jpg" alt="Blogger public homepage" width="40%">
-  <img src="Images/Homepage-add-comment.jpg" alt="Blogger homepage with add comment" width="40%">
-  <img src="Images/Homepage-login.jpg" alt="Blogger login page" width="40%">
-  <img src="Images/Homepage-register.jpg" alt="Blogger registration page" width="40%">
-
-</details>
-
-#### Administration and Blogger Views
+### Public Pages
 
 <details>
-  <summary>Administrator and Blogger Management Views</summary>
+<summary>Public Home, Comments, Login and Registration</summary>
 
-  <img src="Images/administratot-All-Blogs.jpg" alt="Administrator all blogs" width="40%">
-  <img src="Images/administratot-personal-blogs.jpg" alt="Administrator personal blogs" width="40%">
-  <img src="Images/administrator-all-users.jpg" alt="Administrator user management" width="40%">
-  <img src="Images/blogger-all-blogs.jpg" alt="Blogger all blogs" width="40%">
-  <img src="Images/blogger-personal-blogs.jpg" alt="Blogger personal blog" width="40%">
+<img src="Images/Homepage.jpg" alt="Blogger public homepage" width="40%">
+<img src="Images/Homepage-add-comment.jpg" alt="Blogger homepage with add comment" width="40%">
+<img src="Images/Homepage-login.jpg" alt="Blogger login page" width="40%">
+<img src="Images/Homepage-register.jpg" alt="Blogger registration page" width="40%">
+
+</details>
+
+### Administration and Blogger Common Views
+
+<details>
+<summary>Administrator and Blogger Management Views</summary>
+
+<img src="Images/administratot-All-Blogs.jpg" alt="Administrator all blogs" width="40%">
+<img src="Images/administratot-personal-blogs.jpg" alt="Administrator personal blogs" width="40%">
+<img src="Images/administrator-all-users.jpg" alt="Administrator user management" width="40%">
+<img src="Images/blogger-all-blogs.jpg" alt="Blogger all blogs" width="40%">
+<img src="Images/blogger-personal-blogs.jpg" alt="Blogger personal blogs" width="40%">
+
+</details>
+
+### Administrator Only Views
+
+<details>
+<summary>Administrator User Management</summary>
+
+<img src="Images/administrator-all-users.jpg" alt="Administrator user management" width="40%">
 
 </details>
 
 </details>
+
+---
 
 ### Mobile
 
 <details>
-  <summary><strong>View Mobile Screenshots</strong></summary>
+<summary><strong>View Mobile Screenshots</strong></summary>
 
-#### Public Pages
+### Public Pages
 
 <details>
-  <summary>Public Home, Comments, Login and Registration</summary>
+<summary>Public Home, Comments, Login and Registration</summary>
 
-  <img src="Images/Homepage.jpg" alt="Blogger public homepage" width="40%">
-  <img src="Images/Homepage-add-comment.jpg" alt="Blogger homepage with add comment" width="40%">
-  <img src="Images/Homepage-login.jpg" alt="Blogger login page" width="40%">
-  <img src="Images/Homepage-register.jpg" alt="Blogger registration page" width="40%">
+<img src="Images/320px/HomeScreen.jpg" alt="Mobile public homepage" width="40%">
+<img src="Images/320px/HomScreen-explore-blogs.jpg" alt="Mobile explore blogs" width="40%">
+<img src="Images/320px/HomeScreen-add-a comment.jpg" alt="Mobile homepage with add comment" width="40%">
+<img src="Images/320px/HomeScreen-registration.jpg" alt="Mobile registration page" width="40%">
+<img src="Images/320px/Homescreen-login.jpg" alt="Mobile login page" width="40%">
 
 </details>
 
-#### Administration and Blogger Views
+### Administration and Blogger Common Views
 
 <details>
-  <summary>Administrator and Blogger Management Views</summary>
+<summary>Administrator and Blogger Management Views</summary>
 
-  <img src="Images/administratot-All-Blogs.jpg" alt="Administrator all blogs" width="40%">
-  <img src="Images/administratot-personal-blogs.jpg" alt="Administrator personal blogs" width="40%">
-  <img src="Images/administrator-all-users.jpg" alt="Administrator user management" width="40%">
-  <img src="Images/blogger-all-blogs.jpg" alt="Blogger all blogs" width="40%">
-  <img src="Images/blogger-personal-blogs.jpg" alt="Blogger personal blog" width="40%">
+<img src="Images/320px/Admin-login.jpg" alt="Mobile administrator login" width="40%">
+<img src="Images/320px/Admin-homescreen.jpg" alt="Mobile administrator homepage" width="40%">
+<img src="Images/320px/Admin-change-blog.jpg" alt="Mobile administrator change blog" width="40%">
+<img src="Images/320px/admin-comments-for-selected-blog.jpg" alt="Mobile comments for selected blog" width="40%">
+<img src="Images/320px/admin-hamburger-menu.jpg" alt="Mobile administrator hamburger menu" width="40%">
+<img src="Images/320px/Admin-personal-blogs.jpg" alt="Mobile administrator personal blogs" width="40%">
+<img src="Images/320px/admin-all-users.jpg" alt="Mobile administrator all users" width="40%">
+
+</details>
+
+### Administrator Only Views
+
+<details>
+<summary>Administrator User Management</summary>
+
+<img src="Images/320px/admin-all-users.jpg" alt="Mobile administrator user management" width="40%">
 
 </details>
 
@@ -283,19 +307,27 @@ On authenticated personal-blog views, each post row reflows at mobile widths
 so the post details appear first and the Edit and Delete actions appear
 underneath in equal-width columns. These actions use the same usable mobile
 dimensions as the comment controls, including a 42px minimum control height.
-The comments disclosure follows the shared accordion behavior where it is
-part of an applicable two-pane view.
+The Alice: Personal Blogs view uses a mobile-only tab interface at widths of
+600px or below. Its Edit post tab contains the editor and post list, while
+its Comments tab contains the selected post's comment form, previous comments,
+and available Update, Revert, and Delete controls. Only one tab panel is
+visible at a time on mobile. Above 600px, both panes remain visible in the
+existing desktop two-pane layout.
 
-Mobile navigation uses the existing links in an accessible toggle below
-600px for public pages and below 480px for authenticated pages. At desktop
-widths, accordion controls are hidden and the original side-by-side pane
-layouts remain visible without interaction. The desktop navigation, PHP
-routes, forms, and controller commands are preserved.
+Mobile navigation uses the existing links behind an accessible hamburger
+toggle at widths of 600px or below on public and authenticated pages. The
+button exposes its state through `aria-expanded` and opens the associated
+`menu-links` container. At desktop widths, the hamburger is hidden, navigation
+links are visible, accordion controls are hidden, and the original
+side-by-side pane layouts remain visible without interaction. The desktop
+navigation, PHP routes, forms, and controller commands are preserved.
 
 Responsive validation covers public pages at 768px, 600px, 480px, 425px,
-375px, and 320px. Checks include visible primary content, independent
-pane expansion, preserved forms and actions, no artificial controls on
-single-pane views, and no horizontal overflow at 320px.
+375px, and 320px. Checks include visible primary content, hamburger menu
+operation, personal-blog tab switching at 600px and below, restored comment
+forms and controls, independent pane expansion on other multi-pane views,
+preserved forms and actions, no artificial controls on single-pane views, and
+no horizontal overflow at 320px.
 
 Further implementation details and acceptance criteria are documented in [`UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md`](UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md), if that file is present in the repository.
 

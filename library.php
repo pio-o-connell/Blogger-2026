@@ -42,7 +42,8 @@
 
                     <button type=\"button\" class=\"menu-toggle\"
                         aria-expanded=\"false\" aria-controls=\"menu-links\">
-                        Menu
+                        <span class=\"visually-hidden\">Menu</span>
+                        <span aria-hidden=\"true\"></span>
                     </button>
                     <div id=\"menu-links\" class=\"menu-account\">
                         <a href=\"controller.php?cmd=showLogin\">Login</a>
@@ -147,7 +148,8 @@
 
                 <button type="button" class="menu-toggle"
                     aria-expanded="false" aria-controls="menu-links">
-                    Menu
+                    <span class="visually-hidden">Menu</span>
+                    <span aria-hidden="true"></span>
                 </button>
                 <div id="menu-links" class="menu-account">
                     <a href="controller.php?cmd=logout">Log out</a>
@@ -763,7 +765,12 @@
                     . ucfirst(htmlspecialchars($username, ENT_QUOTES, 'UTF-8')) . ': Personal Blogs
                 </span>
 
-                <div class="menu-account">
+                <button type="button" class="menu-toggle"
+                    aria-expanded="false" aria-controls="menu-links">
+                    <span class="visually-hidden">Menu</span>
+                    <span aria-hidden="true"></span>
+                </button>
+                <div id="menu-links" class="menu-account">
                     <a href="controller.php?cmd=logout">Log out</a>
                 </div>
             </nav>';
@@ -923,7 +930,8 @@
                     ': Personal Blogs</span>
                     <button type="button" class="menu-toggle"
                         aria-expanded="false" aria-controls="menu-links">
-                        Menu
+                        <span class="visually-hidden">Menu</span>
+                        <span aria-hidden="true"></span>
                     </button>
                     <div id="menu-links" class="menu-account">
                         <a href="controller.php?cmd=bloggerAllBlogs">' .
@@ -948,7 +956,8 @@
                     ': All blogs</span>
                     <button type="button" class="menu-toggle"
                         aria-expanded="false" aria-controls="menu-links">
-                        Menu
+                        <span class="visually-hidden">Menu</span>
+                        <span aria-hidden="true"></span>
                     </button>
                     <div id="menu-links" class="menu-account">
                         <a href="controller.php?cmd=managePosts">' .
@@ -1001,7 +1010,8 @@
                 <span class="admin-menu-title">' . $title . '</span>
                 <button type="button" class="menu-toggle"
                     aria-expanded="false" aria-controls="menu-links">
-                    Menu
+                    <span class="visually-hidden">Menu</span>
+                    <span aria-hidden="true"></span>
                 </button>
                 <div id="menu-links" class="menu-account">' . $links . '</div>
             </nav>';
@@ -1127,18 +1137,250 @@
             }
         
         // Right panel: Selected blog post and its comments
-        public function postComments($info){
+        // public function postComments($info){
+        //     $postId = isset($info['bloggerid'])
+        //         ? (int) $info['bloggerid']
+        //         : 0;
+
+        //     $commentsPanelClass = $this instanceof AdminBlogManagementView
+        //         ? ' personal-blog-comments'
+        //         : '';
+
+        //     echo '
+        //         <section id="bloggerlist" class="comments-panel' .
+        //         $commentsPanelClass . '">
+        //     ';
+
+        //     if ($postId <= 0) {
+        //         echo '
+        //             <p class="blog-list-intro">
+        //                 No blog posts are available yet.
+        //             </p>
+        //         ';
+        //         echo '</section>';
+        //         return;
+        //     }
+
+        //     $DBM = new DBManager();
+        //     $post = $DBM->getPostById($postId);
+
+        //     if (!$post) {
+        //         echo '
+        //             <p class="blog-list-intro">
+        //                 The selected blog post could not be found.
+        //             </p>
+        //         ';
+        //         echo '</section>';
+        //         return;
+        //     }
+
+        //     $title = htmlspecialchars(
+        //         $post['title'] ?? '',
+        //         ENT_QUOTES,
+        //         'UTF-8'
+        //     );
+
+        //     $originator = htmlspecialchars(
+        //         $post['username'] ?? 'Unknown',
+        //         ENT_QUOTES,
+        //         'UTF-8'
+        //     );
+
+        //     $currentUsername = htmlspecialchars(
+        //         $this->info['username'] ?? $_COOKIE['username'] ?? 'Guest',
+        //         ENT_QUOTES,
+        //         'UTF-8'
+        //     );
+
+        //     echo '
+        //         <article class="selected-post-context">
+        //             <h3>Leave a comment</h3>
+        //             <p class="selected-post-title">' . $title . '</p>
+        //             <p class="post-meta">By ' . $originator . '</p>
+        //         </article>
+
+        //         <form method="post" action="controller.php"
+        //             class="comment-form">
+        //             <input type="hidden" name="cmd" value="addComment">
+        //             <input type="hidden" name="postid" value="' . $postId . '">
+
+        //             <p class="comment-posting-as">
+        //                 Posting as: <strong>' . $currentUsername . '</strong>
+        //             </p>
+
+        //             <label for="dashboard-comment">Comment
+        //                 <span class="required">*</span>
+        //             </label>
+
+        //             <textarea id="dashboard-comment" name="comments"
+        //                 rows="4" required></textarea>
+
+        //             <button type="submit" class="auth-button">
+        //                 Submit Comment
+        //             </button>
+        //         </form>
+        //     ';
+
+        //     $comments = $DBM->getCommentsForPost($postId);
+
+        //     echo '<div class="comment-summary">
+        //             <i class="fa fa-comments" aria-hidden="true"></i>
+        //             <span>' . count($comments) . ' comment' .
+        //             (count($comments) === 1 ? '' : 's') . '</span>
+        //         </div>
+        //         <hr class="comments-divider">
+        //         <h2 class="comments-heading">Comments</h2>';
+
+        //     if (empty($comments)) {
+        //         echo '
+        //             <p class="blog-list-intro">
+        //                 No comments have been added to this post yet.
+        //             </p>
+        //         ';
+        //     } else {
+        //         echo '<div class="delete-comments-list">';
+
+        //         foreach ($comments as $comment) {
+        //             $commentId = (int) $comment['id'];
+
+        //             $author = htmlspecialchars(
+        //                 $comment['author'] ?? 'Unknown',
+        //                 ENT_QUOTES,
+        //                 'UTF-8'
+        //             );
+
+        //             $commentBody = nl2br(htmlspecialchars(
+        //                 $comment['body'] ?? '',
+        //                 ENT_QUOTES,
+        //                 'UTF-8'
+        //             ));
+
+        //             $currentUsername = $_SESSION['username'] ?? '';
+        //             $isAdmin = !empty($_SESSION['is_admin']);
+
+        //             $isPostOwner = (int) ($post['bloggerid'] ?? 0) ===
+        //                 (int) ($this->info['id'] ?? 0);
+
+        //             // Deletion permission is independent of the comment's appearance.
+        //             $canDeleteComment = $isAdmin ||
+        //                 $isPostOwner ||
+        //                 (
+        //                     $currentUsername !== '' &&
+        //                     ($comment['author'] ?? '') === $currentUsername
+        //                 );
+        //             $canUpdateComment = $currentUsername !== '' &&
+        //                 ($comment['author'] ?? '') === $currentUsername;
+        //             $returnCommand = $this instanceof AdminBlogManagementView
+        //                 ? 'openblog3'
+        //                 : 'openblog2';
+
+        //             echo '
+        //                 <article class="blog-post comment-item comment-item--previous' .
+        //                     ($canUpdateComment ? ' comment-item--editable' : '') . '"
+        //                     data-comment-row>
+
+        //                     <div class="comment-header">
+        //                         <div class="comment-author">
+        //                             <i class="fa fa-comments"
+        //                                 aria-hidden="true"></i>
+        //                             <strong>' . $author . '</strong>
+        //                         </div>
+
+        //                         <div class="comment-actions">
+        //                         ' . ($canUpdateComment ? '
+        //                         <form method="post" action="controller.php"
+        //                             class="comment-update-form">
+        //                             <input type="hidden" name="cmd"
+        //                                 value="updateComment">
+        //                             <input type="hidden" name="bloggerid"
+        //                                 value="' . $postId . '">
+        //                             <input type="hidden" name="returncmd"
+        //                                 value="' . $returnCommand . '">
+        //                             <input type="hidden" name="commentid"
+        //                                 value="' . $commentId . '">
+        //                             <label class="visually-hidden"
+        //                                 for="comment-body-' . $commentId . '">
+        //                                 Update comment
+        //                             </label>
+        //                             <textarea id="comment-body-' . $commentId . '"
+        //                                 name="body" rows="2" required
+        //                                 data-comment-editor
+        //                                 data-original-body="' .
+        //                                 htmlspecialchars(
+        //                                     $comment['body'] ?? '',
+        //                                     ENT_QUOTES,
+        //                                     'UTF-8'
+        //                                 ) . '">' .
+        //                                 htmlspecialchars(
+        //                                     $comment['body'] ?? '',
+        //                                     ENT_QUOTES,
+        //                                     'UTF-8'
+        //                                 ) . '</textarea>
+        //                             <button type="submit"
+        //                                 class="comment-update-button">
+        //                                 Update
+        //                             </button>
+        //                             <button type="button"
+        //                                 class="secondary-button comment-revert-button"
+        //                                 data-comment-revert>
+        //                                 Revert
+        //                             </button>
+        //                         </form>
+        //                         ' : '') . '
+        //                         ' . ($canDeleteComment ? '
+        //                         <form method="post" action="controller.php"
+        //                             class="comment-delete-form"
+        //                             data-confirm-delete>
+        //                             <input type="hidden" name="cmd"
+        //                                 value="deleteComment">
+        //                             <input type="hidden" name="bloggerid"
+        //                                 value="' . $postId . '">
+        //                             <input type="hidden" name="returncmd"
+        //                                 value="' . $returnCommand . '">
+        //                             <input type="hidden" name="commentid"
+        //                                 value="' . $commentId . '">
+        //                             <button type="submit"
+        //                                 class="row-delete-button">
+        //                                 Delete
+        //                             </button>
+        //                         </form>
+        //                         ' : '') . '
+        //                         </div>
+        //                     </div>
+
+        //                     ' . (!$canUpdateComment ? '
+        //                     <div class="comment-content">
+        //                         ' . $commentBody . '
+        //                     </div>
+        //                     ' : '') . '
+
+        //                 </article>
+        //             ';
+        //         }
+
+        //         echo '</div>';
+        //     }
+
+        //     echo '</section>';
+        // }
+        // Right panel: Selected blog post and its comments
+        public function postComments($info)
+        {
             $postId = isset($info['bloggerid'])
                 ? (int) $info['bloggerid']
                 : 0;
 
-            $commentsPanelClass = $this instanceof AdminBlogManagementView
-                ? ' personal-blog-comments'
+            $isPersonalBlog = $this instanceof AdminBlogManagementView;
+            $commentsPanelClass = $isPersonalBlog
+                ? ' personal-blog-comments tab-panel'
+                : '';
+            $commentsPanelAttributes = $isPersonalBlog
+                ? ' data-panel="comments"'
                 : '';
 
             echo '
                 <section id="bloggerlist" class="comments-panel' .
-                $commentsPanelClass . '">
+                $commentsPanelClass . '"' . $commentsPanelAttributes . '>
             ';
 
             if ($postId <= 0) {
@@ -1251,7 +1493,6 @@
                     $isPostOwner = (int) ($post['bloggerid'] ?? 0) ===
                         (int) ($this->info['id'] ?? 0);
 
-                    // Deletion permission is independent of the comment's appearance.
                     $canDeleteComment = $isAdmin ||
                         $isPostOwner ||
                         (
@@ -1260,6 +1501,7 @@
                         );
                     $canUpdateComment = $currentUsername !== '' &&
                         ($comment['author'] ?? '') === $currentUsername;
+
                     $returnCommand = $this instanceof AdminBlogManagementView
                         ? 'openblog3'
                         : 'openblog2';
@@ -1383,7 +1625,103 @@
 
 // Allows posts to be created and previous posts to be displayed within the administration interface.
     // Legacy class name: AdminViewMessages.
-    class AdminBlogManagementView extends AdminDashboardView{
+    // class AdminBlogManagementView extends AdminDashboardView{
+    //     // Initialize the view and render its complete page.
+    //     public function __construct($info)
+    //     {
+    //         $this->info = $info;
+    //         $DBM = new DBManager();
+    //         if (empty($info['bloggerid'])) {
+    //             $info['bloggerid'] = $DBM->getLatestPostIdForUser(
+    //                 (int) ($info['id'] ?? 0)
+    //             );
+    //         }
+    //         $this->top('admin-dashboard personal-blog-window');
+    //     //    $this->adminMenu();
+    //         $this->adminMenu('blogs');
+    //         $this->content($info);
+    //         $this->postComments($info);
+    //         $this->bottom();
+    //     }
+
+    //     // Render the main content for this view.
+    //     public function content($info)
+    //     {
+    //         $DBM = new DBManager();
+    //         $selectedPost = !empty($info['bloggerid'])
+    //             ? $DBM->getPostById((int) $info['bloggerid'])
+    //             : null;
+    //         $editorTitle = htmlspecialchars(
+    //             $selectedPost['title'] ?? '',
+    //             ENT_QUOTES,
+    //             'UTF-8'
+    //         );
+    //         $editorBody = htmlspecialchars(
+    //             $selectedPost['body'] ?? '',
+    //             ENT_QUOTES,
+    //             'UTF-8'
+    //         );
+    //         $editorCommand = $selectedPost ? 'updatePost' : 'createPost';
+    //         $editorPostId = $selectedPost ? (int) $selectedPost['id'] : 0;
+
+    //         echo '<main id="content" class="admin-delete-page">';
+
+    //         echo '
+    //         <section class="admin-editor-panel">
+    //         <form method="post" action="controller.php"             data-post-editor
+    //         data-original-title="' . $editorTitle . '"
+    //         data-original-body="' . $editorBody . '">
+    //             <input type="hidden" name="cmd"
+    //                 value="' . $editorCommand . '">
+    //             <input type="hidden" name="postid"
+    //                 value="' . $editorPostId . '">
+    //             <input type="hidden" name="returncmd"
+    //                 value="openblog3">
+
+    //             <label for="personal-blogtitle">Title</label>
+    //             <input
+    //                 type="text"
+    //                 id="personal-blogtitle"
+    //                 name="blogtitle" value="' . $editorTitle . '"
+    //                 required
+    //             >
+
+    //             <label for="personal-textarea">Content</label>
+    //             <textarea
+    //                 id="personal-textarea"
+    //                 name="textarea"
+    //                 rows="8" required>' . $editorBody . '</textarea>
+
+    //             <span class="unsaved-indicator" data-unsaved-indicator
+    //                 hidden>Unsaved changes</span>
+    //             <div class="editor-actions">
+    //                 <input type="submit" value="Create/Edit Post">
+    //                 <button type="button" data-cancel-edit
+    //                         class="secondary-button">Revert</button>
+    //             </div>
+    //         </form>
+    //         </section>
+
+    //         <section class="admin-delete-panel">
+    //         <form method="post" action="controller.php">
+    //             <input type="hidden" name="cmd" value="deletePosts">
+    //             <input type="hidden" name="returncmd"
+    //                 value="openblog3">
+    //         ';
+
+    //         // Reuse the existing method used by BlogPostManagementView
+    //         // (formerly View51).
+    //         //DBManager::displayPreviousPosts($info);
+    //         $DBM->displayAdminBlogPosts($info, (int) ($info['id'] ?? 0));
+    //         echo '
+    //         </form>
+    //         </section></main>';
+    //     }
+    // }
+    // Allows posts to be created and previous posts to be displayed within the administration interface.
+    // Legacy class name: AdminViewMessages.
+    class AdminBlogManagementView extends AdminDashboardView
+    {
         // Initialize the view and render its complete page.
         public function __construct($info)
         {
@@ -1395,7 +1733,6 @@
                 );
             }
             $this->top('admin-dashboard personal-blog-window');
-        //    $this->adminMenu();
             $this->adminMenu('blogs');
             $this->content($info);
             $this->postComments($info);
@@ -1409,6 +1746,7 @@
             $selectedPost = !empty($info['bloggerid'])
                 ? $DBM->getPostById((int) $info['bloggerid'])
                 : null;
+
             $editorTitle = htmlspecialchars(
                 $selectedPost['title'] ?? '',
                 ENT_QUOTES,
@@ -1420,60 +1758,81 @@
                 'UTF-8'
             );
             $editorCommand = $selectedPost ? 'updatePost' : 'createPost';
-            $editorPostId = $selectedPost ? (int) $selectedPost['id'] : 0;
+            $editorPostId  = $selectedPost ? (int) $selectedPost['id'] : 0;
+            $selectedTitle = $editorTitle !== '' ? $editorTitle : 'New post';
 
-            echo '<main id="content" class="admin-delete-page">';
+            echo '<main id="content" class="admin-delete-page personal-blog-main">';
+
+            // Mobile-only header + tabs
+            echo '
+            <div class="personal-blog-mobile-header">
+                <p class="current-post-label">Current post</p>
+                <h2 class="current-post-title">' . $selectedTitle . '</h2>
+
+                <div class="personal-blog-tabs" role="tablist">
+                    <button type="button" class="tab is-active" role="tab"
+                            aria-selected="true" data-tab="edit">Edit post</button>
+                    <button type="button" class="tab" role="tab"
+                            aria-selected="false" data-tab="comments">Comments</button>
+                </div>
+            </div>
+            ';
+
+            // ===== EDIT PANEL =====
+            echo '<div class="tab-panel is-active" data-panel="edit">';
 
             echo '
             <section class="admin-editor-panel">
-            <form method="post" action="controller.php"             data-post-editor
-            data-original-title="' . $editorTitle . '"
-            data-original-body="' . $editorBody . '">
-                <input type="hidden" name="cmd"
-                    value="' . $editorCommand . '">
-                <input type="hidden" name="postid"
-                    value="' . $editorPostId . '">
-                <input type="hidden" name="returncmd"
-                    value="openblog3">
+                <form method="post" action="controller.php"
+                    data-post-editor
+                    data-original-title="' . $editorTitle . '"
+                    data-original-body="' . $editorBody . '">
+                    <input type="hidden" name="cmd" value="' . $editorCommand . '">
+                    <input type="hidden" name="postid" value="' . $editorPostId . '">
+                    <input type="hidden" name="returncmd" value="openblog3">
 
-                <label for="personal-blogtitle">Title</label>
-                <input
-                    type="text"
-                    id="personal-blogtitle"
-                    name="blogtitle" value="' . $editorTitle . '"
-                    required
-                >
+                    <label for="personal-blogtitle">Title</label>
+                    <input
+                        type="text"
+                        id="personal-blogtitle"
+                        name="blogtitle"
+                        value="' . $editorTitle . '"
+                        required
+                    >
 
-                <label for="personal-textarea">Content</label>
-                <textarea
-                    id="personal-textarea"
-                    name="textarea"
-                    rows="8" required>' . $editorBody . '</textarea>
+                    <label for="personal-textarea">Content</label>
+                    <textarea
+                        id="personal-textarea"
+                        name="textarea"
+                        rows="8"
+                        required>' . $editorBody . '</textarea>
 
-                <span class="unsaved-indicator" data-unsaved-indicator
-                    hidden>Unsaved changes</span>
-                <div class="editor-actions">
-                    <input type="submit" value="Create/Edit Post">
-                    <button type="button" data-cancel-edit
-                            class="secondary-button">Revert</button>
-                </div>
-            </form>
+                    <span class="unsaved-indicator" data-unsaved-indicator hidden>
+                        Unsaved changes
+                    </span>
+
+                    <div class="editor-actions">
+                        <input type="submit" value="Create/Edit Post">
+                        <button type="button" data-cancel-edit class="secondary-button">
+                            Revert
+                        </button>
+                    </div>
+                </form>
             </section>
 
             <section class="admin-delete-panel">
-            <form method="post" action="controller.php">
-                <input type="hidden" name="cmd" value="deletePosts">
-                <input type="hidden" name="returncmd"
-                    value="openblog3">
+                <form method="post" action="controller.php">
+                    <input type="hidden" name="cmd" value="deletePosts">
+                    <input type="hidden" name="returncmd" value="openblog3">
             ';
 
-            // Reuse the existing method used by BlogPostManagementView
-            // (formerly View51).
-            //DBManager::displayPreviousPosts($info);
             $DBM->displayAdminBlogPosts($info, (int) ($info['id'] ?? 0));
+
             echo '
-            </form>
-            </section></main>';
+                </form>
+            </section>
+            </div><!-- /.tab-panel[data-panel=edit] -->
+            </main>';
         }
     }
 
