@@ -68,6 +68,14 @@ button {
     font: inherit;
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
 
 /* =========================================================
    3. MAIN PAGE CONTAINER
@@ -185,6 +193,10 @@ button {
     gap: 24px;
 }
 
+.menu-toggle {
+    display: none;
+}
+
 #menu .home-text {
     display: inline-block;
     padding: 9px 0;
@@ -232,6 +244,10 @@ button {
     width: 100%;
     padding: 24px 0;
     border: none;
+}
+
+.accordion-control {
+    display: none;
 }
 
 @media (max-height: 700px) {
@@ -725,6 +741,26 @@ input[type="submit"]:disabled {
         padding: 12px 0;
     }
 
+    #menu .menu-toggle {
+        display: block;
+        align-self: stretch;
+        padding: 9px 12px;
+        border: 1px solid var(--accent);
+        background: var(--surface);
+        color: var(--accent);
+        text-align: left;
+    }
+
+    #menu .menu-account {
+        display: none;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #menu .menu-account.is-open {
+        display: flex;
+    }
+
     #menu .menu-account {
         width: 100%;
         justify-content: space-between;
@@ -774,5 +810,32 @@ input[type="submit"]:disabled {
     .admin-delete-page .admin-form-actions {
         align-items: flex-start;
         flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    #main > #content,
+    #main > #bloggerlist,
+    #main > .previous-posts {
+        display: block;
+        overflow: visible;
+    }
+
+    .accordion-control {
+        display: block;
+        width: 100%;
+        margin: 0 0 16px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--accent);
+        cursor: pointer;
+        font-family: var(--primary-font);
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .accordion-pane.is-collapsed > :not(.accordion-control) {
+        display: none;
     }
 }

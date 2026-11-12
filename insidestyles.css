@@ -55,6 +55,14 @@ button {
     font: inherit;
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
 /* =========================================================
    1. MAIN PAGE LAYOUT
    ========================================================= */
@@ -146,6 +154,10 @@ button {
     border: none;
     background: #ffffff;
     box-sizing: border-box;
+}
+
+.accordion-control {
+    display: none;
 }
 
 #bloggerlist {
@@ -253,6 +265,10 @@ button {
     text-decoration: underline;
 }
 
+.menu-toggle {
+    display: none;
+}
+
 
 /* =========================================================
    4. ADMINISTRATOR NAVIGATION
@@ -304,6 +320,10 @@ button {
     background: transparent;
     color: #292775;
     text-decoration: underline;
+}
+
+#admin-menu.admin-navigation .menu-toggle {
+    display: none;
 }
 
 #admin-menu.admin-navigation .admin-menu-title {
@@ -868,6 +888,7 @@ button {
 }
 
 .post-edit-button {
+    min-height: 42px;
     padding: 9px 14px;
     border: 1px solid #2f6542;
     border-radius: 5px;
@@ -1205,6 +1226,68 @@ input[type="submit"]:disabled {
    13. RESPONSIVE LAYOUT
    ========================================================= */
 
+@media (max-width: 800px) {
+    #main.admin-dashboard {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        height: auto;
+        min-height: 100dvh;
+        overflow: visible;
+    }
+
+    #main.admin-dashboard #content,
+    #main.admin-dashboard #bloggerlist {
+        grid-column: 1;
+        grid-row: auto;
+        height: auto;
+        overflow-y: visible;
+    }
+}
+
+@media (max-width: 768px) {
+    #main > #content,
+    #main > #bloggerlist,
+    #main > .previous-posts {
+        display: block;
+        overflow: visible;
+    }
+
+    .accordion-control {
+        display: block;
+        width: 100%;
+        margin: 0 0 16px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--accent);
+        cursor: pointer;
+        font-family: var(--primary-font);
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .accordion-pane.is-collapsed > :not(.accordion-control) {
+        display: none;
+    }
+
+    .delete-blog-row[data-post-row] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .delete-blog-row[data-post-row] .delete-blog-details {
+        grid-column: 1 / -1;
+    }
+
+    .delete-blog-row[data-post-row] .post-edit-button,
+    .delete-blog-row[data-post-row] > .row-delete-button {
+        width: 100%;
+        min-height: 42px;
+        padding: 9px 14px;
+    }
+}
+
 @media (max-width: 480px) {
 
     /* Stack dashboard panels on narrow screens */
@@ -1229,12 +1312,58 @@ input[type="submit"]:disabled {
         border-right: none;
     }
 
+    .delete-blog-row {
+        grid-template-columns: minmax(0, 1fr);
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .delete-blog-row .post-edit-button,
+    .delete-blog-row > .row-delete-button {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .delete-blog-row .delete-blog-choice {
+        justify-content: flex-start;
+        min-height: 42px;
+    }
+
+    .delete-blog-row[data-post-row] {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .delete-blog-row[data-post-row] .delete-blog-details {
+        grid-column: 1 / -1;
+    }
+
     /* Stack navigation links */
     #admin-menu.admin-navigation,
     #menu {
         align-items: flex-start;
         flex-direction: column;
         padding: 12px 0;
+    }
+
+    #menu .menu-toggle,
+    #admin-menu.admin-navigation .menu-toggle {
+        display: block;
+        align-self: stretch;
+        padding: 9px 12px;
+        border: 1px solid var(--accent);
+        background: var(--surface);
+        color: var(--accent);
+        text-align: left;
+    }
+
+    #menu .menu-account,
+    #admin-menu.admin-navigation .menu-account {
+        display: none;
+    }
+
+    #menu .menu-account.is-open,
+    #admin-menu.admin-navigation .menu-account.is-open {
+        display: flex;
     }
 
     #admin-menu.admin-navigation .menu-account {

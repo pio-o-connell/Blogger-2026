@@ -10,23 +10,73 @@ The screenshots below use the image paths supplied for the project. GitHub rende
 
 <p>
   <img src="Images/Homepage.jpg" alt="Blogger login page" width="40%">
-  <img src="Images/Homepage-add-comment.jpg" alt="Blogger registration page" width="40%">
-  <img src="Images/Homepage-login.jpg" alt="Blogger public home page" width="40%">
-   <img src="Images/Homepage-register.jpg" alt="Blogger public home page" width="40%">
+  
 </p>
 
-### Administration and blogger views
+### Desktop
 
-<p>
+<details>
+  <summary><strong>View Desktop Screenshots</strong></summary>
+
+#### Public Pages
+
+<details>
+  <summary>Public Home, Comments, Login and Registration</summary>
+
+  <img src="Images/Homepage.jpg" alt="Blogger public homepage" width="40%">
+  <img src="Images/Homepage-add-comment.jpg" alt="Blogger homepage with add comment" width="40%">
+  <img src="Images/Homepage-login.jpg" alt="Blogger login page" width="40%">
+  <img src="Images/Homepage-register.jpg" alt="Blogger registration page" width="40%">
+
+</details>
+
+#### Administration and Blogger Views
+
+<details>
+  <summary>Administrator and Blogger Management Views</summary>
+
   <img src="Images/administratot-All-Blogs.jpg" alt="Administrator all blogs" width="40%">
   <img src="Images/administratot-personal-blogs.jpg" alt="Administrator personal blogs" width="40%">
   <img src="Images/administrator-all-users.jpg" alt="Administrator user management" width="40%">
   <img src="Images/blogger-all-blogs.jpg" alt="Blogger all blogs" width="40%">
   <img src="Images/blogger-personal-blogs.jpg" alt="Blogger personal blog" width="40%">
- 
-</p>
 
-> If an image does not display on GitHub, check that its filename and letter case match the file in the repository exactly.
+</details>
+
+</details>
+
+### Mobile
+
+<details>
+  <summary><strong>View Mobile Screenshots</strong></summary>
+
+#### Public Pages
+
+<details>
+  <summary>Public Home, Comments, Login and Registration</summary>
+
+  <img src="Images/Homepage.jpg" alt="Blogger public homepage" width="40%">
+  <img src="Images/Homepage-add-comment.jpg" alt="Blogger homepage with add comment" width="40%">
+  <img src="Images/Homepage-login.jpg" alt="Blogger login page" width="40%">
+  <img src="Images/Homepage-register.jpg" alt="Blogger registration page" width="40%">
+
+</details>
+
+#### Administration and Blogger Views
+
+<details>
+  <summary>Administrator and Blogger Management Views</summary>
+
+  <img src="Images/administratot-All-Blogs.jpg" alt="Administrator all blogs" width="40%">
+  <img src="Images/administratot-personal-blogs.jpg" alt="Administrator personal blogs" width="40%">
+  <img src="Images/administrator-all-users.jpg" alt="Administrator user management" width="40%">
+  <img src="Images/blogger-all-blogs.jpg" alt="Blogger all blogs" width="40%">
+  <img src="Images/blogger-personal-blogs.jpg" alt="Blogger personal blog" width="40%">
+
+</details>
+
+</details>
+
 
 ## Overview
 ---
@@ -208,6 +258,44 @@ The application uses separate stylesheets for the public and authenticated areas
 JavaScript supports selected interface interactions. The application remains based on PHP routes and form submissions; core navigation and server-side validation should not depend solely on JavaScript.
 
 Recent UI work focuses on consistent typography and spacing, clearer controls, confirmation for destructive actions, prevention of duplicate submissions, and a two-pane layout for post management and comments. The existing PHP routes, database behaviour, authentication flow, and server-side permissions remain authoritative.
+
+The current layout also adapts for smaller screens. Public pages use a fluid
+single-column layout below 600px, while authenticated administration panes
+stack below 800px and become naturally scrollable on mobile. The two outer
+content panes in multi-pane views receive independent, keyboard-accessible
+accordion controls at 768px and below; the primary pane is open by default
+and at least one pane remains expanded. Both panes can be opened
+independently, and the controls expose their state through `aria-expanded`
+and `aria-controls`. Accordion headings identify the current content, blog
+list, comments, or previous-posts pane rather than using ambiguous generic
+labels.
+
+Accordion behavior applies only to the outer panes of applicable multi-pane
+views, including `HomeView`, `PreviousPostsView`, `GuestPostView`,
+`CreatePostView`, `BlogPostManagementView`, `DeleteBlogPostsView`,
+`AdminDashboardView`, `AdminBlogManagementView`, `SuspendUsersView`, and
+`DeleteUsersView`. It does not add nested accordions inside posts, comments,
+forms, or individual records. `LoginView`, `RegistrationView`,
+`SinglePostView`, and `AdminUsersView` retain normal responsive reflow, with
+`AdminUsersView` remaining full width.
+
+On authenticated personal-blog views, each post row reflows at mobile widths
+so the post details appear first and the Edit and Delete actions appear
+underneath in equal-width columns. These actions use the same usable mobile
+dimensions as the comment controls, including a 42px minimum control height.
+The comments disclosure follows the shared accordion behavior where it is
+part of an applicable two-pane view.
+
+Mobile navigation uses the existing links in an accessible toggle below
+600px for public pages and below 480px for authenticated pages. At desktop
+widths, accordion controls are hidden and the original side-by-side pane
+layouts remain visible without interaction. The desktop navigation, PHP
+routes, forms, and controller commands are preserved.
+
+Responsive validation covers public pages at 768px, 600px, 480px, 425px,
+375px, and 320px. Checks include visible primary content, independent
+pane expansion, preserved forms and actions, no artificial controls on
+single-pane views, and no horizontal overflow at 320px.
 
 Further implementation details and acceptance criteria are documented in [`UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md`](UI-AND-JAVASCRIPT-CHANGE-OUTLINE.md), if that file is present in the repository.
 

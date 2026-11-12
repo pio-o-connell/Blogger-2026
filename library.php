@@ -13,13 +13,13 @@
             <meta charset=\"UTF-8\">
             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
             <title>Blogger | Ideas worth sharing</title>
-            <link rel=\"stylesheet\" href=\"myStyles.css?v=20261017-2\">
+            <link rel=\"stylesheet\" href=\"myStyles.css?v=20261112-1\">
             <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
             <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"
                 crossorigin>
             <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&display=swap\"
                 rel=\"stylesheet\">
-            <script src=\"app.js?v=20261017-2\" defer></script>
+            <script src=\"app.js?v=20261112-7\" defer></script>
         </head>
 
         <body>
@@ -40,7 +40,11 @@
                 <nav id=\"menu\" aria-label=\"Main navigation\">
                     <a href=\"controller.php\" class=\"home-text\">Home</a>
 
-                    <div class=\"menu-account\">
+                    <button type=\"button\" class=\"menu-toggle\"
+                        aria-expanded=\"false\" aria-controls=\"menu-links\">
+                        Menu
+                    </button>
+                    <div id=\"menu-links\" class=\"menu-account\">
                         <a href=\"controller.php?cmd=showLogin\">Login</a>
                         <a class=\"register-link\" href=\"controller.php?cmd=showRegistration\">Register</a>
                     </div>
@@ -109,14 +113,14 @@
                 <meta charset=\"UTF-8\">
                 <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
                 <title>Blogger | Ideas worth sharing</title>
-                <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261027-1\">
+                <link rel=\"stylesheet\" href=\"insidestyles.css?v=20261112-2\">
                 <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
                 <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"
                     crossorigin>
                 <link href=\"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&display=swap\"
                     rel=\"stylesheet\">
                 <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">
-                <script src=\"app.js?v=20261017-2\" defer></script>
+                <script src=\"app.js?v=20261112-7\" defer></script>
             </head>
             <body>
                 <div id=\"main\"$classAttribute>
@@ -141,7 +145,11 @@
                     . htmlspecialchars(ucfirst($username), ENT_QUOTES, 'UTF-8') . ': Personal Blogs
                 </span>
 
-                <div class="menu-account">
+                <button type="button" class="menu-toggle"
+                    aria-expanded="false" aria-controls="menu-links">
+                    Menu
+                </button>
+                <div id="menu-links" class="menu-account">
                     <a href="controller.php?cmd=logout">Log out</a>
                 </div>
             </nav>';
@@ -913,7 +921,11 @@
                     aria-label="Personal blog navigation">
                     <span class="admin-menu-title">' . $username .
                     ': Personal Blogs</span>
-                    <div class="menu-account">
+                    <button type="button" class="menu-toggle"
+                        aria-expanded="false" aria-controls="menu-links">
+                        Menu
+                    </button>
+                    <div id="menu-links" class="menu-account">
                         <a href="controller.php?cmd=bloggerAllBlogs">' .
                         $username . ': All blogs</a>
                         <a href="controller.php?cmd=logout">Log out</a>
@@ -934,7 +946,11 @@
                     aria-label="All blog navigation">
                     <span class="admin-menu-title">' . $username .
                     ': All blogs</span>
-                    <div class="menu-account">
+                    <button type="button" class="menu-toggle"
+                        aria-expanded="false" aria-controls="menu-links">
+                        Menu
+                    </button>
+                    <div id="menu-links" class="menu-account">
                         <a href="controller.php?cmd=managePosts">' .
                         $username . ': Personal Blogs</a>
                         <a href="controller.php?cmd=logout">Log out</a>
@@ -983,7 +999,11 @@
             echo '
             <nav id="admin-menu" class="admin-navigation" aria-label="Administrator navigation">
                 <span class="admin-menu-title">' . $title . '</span>
-                <div class="menu-account">' . $links . '</div>
+                <button type="button" class="menu-toggle"
+                    aria-expanded="false" aria-controls="menu-links">
+                    Menu
+                </button>
+                <div id="menu-links" class="menu-account">' . $links . '</div>
             </nav>';
         }
     }
