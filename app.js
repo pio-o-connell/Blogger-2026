@@ -329,6 +329,81 @@
         );
     }
 
+    // function enhanceContentPaneAccordions() {
+    //     document.querySelectorAll('#main').forEach(function (main) {
+    //         var panes = Array.prototype.slice.call(
+    //             main.querySelectorAll(
+    //                 ':scope > #content, :scope > #bloggerlist, ' +
+    //                 ':scope > .previous-posts'
+    //             )
+    //         );
+
+    //         if (panes.length !== 2) {
+    //             return;
+    //         }
+
+    //         panes.sort(function (left, right) {
+    //             var leftIsPrimary = left.id === 'content' ||
+    //                 left.classList.contains('previous-posts');
+    //             var rightIsPrimary = right.id === 'content' ||
+    //                 right.classList.contains('previous-posts');
+    //             return leftIsPrimary && !rightIsPrimary
+    //                 ? -1
+    //                 : rightIsPrimary && !leftIsPrimary ? 1 : 0;
+    //         });
+
+    //         panes.forEach(function (pane, paneIndex) {
+    //             var originalPaneId = pane.id || 'pane-' + paneIndex;
+    //             var button = document.createElement('button');
+    //             var isPrimary = originalPaneId === 'content' ||
+    //                 pane.classList.contains('previous-posts');
+    //             var selectedPost = pane.querySelector('.selected-post-title');
+    //             var heading = pane.querySelector('h1, h2');
+    //             var label;
+
+    //             if (selectedPost) {
+    //                 label = 'Comments for: ' + selectedPost.textContent.trim();
+    //             } else if (pane.classList.contains('previous-posts')) {
+    //                 label = 'Previous posts and comments';
+    //             } else if (isPrimary && heading) {
+    //                 label = heading.textContent.trim();
+    //             } else if (originalPaneId === 'bloggerlist') {
+    //                 label = 'Blog list';
+    //             } else {
+    //                 label = 'Current Selected Blog';
+    //             }
+
+    //             pane.classList.add('accordion-pane');
+    //             pane.dataset.accordionPane = '';
+    //             pane.dataset.originalPaneId = originalPaneId;
+    //             button.type = 'button';
+    //             button.className = 'accordion-control';
+    //             button.textContent = label;
+    //             button.setAttribute('aria-controls', originalPaneId);
+    //             button.setAttribute('aria-expanded', paneIndex === 0
+    //                 ? 'true'
+    //                 : 'false');
+
+    //             pane.insertBefore(button, pane.firstChild);
+    //             pane.classList.toggle('is-collapsed', paneIndex !== 0);
+
+    //             button.addEventListener('click', function () {
+    //                 var expanded = button.getAttribute('aria-expanded') === 'true';
+    //                 var otherPane = panes[paneIndex === 0 ? 1 : 0];
+    //                 var otherExpanded = otherPane.querySelector(
+    //                     '.accordion-control'
+    //                 ).getAttribute('aria-expanded') === 'true';
+
+    //                 if (expanded && !otherExpanded) {
+    //                     return;
+    //                 }
+
+    //                 button.setAttribute('aria-expanded', String(!expanded));
+    //                 pane.classList.toggle('is-collapsed', expanded);
+    //             });
+    //         });
+    //     });
+    // }
     function enhanceContentPaneAccordions() {
         document.querySelectorAll('#main').forEach(function (main) {
             var panes = Array.prototype.slice.call(
@@ -358,15 +433,28 @@
                 var isPrimary = originalPaneId === 'content' ||
                     pane.classList.contains('previous-posts');
                 var selectedPost = pane.querySelector('.selected-post-title');
-                var heading = pane.querySelector('h1, h2');
+                var currentPost = pane.querySelector('.current-post-title');
+                var dashboardPost = main.querySelector(
+                    '#bloggerlist .selected-post-title'
+                );
                 var label;
 
                 if (selectedPost) {
                     label = 'Comments for: ' + selectedPost.textContent.trim();
                 } else if (pane.classList.contains('previous-posts')) {
                     label = 'Previous posts and comments';
-                } else if (isPrimary && heading) {
-                    label = heading.textContent.trim();
+                } else if (isPrimary && main.classList.contains('personal-blog-window')) {
+                    // Personal Blog: use the current post headline.
+                    if (currentPost) {
+                        label = currentPost.textContent.trim();
+                    } else {
+                        label = 'Current Selected Blog';
+                    }
+                } else if (isPrimary && dashboardPost) {
+                    // Admin Dashboard / All Blogs: use the selected post headline.
+                    label = dashboardPost.textContent.trim();
+                } else if (isPrimary && pane.querySelector('h1, h2')) {
+                    label = pane.querySelector('h1, h2').textContent.trim();
                 } else if (originalPaneId === 'bloggerlist') {
                     label = 'Blog list';
                 } else {
